@@ -10,6 +10,19 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
+  "keywords": [
+    "svelte",
+    "svelte-kit",
+    "storybook",
+    "UI",
+    "component library"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/astaroid/astaroid-ui"
+  },
+  "license": "MIT",
+  "author": "astaroid-team",
   "devDependencies": {
     "@babel/core": "^7.18.10",
     "@storybook/addon-actions": "^6.5.10",

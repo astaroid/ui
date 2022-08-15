@@ -18,7 +18,7 @@
     }
 </script>
 
-<div style="width: {`${width}${unit}`}" data-theme={theme}>        
+<div style="width: calc({`${width}${unit}`} - 40px)" data-theme={theme}>        
     {#if type == "email"}
         <input data-has-error={error} bind:value={inputValue} on:input={ () => sendValue() } {placeholder} type="email">
     {:else if type == "password"}

@@ -1,7 +1,6 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte"
-import { text } from "svelte/internal";
-
+    
     export let theme:"light"|"dark" = "light"
     export let width:number = 100
     export let message:string

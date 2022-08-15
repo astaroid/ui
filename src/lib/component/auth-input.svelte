@@ -33,7 +33,7 @@
 <style lang="less">
     div {
         width: 100%;
-        padding: 10px;
+        padding: 7px;
         padding-left: 18px;
         padding-right: 18px;
         p {  
@@ -57,7 +57,7 @@
             margin: 0 0 0 0;
             background-color: transparent;
             outline: none;
-            height: 25px;
+            height: 30px;
             padding: 5px;
             padding-left: 10px;
             padding-right: 10px;

@@ -36,7 +36,7 @@
             border-style: solid;
             border-color: #474849;
             border-width: 1px;
-            box-shadow: 0 0px 0 #282828;
+            box-shadow: none;
             button {
                 color: white;
                 &[data-current-tab="true"] {

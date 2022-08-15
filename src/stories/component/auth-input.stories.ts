@@ -1,4 +1,4 @@
-import AuthInput from "../lib/component/auth-input.svelte"
+import AuthInput from "../../lib/component/auth-input.svelte"
 
 export default {
     title: "Component/Auth Input",

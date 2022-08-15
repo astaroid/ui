@@ -1,4 +1,4 @@
-import AuthTabController from "../lib/component/auth-tab-controller.svelte"
+import  AuthTabController from "../../lib/component/auth-tab-controller.svelte"
 
 export default {
     title: "Component/Auth Tab Controller",

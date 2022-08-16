@@ -48,6 +48,7 @@
     />
     <button on:click={() => {
         if (password && usernameOrEmail) {
+            errorType = "none"
             dispatcher("onSignIn", { usernameOrEmail, password })
         } else {
             if (!usernameOrEmail && !password)
@@ -65,9 +66,10 @@
         {/if}
     </button>
     <p on:click={() => {
-        if (usernameOrEmail)
+        if (usernameOrEmail) {
+            errorType = "none"
             dispatcher("onMagicLinkClick", { email: usernameOrEmail } )
-        else
+        } else
             errorType = "Email required"
     }} >Send magic link</p>
 </section>

@@ -74,7 +74,7 @@
 <style lang="less">
     section {
         width: 100%;
-        height: 335px;
+        height: 345px;
         padding: 0;
         padding-top: 15px;
         padding-bottom: 15px;

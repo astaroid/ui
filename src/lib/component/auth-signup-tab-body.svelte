@@ -119,7 +119,7 @@
     />
     <div data-container="policy">
         <Checkbox size={"xs"} bind:checked={isAgreed} />
-        <span>Agree to the <a href="/policy" on:click|preventDefault={() => dispatcher("onPolicyLinkClick")} target="_blank" rel="noopener noreferrer">Privacy policy</a></span>
+        <span>Agree to the <a href="#policy" on:click|preventDefault={() => dispatcher("onPolicyLinkClick")} target="_blank" rel="noopener noreferrer">Privacy policy</a></span>
     </div>
     <button on:click={signUp} disabled={startAmin || !isAgreed}>
         {#if startAmin }
@@ -132,7 +132,7 @@
 <style lang="less">
     section {
         width: 100%;
-        height: 335px;
+        height: 345px;
         padding: 0;
         padding-top: 15px;
         padding-bottom: 15px;

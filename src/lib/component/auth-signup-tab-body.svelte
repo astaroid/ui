@@ -36,6 +36,10 @@
 
     const signUp = () => {
         let fieldFilled = false
+        let passwordChecked = false
+        let usernameChecked = false
+        let emailChecked = false
+
         if (!email && !username && !password) {
             errorType = "Username and email and password not filled"
         } else if (!email && !username) {
@@ -52,34 +56,32 @@
             errorType = "Email not filled"
         } else {
             fieldFilled = true
-        }
-        let passwordChecked = false
-        if (password) {
-            let checker = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,}$/
-            if (!checker.test(password)) {
-                errorType = "Incorrect password format"
-            } else {
-                passwordChecked = true
+            if (password) {
+                let checker = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,}$/
+                if (!checker.test(password)) {
+                    errorType = "Incorrect password format"
+                } else {
+                    passwordChecked = true
+                }
+            }
+            if (username) {
+                let checker = /^[a-zA-Z0-9_]{6,}$/
+                if (!checker.test(username)) {
+                    errorType = "Incorrect username format"
+                } else {
+                    usernameChecked = true
+                }
+            }
+            if (email) {
+                let checker = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
+                if (!checker.test(email)) {
+                    errorType = "Incorrect email format"
+                } else {
+                    emailChecked = true
+                }
             }
         }
-        let usernameChecked = false
-        if (username) {
-            let checker = /^[a-zA-Z0-9_]{6,}$/
-            if (!checker.test(username)) {
-                errorType = "Incorrect username format"
-            } else {
-                usernameChecked = true
-            }
-        }
-        let emailChecked = false
-        if (email) {
-            let checker = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
-            if (!checker.test(email)) {
-                errorType = "Incorrect email format"
-            } else {
-                emailChecked = true
-            }
-        }
+        
         if (fieldFilled && passwordChecked && usernameChecked && emailChecked ) {
             dispatcher("onSignUp", { email, username, password })
             errorType = "none"

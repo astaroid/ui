@@ -25,7 +25,7 @@
         height: 60px;
         border-top-left-radius: 7px;
         border-top-right-radius: 7px;
-        background-color: #fafafa;
+        background-color: #f7f7f8;
         border-style: solid;
         border-width: 1px;
         border-color: #d6d6d6;

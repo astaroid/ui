@@ -32,7 +32,7 @@
         box-shadow: 0px 1.25px 1px 0px #f5f5f5;
         display: flex;
         &[data-theme="dark"] {
-            background-color: #242526;
+            background-color: #1d1f20;
             border-style: solid;
             border-color: #474849;
             border-width: 1px;

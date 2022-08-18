@@ -8,7 +8,7 @@ export default {
             default: "light",
             values: [
                 { name: 'light', value: '#fafafa' },
-                { name: 'dark', value: '#181818' },
+                { name: 'dark', value: '#303030' },
             ]
         }
     },

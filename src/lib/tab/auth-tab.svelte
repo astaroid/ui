@@ -21,7 +21,7 @@
     export let unit:"px"|"mm"|"pt"|"cm"|"pc"|"in"|"%" = "%"
     export let tab:"sign up"|"sign in" = "sign in"
     export let errorType:GlobalErrorMessage = "none"
-    export let startAmin:boolean =  false
+    export let loading:boolean =  false
 
     $:signInErrorType = (SignInErrorMessage.concat(errorType) ? errorType : "none") as any
     
@@ -43,7 +43,7 @@
         theme={theme}
         show={ tab == "sign in" }
         errorType={signInErrorType}
-        startAmin={ tab == "sign in" && startAmin}
+        loading={ tab == "sign in" && loading}
         on:onMagicLinkClick={(e) => dispatcher("onMagicLinkClick", { ...e.detail })}
         on:onSignIn={(e) => dispatcher("onSignIn", { ...e.detail })}
     />
@@ -53,7 +53,7 @@
         theme={theme}
         show={ tab == "sign up" }
         errorType={signUpErrorType}
-        startAmin={ tab == "sign up" && startAmin}
+        loading={ tab == "sign up" && loading}
         on:onPolicyLinkClick={(e) => dispatcher("onPolicyLinkClick")}
         on:onSignUp={(e) => dispatcher("onSignUp", { ...e.detail })}
     />

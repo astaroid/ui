@@ -1,7 +1,7 @@
 <script lang="ts">
     import AuthInput from "./auth-input.svelte"
     import { createEventDispatcher } from "svelte"
-    import { Stretch } from "svelte-loading-spinners"
+    import { Circle2 } from "svelte-loading-spinners"
 
     type ErrorMessage = "none"|
         "Username or email and password not filled"|
@@ -18,7 +18,7 @@
     export let unit:"px"|"mm"|"pt"|"cm"|"pc"|"in"|"%" = "%"
     export let show:boolean = true
     export let errorType:ErrorMessage = "none"
-    export let startAmin:boolean =  false
+    export let loading:boolean = false
 
     const dispatcher = createEventDispatcher()
     
@@ -46,32 +46,35 @@
             password = e.detail.inputValue
         }}
     />
-    <button on:click={() => {
-        if (password && usernameOrEmail) {
-            errorType = "none"
-            dispatcher("onSignIn", { usernameOrEmail, password })
-        } else {
-            if (!usernameOrEmail && !password)
-                errorType = "Username or email and password not filled"
-            else if (!password)
-                errorType = "Password not filled"
-            else if (!usernameOrEmail)
-                errorType = "Username or email not filled"
-        }
-    }} disabled={startAmin}>
-        {#if startAmin }
-            <Stretch color="white" unit="px" size={40} />
-        {:else}
+    {#if !loading}
+        <button on:click={() => {
+            if (password && usernameOrEmail) {
+                errorType = "none"
+                dispatcher("onSignIn", { usernameOrEmail, password })
+            } else {
+                if (!usernameOrEmail && !password)
+                    errorType = "Username or email and password not filled"
+                else if (!password)
+                    errorType = "Password not filled"
+                else if (!usernameOrEmail)
+                    errorType = "Username or email not filled"
+            }
+        }}>
             Continue
-        {/if}
-    </button>
-    <p on:click={() => {
-        if (usernameOrEmail) {
-            errorType = "none"
-            dispatcher("onMagicLinkClick", { email: usernameOrEmail } )
-        } else
-            errorType = "Email required"
-    }} >Send magic link</p>
+        </button>
+        <p on:click={() => {
+            if (usernameOrEmail) {
+                errorType = "none"
+                dispatcher("onMagicLinkClick", { email: usernameOrEmail } )
+            } else
+                errorType = "Email required"
+        }} >Send magic link</p>
+    {:else}
+        <div data-container="loading-spinner">
+            <Circle2 colorCenter="#06c694" colorInner="#06aa81" colorOuter="#06e0a7"  unit="px" size={50} />
+        </div>
+    {/if}
+    
 </section>
 <style lang="less">
     section {
@@ -115,6 +118,19 @@
             &:hover {
                 text-decoration: underline;
             }
+        }
+        div[data-container="loading-spinner"] {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: nowrap;
+            width: calc(100% - 36px);
+            margin: 0;
+            margin-top: 8px;
+            margin-left: 18px;
+            margin-right: 18px;
+            height: auto;
         }
         button {
             width: calc(100% - 36px);

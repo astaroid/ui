@@ -2,7 +2,7 @@
     import AuthInput from "./auth-input.svelte"
     import { createEventDispatcher } from "svelte"
     import { Checkbox } from '@svelteuidev/core'
-    import { Stretch } from "svelte-loading-spinners"
+    import { Circle2 } from "svelte-loading-spinners"
 
     type ErrorMessage = "none"|
         "Email already exist"|
@@ -25,7 +25,7 @@
     export let unit:"px"|"mm"|"pt"|"cm"|"pc"|"in"|"%" = "%"
     export let show:boolean = true
     export let errorType:ErrorMessage = "none"
-    export let startAmin:boolean =  false
+    export let loading:boolean = false
 
     const dispatcher = createEventDispatcher()
 
@@ -119,17 +119,20 @@
             password = e.detail.inputValue
         }}
     />
-    <div data-container="policy">
-        <Checkbox size={"xs"} bind:checked={isAgreed} />
-        <span>Agree to the <a href="#policy" on:click|preventDefault={() => dispatcher("onPolicyLinkClick")} target="_blank" rel="noopener noreferrer">Privacy policy</a></span>
-    </div>
-    <button on:click={signUp} disabled={startAmin || !isAgreed}>
-        {#if startAmin }
-            <Stretch color="white" unit="px" size={40} />
-        {:else}
+    {#if !loading}
+        <div data-container="policy">
+            <Checkbox size={"xs"} bind:checked={isAgreed} />
+            <span>Agree to the <a href="#policy" on:click|preventDefault={() => dispatcher("onPolicyLinkClick")} target="_blank" rel="noopener noreferrer">Privacy policy</a></span>
+        </div>
+        <button on:click={signUp} disabled={!isAgreed}>
             Continue
-        {/if}
-    </button>
+        </button>
+    {:else}
+        <div data-container="loading-spinner">
+            <Circle2 colorCenter="#06c694" colorInner="#06aa81" colorOuter="#06e0a7"  unit="px" size={50} />
+        </div>
+    {/if}
+    
 </section>
 <style lang="less">
     section {
@@ -184,6 +187,19 @@
                     }
                 }
             }
+        }
+        div[data-container="loading-spinner"] {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: nowrap;
+            width: calc(100% - 36px);
+            margin: 0;
+            margin-top: 8px;
+            margin-left: 18px;
+            margin-right: 18px;
+            height: auto;
         }
         button {
             width: calc(100% - 36px);

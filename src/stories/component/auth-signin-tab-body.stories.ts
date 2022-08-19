@@ -21,11 +21,11 @@ export default {
             action: "onMagicLinkClick",
             description: "The event emitter when the magic link is clicked"
         },
-        startAmin: {
-            name: "start amin",
+        loading: {
+            name: "loading",
             defaultValue: false,
             type: { name: "boolean" },
-            description: "If true the continue button animation will start",
+            description: "If true the loading spinner animation will start",
             control: { type: "boolean" }
         },
         errorType: {

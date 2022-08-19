@@ -76,7 +76,8 @@
 <style lang="less">
     section {
         width: 100%;
-        height: 345px;
+        min-height: 345px;
+        height: 100%;
         padding: 0;
         padding-top: 15px;
         padding-bottom: 15px;
@@ -84,14 +85,16 @@
         border-style: solid;
         border-width: 1px;
         border-top-width: 0;
-        border-color: #d6d6d6;
+        border-color: #bdbdbd;
+        box-shadow: 0px 1.25px 2.4px 1.75px #f5f5f5;
         background-color: rgb(253, 253, 253);
         border-bottom-left-radius: 7px;
         border-bottom-right-radius: 7px;
         &[data-theme="dark"] {
-            background-color: rgb(40, 40, 40);
+            background-color: #212121;
             border-style: solid;
-            border-color: #474849;
+            border-color: #4e4c4c;
+            box-shadow: none;
             p {
                color: rgb(190, 190, 190);
             }

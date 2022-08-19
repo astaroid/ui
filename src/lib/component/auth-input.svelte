@@ -70,11 +70,11 @@
             &[data-has-error]:focus {
                 outline: none;
                 border-color: #2196f3;
-                box-shadow: 0 0 1.5px 0px #2196f3;
+                box-shadow: 0 0 1.5px 0.45px #2195f3;
             }
             &[data-has-error="true"] {
-                box-shadow: 0 0 1.5px 0px red;
-                border-color: red;
+                box-shadow: 0 0 1.5px 0.45px red;
+                border-color: rgb(230, 0, 0);
             }
         } 
     }

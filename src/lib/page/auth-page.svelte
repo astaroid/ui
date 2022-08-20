@@ -1,6 +1,5 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte"
-    import { fly } from 'svelte/transition';
     import { Cross2 } from "radix-icons-svelte"
     import AuthTab from "../tab/auth-tab.svelte"
 

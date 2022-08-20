@@ -1,7 +1,7 @@
 import AuthPage from "../../lib/page/auth-page.svelte"
 
 export default {
-    title: "Page/Auth page",
+    title: "Page/Auth Page",
     component: AuthPage,
     parameters: {
         layout: 'fullscreen'
@@ -31,7 +31,7 @@ export default {
             name: "theme",
             type: { name: "string", required: true },
             defaultValue: "light",
-            description: "The theme of the component",
+            description: "The theme of the page",
             control: {
                 type: "radio",
                 options: [ "light", "dark" ]
@@ -41,7 +41,7 @@ export default {
             name: "error type",
             type: { name: "string" },
             defaultValue: "none",
-            description: "The type of error the component should display",
+            description: "The type of error the page should display",
             control: {
                 type: "select",
                 options: [ "none", "No internet", "Username or email not found", "Incorrect password", "Email not found", "Email already exist", "Username already exist", "Username and email already exist", "both" ]
@@ -57,7 +57,7 @@ export default {
         disable: {
             name:"disable",
             type: { name: "string" },
-            description: "The unit of width of the component",
+            description: "The unit of width of the page",
             defaultValue: "none",
             control: {
                 type: "select",

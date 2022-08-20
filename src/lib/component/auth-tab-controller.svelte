@@ -64,6 +64,7 @@
             border-bottom-width: 4px;
             font-weight: bold;
             color: #303030;
+            cursor: pointer;
             &[data-current-tab="true"] {
                 border-color: #303030;
                 &:disabled {

@@ -37,7 +37,7 @@ export default {
             name: "error type",
             type: { name: "string" },
             defaultValue: "none",
-            description: "The type of error the component should display",
+            description: "The type of error the tab should display",
             control: {
                 type: "select",
                 options: [ "none", "Username or email not found", "Incorrect password", "Email not found", "Email already exist", "Username already exist", "Username and email already exist", "both" ]
@@ -46,7 +46,7 @@ export default {
         width: {
             name: "width",
             type: { required: true, name: "number" },
-            description: "The width of the component",
+            description: "The width of the tab",
             control: {
                 type: "number"
             },
@@ -62,7 +62,7 @@ export default {
         unit: {
             name:"unit",
             type: { name: "string" },
-            description: "The unit of width of the component",
+            description: "The unit of width of the tab",
             defaultValue: "%",
             control: {
                 type: "select",
@@ -82,7 +82,7 @@ export default {
         disable: {
             name:"disable",
             type: { name: "string" },
-            description: "The unit of width of the component",
+            description: "The tab button to disable",
             defaultValue: "none",
             control: {
                 type: "select",
@@ -92,7 +92,7 @@ export default {
         theme: {
             name: "theme",
             type: { required: true, name: "string" },
-            description: "The theme of the component",
+            description: "The theme of the tab",
             defaultValue: "light",
             control: {
                 type: "radio",

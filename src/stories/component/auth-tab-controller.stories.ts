@@ -36,6 +36,16 @@ export default {
                 options: [ "pt", "mm", "pc", "cm", "in", "%", "px" ]
             }
         },
+        disable: {
+            name:"disable",
+            type: { name: "string" },
+            description: "The unit of width of the component",
+            defaultValue: "none",
+            control: {
+                type: "select",
+                options: [ "none", "sign in", "sign up" ]
+            }
+        },
         tab: {
             name: "tab",
             type: { required: true, name: "string" },

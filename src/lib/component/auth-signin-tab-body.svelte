@@ -151,6 +151,7 @@
             align-items: center;
             justify-content: center;
             flex-wrap: nowrap;
+            cursor: pointer;
             &:hover {
                 background-color: #06c694; 
             }

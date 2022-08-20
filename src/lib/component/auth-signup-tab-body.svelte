@@ -2,7 +2,7 @@
     import AuthInput from "./auth-input.svelte"
     import { createEventDispatcher } from "svelte"
     import { Checkbox } from '@svelteuidev/core'
-    import { Circle2 } from "svelte-loading-spinners"
+    import LoadingSpinner from "./loading-spinner.svelte"
 
     type ErrorMessage = "none"|
         "Email already exist"|
@@ -129,7 +129,7 @@
         </button>
     {:else}
         <div data-container="loading-spinner">
-            <Circle2 colorCenter="#06c694" colorInner="#06aa81" colorOuter="#06e0a7"  unit="px" size={50} />
+            <LoadingSpinner size={50} />
         </div>
     {/if}
     

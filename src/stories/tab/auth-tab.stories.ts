@@ -13,6 +13,10 @@ export default {
         }
     },
     argTypes: {
+        onTabSelected: { 
+            action: 'onTabSelected', 
+            description: "The event emitter when a tab is selected"
+        },
         onSignUp: {
             action: "onSignUp", 
             description: "The event emitter when the continue button is clicked"
@@ -75,6 +79,16 @@ export default {
                 options: [ "sign in", "sign up" ]
             }
         },
+        disable: {
+            name:"disable",
+            type: { name: "string" },
+            description: "The unit of width of the component",
+            defaultValue: "none",
+            control: {
+                type: "select",
+                options: [ "none", "sign in", "sign up" ]
+            }
+        },
         theme: {
             name: "theme",
             type: { required: true, name: "string" },
@@ -95,7 +109,8 @@ const Template = (args:any) => ({
         onSignIn: args.onSignIn,
         onMagicLinkClick: args.onMagicLinkClick,
         onSignUp: args.onSignUp,
-        onPolicyLinkClick: args.onPolicyLinkClick
+        onPolicyLinkClick: args.onPolicyLinkClick,
+        onTabSelected: args.onTabSelected
     }
 })
 

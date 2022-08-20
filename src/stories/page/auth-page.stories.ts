@@ -1,7 +1,7 @@
 import AuthPage from "../../lib/page/auth-page.svelte"
 
 export default {
-    title: "Page/Auth page",
+    title: "Page/Auth Page",
     component: AuthPage,
     parameters: {
         layout: 'fullscreen'

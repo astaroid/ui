@@ -30,3 +30,10 @@ const Template = (args:any) => ({
 })
 
 export const Spinner = Template.bind({})
+
+export const DarkSpinner = Template.bind({})
+DarkSpinner.parameters = {
+    backgrounds: {
+        default: 'dark'
+    }
+}

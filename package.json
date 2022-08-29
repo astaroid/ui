@@ -49,6 +49,7 @@
     "vite": "^3.0.0"
   },
   "dependencies": {
-    "@js-temporal/polyfill": "^0.4.2"
+    "@js-temporal/polyfill": "^0.4.2",
+    "moment": "^2.29.4"
   }
 }

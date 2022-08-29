@@ -5,6 +5,7 @@ import AuthSignupTabBody from "./auth-signup-tab-body.svelte"
 import LoadingSpinner from "./loading-spinner.svelte"
 import NavBar from "./nav-bar.svelte"
 import MessageBar from "./message-bar.svelte"
+import NotificationMessage from "./notification-message.svelte"
 
 export default {
     AuthSignupTabBody,
@@ -13,5 +14,6 @@ export default {
     LoadingSpinner,
     NavBar,
     AuthInput,
-    MessageBar
+    MessageBar,
+    NotificationMessage
 }

@@ -28,6 +28,12 @@ export default {
                 options: [ "light", "dark" ]
             }
         },
+        notified: {
+            type: { name: "boolean" },
+            control: { type: "boolean" },
+            defaultValue: false,
+            description: "If true then there is a notification message"
+        },
         tab: {
             name: "tab",
             type: { required: true, name: "string" },

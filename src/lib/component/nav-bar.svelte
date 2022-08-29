@@ -9,6 +9,11 @@
 
     const dispatcher = createEventDispatcher()
 
+    $:{
+        if (tab == "activity") 
+            notified = false
+    }
+
     const setTab = (tabToSet:TabType) => {
         tab = tabToSet
         if (tabToSet == "activity") notified = false

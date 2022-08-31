@@ -77,13 +77,14 @@
         border-radius: 0;
         border-color: transparent;
         color: #303030; 
+        cursor: pointer;
         &:hover {
-            background-color: rgba(218, 218, 215, 0.3);
+            background-color: rgba(232, 232, 229, 0.3);
         }       
         &[data-theme="dark"] {
             color: rgb(245,245,245);
             &:hover {
-                background-color: rgba(98, 96, 96, 0.3);
+                background-color: rgba(81, 79, 79, 0.3);
             }
             main p[data-container="date"] {
                 color: rgb(190,185,185);
@@ -98,7 +99,7 @@
             width: 35px;
         }
         main {
-            width: calc(100% - 45px);
+            width: calc(100% - 65px);
             margin-left: 5px;
             p {
                 margin: 0 0 0 0;

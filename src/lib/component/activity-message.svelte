@@ -1,6 +1,7 @@
 <script lang="ts">
     import moment from "moment"
     import { Temporal } from "@js-temporal/polyfill"
+    import { createEventDispatcher } from "svelte"
 
     type NotificationMessageType = "SOLD_ASSET_MESSAGE"|
         "BOUGHT_CRYSTAL_MESSAGE"|
@@ -13,10 +14,12 @@
     export let message:string = String()
     export let read:boolean = false
     export let type:NotificationMessageType
-    export let id:string
+    export let id:string = "00000000-0000-0000-0000-000000000000"
     export let createAt:string = Temporal.Now.zonedDateTimeISO().toString()
 
-    var convertedDate:string = String()
+    const dispatcher = createEventDispatcher()
+
+    let convertedDate:string = String()
 
     $:{
         try {
@@ -28,7 +31,7 @@
 
     $:date = moment(convertedDate).fromNow(true)
 </script>
-<section style="width: {`${width}${unit}`}" data-theme={theme} data-has-read={read}>
+<section on:click={() => dispatcher("onClicked", { id, read, message, type, createAt } ) } style="width: {`${width}${unit}`}" data-theme={theme} data-has-read={read}>
     {#if type == "BOUGHT_CRYSTAL_MESSAGE"}
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M0 0h24v24H0z" fill="none"/>

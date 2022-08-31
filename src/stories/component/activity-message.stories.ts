@@ -13,6 +13,10 @@ export default {
         }
     },
     argTypes: {
+        onClicked: {
+            action: "onClicked",
+            description: "The event emitted when component is clicked"
+        },
         theme: {
             type: { required: true, name: "string" },
             description: "The theme of the component",
@@ -81,7 +85,10 @@ export default {
 
 const Template = (args:any) => ({
     Component: ActivityMessage,
-    props: args
+    props: args,
+    on: {
+        onClicked: args.onClicked
+    }
 })
 
 export const Message = Template.bind({})

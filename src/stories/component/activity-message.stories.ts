@@ -43,12 +43,12 @@ export default {
         },
         createAt: {
             type: { name: "string" },
-            description: "The Javascript Temporal.ZonedDateTime ISO string format of the current date when the notification was created",
+            description: "The Javascript Temporal.ZonedDateTime ISO string format of the current date when the activity message was created",
             control: { type: "text" }
         },
         type: {
             type: { required: true, name: "string" },
-            description: "The type of notification message",
+            description: "The type of activity message",
             defaultValue: "SOLD_ASSET_MESSAGE",
             control: {
                 type: "select",
@@ -60,14 +60,14 @@ export default {
         },
         message: {
             type: { name: "string", required: true },
-            description: "The message of notification",
+            description: "The message of activity",
             defaultValue: "message",
             control: { type: "text" }
         },
         read: {
             defaultValue: false,
             type: { name: "boolean" },
-            description: "If true the notification message has been read",
+            description: "If true the activity message has been read",
             control: { type: "boolean" }
         }
     }

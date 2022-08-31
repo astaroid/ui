@@ -13,6 +13,7 @@
     export let message:string = String()
     export let read:boolean = false
     export let type:NotificationMessageType
+    export let id:string
     export let createAt:string = Temporal.Now.zonedDateTimeISO().toString()
 
     var convertedDate:string = String()

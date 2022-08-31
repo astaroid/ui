@@ -58,6 +58,12 @@ export default {
                 ]
             }
         },
+        id: {
+            type: { name: "string", required: true },
+            description: "The unique identification of activity message",
+            defaultValue: "00000000-0000-0000-0000-000000000000",
+            control: { type: "text" }
+        },
         message: {
             type: { name: "string", required: true },
             description: "The message of activity",

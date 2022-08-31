@@ -1,8 +1,8 @@
-import NotificationMessage from "../../lib/component/notification-message.svelte"
+import ActivityMessage from "../../lib/component/activity-message.svelte"
 
 export default {
-    title: "Component/Notification Message",
-    component: NotificationMessage,
+    title: "Component/Activity Message",
+    component: ActivityMessage,
     parameters: {
         backgrounds: {
             default: "light",
@@ -74,7 +74,7 @@ export default {
 }
 
 const Template = (args:any) => ({
-    Component: NotificationMessage,
+    Component: ActivityMessage,
     props: args
 })
 

@@ -85,12 +85,12 @@
         color: #303030; 
         cursor: pointer;
         &:hover {
-            background-color: rgba(232, 232, 229, 0.3);
+            background-color: rgba(228, 228, 225, 0.3);
         }       
         &[data-theme="dark"] {
             color: rgb(245,245,245);
             &:hover {
-                background-color: rgba(81, 79, 79, 0.3);
+                background-color: rgba(101, 99, 99, 0.3);
             }
             main p[data-container="date"] {
                 color: rgb(190,185,185);
@@ -118,7 +118,6 @@
                     padding-bottom: 5px;
                 }
                 &[data-container="date"] {
-                    text-align: right;
                     font-size: 13.35px;
                     padding-bottom: 4.5px;
                     font-weight: lighter;

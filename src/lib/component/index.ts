@@ -7,6 +7,7 @@ import NavBar from "./nav-bar.svelte"
 import MessageBar from "./message-bar.svelte"
 import ActivityMessage from "./activity-message.svelte"
 import MenuItem from "./menu-item.svelte"
+import Menu from "./menu.svelte"
 
 export default {
     AuthSignupTabBody,
@@ -17,5 +18,6 @@ export default {
     AuthInput,
     MessageBar,
     MenuItem,
+    Menu,
     ActivityMessage
 }

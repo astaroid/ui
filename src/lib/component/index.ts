@@ -6,6 +6,7 @@ import LoadingSpinner from "./loading-spinner.svelte"
 import NavBar from "./nav-bar.svelte"
 import MessageBar from "./message-bar.svelte"
 import ActivityMessage from "./activity-message.svelte"
+import MenuItem from "./menu-item.svelte"
 
 export default {
     AuthSignupTabBody,
@@ -15,5 +16,6 @@ export default {
     NavBar,
     AuthInput,
     MessageBar,
+    MenuItem,
     ActivityMessage
 }

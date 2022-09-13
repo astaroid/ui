@@ -1,5 +1,4 @@
-import { defaultNavigator } from "@svelteuidev/composables";
-import ActivityTab from "../../lib/tab/activity-tab.svelte";
+import ActivityTab from "../../lib/tab/activity-tab.svelte"
 
 export default {
     title: "Tab/Activity Tab",

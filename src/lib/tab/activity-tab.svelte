@@ -1,7 +1,7 @@
 <script lang="ts">
     import LoadingSpinner from "../component/loading-spinner.svelte"
     import { clickoutside } from '@svelteuidev/composables'
-    import { createEventDispatcher, onMount } from "svelte"
+    import { createEventDispatcher } from "svelte"
     import ActivityMessage from "../component/activity-message.svelte"
     import Menu from "../component/menu.svelte"
 
@@ -38,80 +38,9 @@
     
     const dispatcher = createEventDispatcher()
 
-    const filterMessages = (messages:Array<ActivtyMessage>):Array<ActivtyMessage> => {
-        messages = messages
-        .filter(message => {
-            if (!showBoughtCrystalMessages)
-                return message.type != "BOUGHT_CRYSTAL_MESSAGE"
-            else
-                return message
-        })
-        .filter(message => {
-            if (!showSoldAssetMessages)
-                return message.type != "SOLD_ASSET_MESSAGE"
-            else
-                return message
-        })
-        .filter(message => {
-            if (!showTransactionFeeMessages)
-                return message.type != "TRANSACTION_FEE_MESSAGE"
-            else
-                return message
-        })
-        .filter(message => {
-            if (!showPayoutMessages)
-                return message.type != "PAYOUT_MESSAGE"
-            else
-                return message
-        })
-        return messages
-    }
+    const unFilteredMessages = messages
 
-    const close = () => {
-        dispatcher("onClosed")
-        hasOpend = false
-        show = false
-    }
-
-    const toggleMenu = () => {
-        showMenu = !showMenu
-        isMenuButtonClicked = true
-    }
-
-    const clickedOutsideMenu = () => {
-        if (!isMenuButtonClicked)
-            showMenu = false
-        else 
-            showMenu = true
-    }
-
-    const menuItemClicked = (e:CustomEvent<{ id:string }>) => {
-        let id = e.detail.id
-        if (id == "bought-crystal-message-btn")
-            dispatcher(
-                (showBoughtCrystalMessages ? "onHideMessages": "onShowMessages"), 
-                { type: "bought-crystal-message" }
-            )
-        else if (id == "sold-asset-messages-btn")
-            dispatcher(
-                (showSoldAssetMessages ? "onHideMessages": "onShowMessages"), 
-                { type: "sold-asset-messages" }
-            )
-        else if (id == "transaction-fee-messages-btn")
-            dispatcher(
-                (showTransactionFeeMessages ? "onHideMessages": "onShowMessages"), 
-                { type: "transaction-fee-messages" }
-            )
-        else if (id == "payout-messages-btn")
-            dispatcher(
-                (showPayoutMessages ? "onHideMessages": "onShowMessages"), 
-                { type: "payout-messages" }
-            )
-        else if (id == "close-btn") 
-            show = false
-    }
-
-    const menuItems:Array<MenuItemType> = [
+    const menuItemsList = ():Array<MenuItemType> => ([
         {
             type: "item",
             id: "bought-crystal-message-btn",
@@ -178,9 +107,89 @@
                 <path fill-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"/>
             </svg>`
         }
-    ]
+    ])
 
-    messages = [...filterMessages(messages)]
+    const filterMessages = (messages:Array<ActivtyMessage>):Array<ActivtyMessage> => {
+        messages = messages
+        .filter(message => {
+            if (!showBoughtCrystalMessages)
+                return message.type != "BOUGHT_CRYSTAL_MESSAGE"
+            else
+                return message
+        })
+        .filter(message => {
+            if (!showSoldAssetMessages)
+                return message.type != "SOLD_ASSET_MESSAGE"
+            else
+                return message
+        })
+        .filter(message => {
+            if (!showTransactionFeeMessages)
+                return message.type != "TRANSACTION_FEE_MESSAGE"
+            else
+                return message
+        })
+        .filter(message => {
+            if (!showPayoutMessages)
+                return message.type != "PAYOUT_MESSAGE"
+            else
+                return message
+        })
+        return messages
+    }
+
+    const close = () => {
+        dispatcher("onClosed")
+        hasOpend = false
+        show = false
+    }
+
+    const toggleMenu = () => {
+        showMenu = !showMenu
+        isMenuButtonClicked = true
+    }
+
+    const clickedOutsideMenu = () => {
+        if (!isMenuButtonClicked)
+            showMenu = false
+        else 
+            showMenu = true
+    }
+
+    let reactiveTrigger = false
+
+    const menuItemClicked = (e:CustomEvent<{ id:string }>) => {
+        let id = e.detail.id
+        reactiveTrigger = !reactiveTrigger
+        if (id == "bought-crystal-message-btn") {
+            dispatcher(
+                (showBoughtCrystalMessages ? "onHideMessages": "onShowMessages"), 
+                { type: "bought-crystal-message" }
+            )
+            showBoughtCrystalMessages = !showBoughtCrystalMessages
+        } else if (id == "sold-asset-messages-btn") {
+            dispatcher(
+                (showSoldAssetMessages ? "onHideMessages": "onShowMessages"), 
+                { type: "sold-asset-messages" }
+            )
+            showSoldAssetMessages = !showSoldAssetMessages
+        } else if (id == "transaction-fee-messages-btn") {
+            dispatcher(
+                (showTransactionFeeMessages ? "onHideMessages": "onShowMessages"), 
+                { type: "transaction-fee-messages" }
+            )
+            showTransactionFeeMessages = !showTransactionFeeMessages
+        } else if (id == "payout-messages-btn") {
+            dispatcher(
+                (showPayoutMessages ? "onHideMessages": "onShowMessages"), 
+                { type: "payout-messages" }
+            )
+            showPayoutMessages = !showPayoutMessages
+        } else if (id == "close-btn") 
+            show = false
+    }
+
+    messages = filterMessages(unFilteredMessages)
 
     let hasOpend = false
     let sectionWidth = 315
@@ -188,17 +197,18 @@
     let menuYPosition = 43
     let showMenu = false
     let isMenuButtonClicked = false
-    
-    $: {
-        menuXPosition = sectionWidth - 192
+    let menuItems:Array<MenuItemType> = menuItemsList()
+
+    $: if (reactiveTrigger || !reactiveTrigger) {
+        menuXPosition = sectionWidth - 192   
         if (!Array.isArray(messages))
             messages = Array<ActivtyMessage>()
         if (show && !hasOpend) {
             dispatcher("onOpened")
             hasOpend = true
         }
-        
-        messages = [...filterMessages(messages)]
+        messages = filterMessages(unFilteredMessages)
+        menuItems = menuItemsList()
     }
 </script>
 <section bind:clientWidth={sectionWidth}  use:clickoutside={{ enabled: show, callback: close }} style="display: { show ? "flex" : "none" }; animation-play-state: { show ? "running" : "paused" }" data-theme={theme}>

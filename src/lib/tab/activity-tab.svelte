@@ -192,7 +192,7 @@
     messages = filterMessages(unFilteredMessages)
 
     let hasOpend = false
-    let sectionWidth = 315
+    let sectionWidth = 350
     let menuXPosition = sectionWidth - 192
     let menuYPosition = 43
     let showMenu = false
@@ -260,7 +260,7 @@
 <style lang="less">
     @keyframes show-anim {
         from {
-           right: -315px;
+           right: -350px;
         }
         to {
             right: 0;
@@ -273,7 +273,7 @@
         height: calc(100% - 2px);
         z-index: 3;
         right: 0;
-        width: 315px;
+        width: 350px;
         flex-direction: column;
         font-family: Arial, Helvetica, sans-serif;
         border-style: solid;
@@ -401,13 +401,13 @@
             
         }
         @media screen and (min-width: 280px) {
-            width: 84.25%;
+            width: 85.25%;
         }
         @media screen and (min-width: 320px) {
-            width: 80%;
+            width: 83%;
         }
         @media screen and (min-width: 600px) {
-            width: 315px;
+            width: 350px;
         }
     }
 </style>

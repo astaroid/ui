@@ -41,7 +41,7 @@ export default {
             defaultValue: "home",
             control: {
                 type: "select",
-                options: [ "home", "search", "assets", "activity","profile" ]
+                options: [ "home", "search", "assets", "activity","account" ]
             }
         }
     }

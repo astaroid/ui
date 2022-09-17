@@ -8,6 +8,7 @@ import MessageBar from "./message-bar.svelte"
 import ActivityMessage from "./activity-message.svelte"
 import MenuItem from "./menu-item.svelte"
 import Menu from "./menu.svelte"
+import Footer from "./footer.svelte"
 
 export default {
     AuthSignupTabBody,
@@ -19,5 +20,6 @@ export default {
     MessageBar,
     MenuItem,
     Menu,
-    ActivityMessage
+    ActivityMessage,
+    Footer
 }

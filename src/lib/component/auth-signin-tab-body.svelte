@@ -1,7 +1,7 @@
 <script lang="ts">
     import AuthInput from "./auth-input.svelte"
     import { createEventDispatcher } from "svelte"
-    import LoadingSpinner from "./loading-spinner.svelte"
+    import { Circle } from "svelte-loading-spinners"
 
     type ErrorMessage = "none"|
         "Username or email and password not filled"|
@@ -10,7 +10,6 @@
         "Username or email not found"|
         "Incorrect password"|
         "both"|
-        "Email not found"|
         "Email required"
 
     export let theme:"light"|"dark" = "light"
@@ -21,6 +20,25 @@
     export let loading:boolean = false
 
     const dispatcher = createEventDispatcher()
+
+    const signIn = () => {
+        if (password && usernameOrEmail) {
+            errorType = "none"
+            dispatcher("onSignIn", { usernameOrEmail, password })
+        } else {
+            if (!usernameOrEmail && !password)
+                errorType = "Username or email and password not filled"
+            else if (!password)
+                errorType = "Password not filled"
+            else if (!usernameOrEmail)
+                errorType = "Username or email not filled"
+        }
+    }
+
+    const forgetPassword = () => {
+        errorType = "none"
+        dispatcher("onForgetPassword")
+    }
     
     let password:string = String()
     let usernameOrEmail:string = String()
@@ -30,8 +48,8 @@
         bind:theme={theme} 
         placeholder="Username or email"
         type="text"
-        message={ errorType == "Email required" ? "Email address required" : (errorType == "Username or email and password not filled" || errorType == "Username or email not filled") ? "Username or email not filled" :  errorType == "Email not found" ? "Email not found" : "Username or email not found" }
-        error={ errorType == "both" || errorType == "Email not found" || errorType == "Username or email not found" || errorType == "Email required" || errorType == "Username or email not filled" || errorType == "Username or email and password not filled" }
+        message={ errorType == "Email required" ? "Email address required" : (errorType == "Username or email and password not filled" || errorType == "Username or email not filled") ? "Username or email not filled" : "Username or email not found" }
+        error={ errorType == "both" || errorType == "Username or email not found" || errorType == "Email required" || errorType == "Username or email not filled" || errorType == "Username or email and password not filled" }
         on:onInput={(e) => {
             usernameOrEmail = e.detail.inputValue
         }}
@@ -46,40 +64,19 @@
             password = e.detail.inputValue
         }}
     />
-    {#if !loading}
-        <button on:click={() => {
-            if (password && usernameOrEmail) {
-                errorType = "none"
-                dispatcher("onSignIn", { usernameOrEmail, password })
-            } else {
-                if (!usernameOrEmail && !password)
-                    errorType = "Username or email and password not filled"
-                else if (!password)
-                    errorType = "Password not filled"
-                else if (!usernameOrEmail)
-                    errorType = "Username or email not filled"
-            }
-        }}>
+    <p data-disabled={loading} on:click={forgetPassword}>Forget password</p>
+    <button disabled={loading} on:click={signIn}>
+        {#if !loading }
             Continue
-        </button>
-        <p on:click={() => {
-            if (usernameOrEmail) {
-                errorType = "none"
-                dispatcher("onMagicLinkClick", { email: usernameOrEmail } )
-            } else
-                errorType = "Email required"
-        }} >Send magic link</p>
-    {:else}
-        <div data-container="loading-spinner">
-            <LoadingSpinner size={50} />
-        </div>
-    {/if}
-    
+        {:else}
+            <Circle color="white" size={26.5} />
+        {/if}
+    </button>
 </section>
 <style lang="less">
     section {
         width: 100%;
-        min-height: 345px;
+        min-height: 365px;
         height: 100%;
         padding: 0;
         padding-top: 15px;
@@ -89,7 +86,6 @@
         border-width: 1px;
         border-top-width: 0;
         border-color: #bdbdbd;
-        box-shadow: 0px 1.25px 2.4px 1.75px #f5f5f5;
         background-color: rgb(253, 253, 253);
         border-bottom-left-radius: 7px;
         border-bottom-right-radius: 7px;
@@ -99,17 +95,20 @@
             border-color: #4e4c4c;
             box-shadow: none;
             p {
-               color: rgb(190, 190, 190);
+                color: rgb(190, 190, 190);
+                &[data-disabled="true"] {
+                    color: rgb(120, 120, 120);
+                }
             }
         }
         p {
             width: 120px;
             position: relative;
-            left: calc(50% - 75px);
+            left: calc(100% - 158px);
             margin: 0;
-            margin-top: 15px;
-            margin-left: 18px;
-            margin-right: 18px; 
+            margin-top: 5px;
+            margin-bottom: 13.75px;
+            margin-inline: 18px;
             font-family: Arial, Helvetica, sans-serif;
             font-size: 15.5px;
             text-align: center;
@@ -118,20 +117,13 @@
             &:hover {
                 text-decoration: underline;
             }
+            &[data-disabled="true"] {
+                text-decoration: none;
+                cursor: not-allowed;
+                color: rgb(120, 120, 120);
+            }
         }
-        div[data-container="loading-spinner"] {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: nowrap;
-            width: calc(100% - 36px);
-            margin: 0;
-            margin-top: 8px;
-            margin-left: 18px;
-            margin-right: 18px;
-            height: auto;
-        }
+
         button {
             width: calc(100% - 36px);
             margin: 0;
@@ -144,7 +136,7 @@
             height: 48px;
             border-width: 0;
             outline: none;
-            background-color: #06e0a7;
+            background-color: #06d6a0;
             border-radius: 5px; 
             display: flex;
             flex-direction: column;

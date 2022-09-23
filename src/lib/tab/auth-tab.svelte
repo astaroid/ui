@@ -49,7 +49,7 @@
         show={ tab == "sign in" }
         errorType={signInErrorType}
         loading={ tab == "sign in" && loading}
-        on:onMagicLinkClick={(e) => dispatcher("onMagicLinkClick", { ...e.detail })}
+        on:onForgetPassword={(e) => dispatcher("onForgetPassword")}
         on:onSignIn={(e) => dispatcher("onSignIn", { ...e.detail })}
     />
     <AuthSignupTabBody
@@ -67,6 +67,13 @@
     main {
         width: 100%;
         height: auto;      
-        padding: 0 0 0 0;  
+        padding: 0 0 0 0; 
+        box-shadow: rgb(230, 220, 220) 0px 8px 27px 0;
+        border-style: solid;
+        border-width: 0;
+        border-radius: 7px;
+        &[data-theme="dark"] {
+            box-shadow: none;
+        }
     }
 </style>

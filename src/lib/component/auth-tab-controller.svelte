@@ -31,7 +31,6 @@
         border-width: 1px;
         border-color: #bdbdbd;
         border-bottom-color: #9e9e9e;
-        box-shadow: 0px 1.25px 2.4px 1.75px #f5f5f5;
         display: flex;
         &[data-theme="dark"] {
             background-color: rgb(16, 20, 25);

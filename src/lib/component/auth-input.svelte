@@ -18,7 +18,7 @@
     }
 </script>
 
-<div style="width: calc({`${width}${unit}`} - 40px)" data-theme={theme}>        
+<div style="width: calc({`${width}${unit} - 40px`})" data-theme={theme}>        
     {#if type == "email"}
         <input data-has-error={error} bind:value={inputValue} on:input={ () => sendValue() } {placeholder} type="email">
     {:else if type == "password"}
@@ -34,8 +34,7 @@
     div {
         width: 100%;
         padding: 7px;
-        padding-left: 18px;
-        padding-right: 18px;
+        padding-inline: 20px;
         p {  
             width: 100%;
             margin: 0 0 0 0;
@@ -52,15 +51,15 @@
             }
         }  
         input {
-            width: calc(100% - 20px);
+            width: calc(100% - 27px);
             font-size: 15px;
             margin: 0 0 0 0;
             background-color: transparent;
             outline: none;
             height: 30px;
-            padding: 5px;
-            padding-left: 10px;
-            padding-right: 10px;
+            padding: 8px;
+            padding-left: 12px;
+            padding-right: 12px;
             border-width: 1px;
             border-style: solid;
             border-radius: 5px;

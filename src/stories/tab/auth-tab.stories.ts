@@ -29,9 +29,9 @@ export default {
             action: "onSignIn", 
             description: "The event emitter when the continue button is clicked"
         },
-        onMagicLinkClick: {
-            action: "onMagicLinkClick",
-            description: "The event emitter when the magic link is clicked"
+        onForgetPassword: {
+            action: "onForgetPassword",
+            description: "The event emitter when the forget password is clicked"
         },
         errorType: {
             name: "error type",
@@ -107,7 +107,7 @@ const Template = (args:any) => ({
     props: args,
     on: {
         onSignIn: args.onSignIn,
-        onMagicLinkClick: args.onMagicLinkClick,
+        onForgetPassword: args.onForgetPassword,
         onSignUp: args.onSignUp,
         onPolicyLinkClick: args.onPolicyLinkClick,
         onTabSelected: args.onTabSelected

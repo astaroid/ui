@@ -17,9 +17,9 @@ export default {
             action: "onSignIn", 
             description: "The event emitter when the continue button is clicked"
         },
-        onMagicLinkClick: {
-            action: "onMagicLinkClick",
-            description: "The event emitter when the magic link is clicked"
+        onForgetPassword: {
+            action: "onForgetPassword",
+            description: "The event emitter when the forget password is clicked"
         },
         loading: {
             name: "loading",
@@ -35,7 +35,7 @@ export default {
             description: "The type of error the component should display",
             control: {
                 type: "select",
-                options: [ "none", "Username or email not found", "Incorrect password", "Email not found", "both" ]
+                options: [ "none", "Username or email not found", "Incorrect password", "both" ]
             }
         },
         show: {
@@ -84,7 +84,7 @@ const Template = (args:any) => ({
     props: args,
     on: {
         onSignIn: args.onSignIn,
-        onMagicLinkClick: args.onMagicLinkClick
+        onForgetPassword: args.onForgetPassword
     }
 })
 

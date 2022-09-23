@@ -100,7 +100,7 @@
                 font-size: 17.35px;
                 min-height: 35px;
                 button[data-type="input"] {
-                    font-size: 13px;
+                    font-size: 15px;
                     height: 29px;
                 }
                 button[data-type="exit"] {

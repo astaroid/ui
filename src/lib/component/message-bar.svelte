@@ -33,7 +33,8 @@
 <style lang="less">
     section {
         width: calc(100% - 26px);
-        height: 45px;
+        min-height: 35px;
+        height: fit-content;
         color: white;
         background-color: #06d6a0;
         font-size: 18px;
@@ -55,13 +56,13 @@
             border-width: 1.5px;
             border-radius: 4px;
             color: white;
-            padding-left: 10px;
-            padding-right: 10px;
+            padding-inline: 10px;
             border-color: white;
             cursor: pointer;
-            height: 35px;
+            height: fit-content;
             width: auto;
             font-size: 16px;
+            min-height: 32px;
         }
         button[data-type="exit"] {
             background-color: transparent;
@@ -69,8 +70,8 @@
             cursor: pointer;
             height: 25px;
             svg {
-                width: 18px;
-                height: 18px;
+                width: 17px;
+                height: 17px;
                 stroke: white;
                 fill: white;
             }
@@ -80,11 +81,11 @@
         }
         @media screen and (max-width: 480px) {
             & {
-                font-size: 14.5px;
-                height: 40px;
+                font-size: 14.25px;
+                height: 35px;
                 button[data-type="input"] {
                     font-size: 13px;
-                    height: 30px;
+                    min-height: 30px;
                 }
                 button[data-type="exit"] {
                     svg {
@@ -96,11 +97,11 @@
         }
         @media screen and (max-width: 750px) {
             & {
-                font-size: 15.25px;
-                height: 40px;
+                font-size: 17.35px;
+                min-height: 35px;
                 button[data-type="input"] {
-                    font-size: 14px;
-                    height: 30px;
+                    font-size: 13px;
+                    height: 29px;
                 }
                 button[data-type="exit"] {
                     svg {

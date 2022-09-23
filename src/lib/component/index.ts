@@ -9,6 +9,7 @@ import ActivityMessage from "./activity-message.svelte"
 import MenuItem from "./menu-item.svelte"
 import Menu from "./menu.svelte"
 import Footer from "./footer.svelte"
+import Modal from "./modal.svelte"
 
 export default {
     AuthSignupTabBody,
@@ -21,5 +22,6 @@ export default {
     MenuItem,
     Menu,
     ActivityMessage,
-    Footer
+    Footer,
+    Modal
 }

@@ -38,10 +38,8 @@
         color: white;
         background-color: #06d6a0;
         font-size: 18px;
-        padding-top: 8px;
-        padding-left: 13px;
-        padding-right: 13px;
-        padding-bottom: 8px;
+        padding-block: 8px;
+        padding-inline: 15px;
         display: flex;
         flex-direction: row;
         align-items: center;

@@ -46,7 +46,7 @@
             font-family: Arial, Helvetica, sans-serif;
             font-size: 33px;
             text-align: center;
-            text-transform: capitalize;
+            text-transform: none;
             padding-top: 2px;
             margin-bottom: 10px;
         }
@@ -58,7 +58,7 @@
             height: 40px;
             border-width: 0;
             outline: none;
-            background-color: #06e0a7;
+            background-color: #06d6a0;
             border-radius: 5px; 
             display: flex;
             flex-direction: column;

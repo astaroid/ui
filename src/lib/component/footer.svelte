@@ -125,7 +125,7 @@
             section[data-container="footer-sections"] {
                 width: calc(100% - 35px);
                 padding-block: 25px;
-                padding-inline: 17.5px;
+                padding-inline: 15px;
                 height: calc(77% - 75px);
                 display: grid;
                 grid-template-columns: repeat(4, 1fr);
@@ -146,8 +146,13 @@
                         margin-bottom: 13px;
                         text-decoration: none;
                         font-size: 16.5px;
+                        transition-property: transform;
+                        transition-duration: 180ms;
                         &:link {
                             outline: none;
+                        }
+                        &:hover {
+                            transform: translateY(-2.5px);
                         }
                     }
                 }
@@ -175,13 +180,13 @@
             }
             
             @media screen and (min-width: 912px) {
-                width: 720px;
+                width: 820px;
             }
-            @media screen and (min-width: 1024px) {
-                width: 800px;
+            @media scree and (min-width: 1024px) {
+                width: 860px;
             }
             @media screen and (min-width: 1280px) {
-                width: 860px;
+                width: 1020px;
             }
         }
         @media screen and (max-width: 599px) {

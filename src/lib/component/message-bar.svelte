@@ -32,7 +32,7 @@
 </section>
 <style lang="less">
     section {
-        width: calc(100% - 26px);
+        width: calc(100% - 30px);
         min-height: 35px;
         height: fit-content;
         color: white;

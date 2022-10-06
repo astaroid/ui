@@ -108,7 +108,7 @@
             color: rgb(135, 135, 135);
             border-top-color: #474849;
             &[data-selected="true"] {
-                background-color: #212121;
+                background-color: rgb(38, 38, 38);
             }
         }
     }

@@ -29,7 +29,7 @@ export default {
         searchValue: {
             name: "search value",
             type: { name: "string", required: true },
-            description: "The value inputted in the search bar",
+            description: "The value of the search bar menu item",
             defaultValue: "search",
             control: {
                 type: "text"
@@ -38,11 +38,19 @@ export default {
         searchBy: {
             name: "search by",
             type: { name: "string" },
-            description: "The value the search value is filtered with",
+            description: "The value the search bar menu item  is filtered with",
             defaultValue: "color",
             control: {
                 type: "select",
                 options: ["color", "volume", "price", "rarest"]
+            }
+        },
+        selected: {
+            type: { name: "boolean" },
+            description: "If true the search bar menu item is hovered over or selected",
+            defaultValue: false,
+            control: {
+                type: "boolean"
             }
         }
     }

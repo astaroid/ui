@@ -13,6 +13,7 @@ import Modal from "./modal.svelte"
 import SearchBar from './search-bar.svelte'
 import SearchBarDropdownMenu from './search-bar-dropdown-menu.svelte'
 import SearchBarDropdownMenuItem from './search-bar-dropdown-menu-item.svelte'
+import Tooltip from "./tooltip.svelte"
 
 export default {
     AuthSignupTabBody,
@@ -27,6 +28,7 @@ export default {
     ActivityMessage,
     Footer,
     Modal,
+    Tooltip,
     SearchBar,
     SearchBarDropdownMenu,
     SearchBarDropdownMenuItem

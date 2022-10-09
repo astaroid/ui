@@ -18,6 +18,10 @@ export default {
             action: 'onTabSelected', 
             description: "The event emitter when a tab is selected"
         },
+        onSearchResultClicked: {
+            action: "onSearchResultClicked",
+            description: "The event emitter when a search result is clicked"
+        },
         theme: {
             name: "theme",
             type: { required: true, name: "string" },
@@ -28,20 +32,48 @@ export default {
                 options: [ "light", "dark" ]
             }
         },
+        coin: {
+            control: { type: "number" },
+            defaultValue: 100,
+            description: "The user number of coins"
+        },
+        homePageLink: {
+            name: "home page link",
+            control: { type: "text" },
+            description: "The link to the astaroid website home page",
+            defaultValue: "/"
+        },
+        assetsPageLink: {
+            name: "assets page link",
+            control: { type: "text" },
+            description: "The link to the astaroid website assets page",
+            defaultValue: "/"
+        },
         notified: {
             type: { name: "boolean" },
             control: { type: "boolean" },
             defaultValue: false,
             description: "If true then there is a notification message"
         },
-        tab: {
-            name: "tab",
+        message: {
+            control: { type: "object" },
+            description: "The metadata for the message bar component",
+            defaultValue: {
+                message: String(),
+                show: false,
+                type: "normal",
+                loading: false,
+                inputText: "click me"
+            }
+        },
+        page: {
+            name: "page",
             type: { required: true, name: "string" },
             description: "The selected tab",
             defaultValue: "home",
             control: {
                 type: "select",
-                options: [ "home", "search", "assets", "activity","account" ]
+                options: [ "home", "assets" ]
             }
         }
     }
@@ -51,7 +83,8 @@ const Template = (args:any) => ({
     Component: NavBar,
     props: args,
     on: {
-       onTabSelected: args.onTabSelected
+       onTabSelected: args.onTabSelected,
+       onSearchResultClicked: args.onSearchResultClicked
     }
 })
 

@@ -30,13 +30,6 @@ export default {
             action: "onRightButtonClicked", 
             description: "The event emitter when the modal left button is clicked"
         },
-        inputValue: {
-            name: "input value",
-            description: "The value of the modal input box",
-            control: {
-                type: "text"
-            }
-        },
         leftButton: {
             name: "left button",
             description: "The metadata for the modal left button",
@@ -94,46 +87,18 @@ export default {
             defaultValue: true,
         },
         input: {
-            type: { name: "boolean" },
-            description: "If true the modal input box is shown",
+            description: "The metadata for the modal input box",
             control: {
-                type: "boolean"
+                type: "object"
             },
-            defaultValue: false,
-        },
-        inputPlaceholder: {
-            name: "input placeholder",
-            description: "The placeholder text of modal input box",
-            control: {
+            defaultValue: {
+                show: false,
                 type: "text",
+                placeholder: String(),
+                error: false,
+                errorMessage: String(),
+                value: null
             },
-            defaultValue: "placeholder"
-        },
-        inputErrorMessage: {
-            name: "input error message",
-            description: "The error message of modal input box",
-            control: {
-                type: "text",
-            },
-            defaultValue: "placeholder"
-        },
-        inputError: {
-            name: "input error",
-            type: { name: "boolean" },
-            description: "If true the modal input box error message is shown",
-            control: {
-                type: "boolean"
-            },
-            defaultValue: false,
-        },
-        inputType: {
-            name: "input type",
-            description: "The type of modal input box",
-            control: {
-                type: "select",
-                options: [ "text", "password" ]
-            },
-            defaultValue: "text"
         },
         theme: {
             type: { required: true, name: "string" },

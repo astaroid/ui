@@ -11,28 +11,51 @@
         type: "error"|"success"|"warning"|"info"|"default"
     }
 
+    interface ModalInput {
+        show: boolean
+        type: "text"|"password"
+        placeholder: string
+        error: boolean
+        errorMessage: string
+        value: string
+    }
+
     export let theme:"light"|"dark" = "light"
     export let show:boolean = false
     export let title:string = "Info"
     export let type:"info"|"warning"|"success"|"error" = "info"
     export let message:string = `Message type is ${type}`
-    export let input:boolean = false
-    export let inputType:"text"|"password" = "text"
-    export let inputPlaceholder:string = String()
-    export let inputError:boolean = false
-    export let inputErrorMessage:string = String()
-    export let inputValue:string = null
-    export let leftButton:ModalButton = {
-        type: "default",
-        text: "Cancel",
-        disabled: false,
-        loading: false
+    export let leftButton:ModalButton = null
+    export let rightButton:ModalButton = null
+    export let input:ModalInput = null
+
+    if (!leftButton) {
+        leftButton =  {
+            type: "default",
+            text: "Cancel",
+            disabled: false,
+            loading: false
+        }
     }
-    export let rightButton:ModalButton = {
-        type: "info",
-        text: "Next",
-        disabled: false,
-        loading: false
+
+    if (!rightButton) {
+        rightButton = {
+            type: "info",
+            text: "Next",
+            disabled: false,
+            loading: false
+        }
+    }
+
+    if (!input) {
+        input = {
+            show: false,
+            type: "text",
+            placeholder: String(),
+            error: false,
+            errorMessage: String(),
+            value: null
+        }
     }
 
     const dispatcher = createEventDispatcher()
@@ -42,17 +65,17 @@
     }
 
     const onInput = () => {
-        dispatcher("onInput", { value: inputValue })
+        dispatcher("onInput", { value: input.value })
     }
 
     let inputBox:HTMLInputElement = null
 
-    $:if (inputBox && input) {
+    $:if (inputBox && input.show) {
         inputBox.focus()
     }
 
     onMount(() => {
-        if (inputBox && input)
+        if (inputBox && input.show)
             inputBox.focus()
     })
 </script>
@@ -82,25 +105,25 @@
         </header>
         <main>
             {@html message}
-            {#if input }
-                {#if inputType == "text" }
+            {#if input.show }
+                {#if input.type == "text" }
                     <input 
-                        data-has-error={inputError} 
-                        type="text" placeholder={inputPlaceholder} 
-                        bind:value={inputValue} 
+                        data-has-error={input.error} 
+                        type="text" placeholder={input.placeholder} 
+                        bind:value={input.value} 
                         bind:this={inputBox}
                         on:input={onInput}>
-                {:else if inputType == "password"}
+                {:else if input.type == "password"}
                     <input 
-                        data-has-error={inputError} 
+                        data-has-error={input.error} 
                         type="password" 
-                        placeholder={inputPlaceholder}
-                        bind:value={inputValue} 
+                        placeholder={input.placeholder}
+                        bind:value={input.value} 
                         bind:this={inputBox}
                         on:input={onInput}>
                 {/if}
-                {#if inputError }
-                    <p data-text="input-error-message">{inputErrorMessage}</p>
+                {#if input.error }
+                    <p data-text="input-error-message">{input.errorMessage}</p>
                 {/if}
             {/if}
         </main>
@@ -367,6 +390,12 @@
                             background-color: darken(#01ad49, 8);
                         }
                     }
+                }
+            }
+
+            @media screen and (max-width: 600px) {
+                & {
+                    width: 92.25%;
                 }
             }
         }

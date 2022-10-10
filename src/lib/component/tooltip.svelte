@@ -13,7 +13,8 @@
         "& .body": { 
             color: theme == "dark" ? "#030303" : "rgb(248, 246, 246)", 
             fontFamily: "Arial, Helvetica, sans-serif", 
-            backgroundColor: theme == "light" ? "#212121": "#f5f5f5" 
+            backgroundColor: theme == "light" ? "#212121": "#f5f5f5",
+            fontWeight: "normal" 
         },
         "& .arrow": {
             backgroundColor: theme == "light" ? "#212121": "#f5f5f5" 

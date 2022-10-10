@@ -33,7 +33,7 @@
         border-bottom-color: #9e9e9e;
         display: flex;
         &[data-theme="dark"] {
-            background-color: rgb(16, 20, 25);
+            background-color: rgb(25, 25, 25);
             border-style: solid;
             border-color: #4e4c4c;
             border-width: 1px;

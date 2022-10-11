@@ -59,7 +59,7 @@
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
-            padding-block: 8.75px;
+            padding-block: 9.5px;
             span {
                 width: 95px;
                 height: 38px;

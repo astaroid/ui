@@ -4,12 +4,9 @@
     export let theme:"light"|"dark" = "light"
     export let label:string = String()
     export let position:"top"|"bottom"|"left"|"right" = "top"
-    export let show:boolean = true
+    export let show:boolean = false
 
     const tooltipStyle = { 
-        "&": {
-            display: show ? "block" : "none"
-        },
         "& .body": { 
             color: theme == "dark" ? "#030303" : "rgb(248, 246, 246)", 
             fontFamily: "Arial, Helvetica, sans-serif", 
@@ -21,8 +18,17 @@
         }
     }
 </script>
-<Tooltip override={tooltipStyle} withArrow position={position} placement="center" transitionDuration={200} label={label}>
-    <slot>
-        <p style="color: {theme == "light" ? "#030303" : "rgb(248, 246, 246)"}; font-family: Arial, Helvetica, sans-serif;">Tooltip</p>
-    </slot>
-</Tooltip> 
+{#if show }
+    <Tooltip opened  override={tooltipStyle} withArrow position={position} placement="center" transitionDuration={200} label={label}>
+        <slot>
+            <p style="color: {theme == "light" ? "#030303" : "rgb(248, 246, 246)"}; font-family: Arial, Helvetica, sans-serif;">Tooltip</p>
+        </slot>
+    </Tooltip>
+{:else}
+    <Tooltip  override={tooltipStyle} withArrow position={position} placement="center" transitionDuration={200} label={label}>
+        <slot>
+            <p style="color: {theme == "light" ? "#030303" : "rgb(248, 246, 246)"}; font-family: Arial, Helvetica, sans-serif;">Tooltip</p>
+        </slot>
+    </Tooltip>
+{/if}
+ 

@@ -43,7 +43,7 @@
         }
         div[data-container="asset-container"] {
             width: 240px;
-            height: 240px;
+            height: 280px;
             background-color: rgb(236, 236, 236);
             border-width: 0;
             border-style: solid;

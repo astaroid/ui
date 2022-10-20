@@ -15,6 +15,7 @@ import SearchBarDropdownMenu from './search-bar-dropdown-menu.svelte'
 import SearchBarDropdownMenuItem from './search-bar-dropdown-menu-item.svelte'
 import Tooltip from "./tooltip.svelte"
 import CrystalSkeletonContainer from "./crystal-skeleton-container.svelte"
+import AssetSkeletonContainer from "./asset-skeleton-container.svelte"
 
 export default {
     AuthSignupTabBody,
@@ -33,5 +34,6 @@ export default {
     SearchBar,
     SearchBarDropdownMenu,
     SearchBarDropdownMenuItem,
-    CrystalSkeletonContainer
+    CrystalSkeletonContainer,
+    AssetSkeletonContainer
 }

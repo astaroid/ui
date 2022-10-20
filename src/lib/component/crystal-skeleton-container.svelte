@@ -44,7 +44,7 @@
             }
         }
         div[data-container="crystal-container"] {
-            width: 220px;
+            width: 240px;
             height: 240px;
             background-color: rgb(236, 236, 236);
             border-width: 0;
@@ -54,15 +54,15 @@
             animation-play-state: running;
         }
         div[data-container="crystal-detail-container"] {
-            width: 220px;
+            width: 240px;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
-            padding-block: 9.5px;
+            padding-block: 12px;
             span {
                 width: 95px;
-                height: 38px;
+                height: 40px;
                 border-width: 0;
                 border-style: solid;
                 border-radius: 5px;
@@ -76,7 +76,7 @@
             border-radius: 5px;
             background-color: rgb(236, 236, 236);
             animation: blinking-effect 1s infinite linear;
-            width: 220px;
+            width: 240px;
             height: 47px;
             outline: none;
             &:focus {

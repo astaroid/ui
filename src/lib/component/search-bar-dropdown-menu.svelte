@@ -74,6 +74,9 @@
 
     const keydownListener = (e:KeyboardEvent) => {
         if (searchBarDropDownMenuItemList.length > 0) {
+            if (e.code == "Escape") {
+                show = false
+            }
             if (e.code == "Enter") {
                 if (searchBarDropDownMenuItemSelectedIndex >= 0 && searchBarDropDownMenuItemSelectedIndex <= searchBarDropDownMenuItemList.length - 1) {
                     let selectedSearchBarDropDownMenuItem = searchBarDropDownMenuItemList[searchBarDropDownMenuItemSelectedIndex]

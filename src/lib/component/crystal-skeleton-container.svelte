@@ -83,5 +83,22 @@
                 outline: none;
             }
         }
+
+        @media screen and (max-width: 495px) {
+            button,
+            div[data-container="crystal-container"],
+            div[data-container="crystal-detail-container"] {
+                width: 100%;
+            }
+            
+            div[data-container="crystal-detail-container"] span {
+                width: calc(40% - 15px);
+                height: 42.25px;
+            }
+
+            button {
+                height: 48.5px;
+            }
+        }
     }
 </style>

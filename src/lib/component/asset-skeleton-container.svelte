@@ -68,5 +68,17 @@
                 animation: blinking-effect 1s infinite linear;
             }
         }
+
+        @media screen and (max-width: 495px) {
+            div[data-container="asset-container"],
+            div[data-container="asset-detail-container"] {
+                width: 100%;
+            }
+            
+            div[data-container="asset-detail-container"] span {
+                width: calc(45% - 15px);
+                height: 42.25px;
+            }
+        }
     }
 </style>

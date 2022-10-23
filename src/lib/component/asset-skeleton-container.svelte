@@ -60,7 +60,7 @@
             padding-block: 12px;
             span {
                 width: 95px;
-                height: 45px;
+                height: 40px;
                 border-width: 0;
                 border-style: solid;
                 border-radius: 5px;

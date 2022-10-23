@@ -146,6 +146,7 @@
                         margin-bottom: 13px;
                         text-decoration: none;
                         font-size: 16.5px;
+                        width: fit-content;
                         transition-property: transform;
                         transition-duration: 180ms;
                         &:link {

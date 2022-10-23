@@ -348,7 +348,7 @@
                         outline: none;
                     }
                     &:disabled {
-                        cursor: default;
+                        cursor: not-allowed;
                     }
                     &[data-button-type="default"] {
                         background-color: rgb(239, 239, 239);

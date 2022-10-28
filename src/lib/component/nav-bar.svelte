@@ -176,14 +176,14 @@
         <div data-container="main-container">
             <div bind:this={tabButtonContainer} data-container="button-container">
                 <Tooltip theme={theme} label="Home" position="bottom">
-                    <a href={homePageLink} data-current-page={ page == "home" ? "true": "false" }> 
+                    <a sveltekit:prefetch href={homePageLink} data-current-page={ page == "home" ? "true": "false" }> 
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
                         </svg>
                     </a>
                 </Tooltip>
                 <Tooltip theme={theme} label="Assets" position="bottom">
-                    <a href={assetsPageLink} data-current-page={ page == "assets" ? "true": "false" }>
+                    <a sveltekit:prefetch href={assetsPageLink} data-current-page={ page == "assets" ? "true": "false" }>
                         <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" viewBox="0 0 20 20">
                             <g><path d="M16,3H4L2,8l8,9l8-9L16,3z M8.21,7.25L9.59,4.5h0.82l1.38,2.75H8.21z M9.25,8.75v5.15L4.67,8.75H9.25z M10.75,8.75h4.58 l-4.58,5.15V8.75z M16.08,7.25h-2.62L12.09,4.5h2.9L16.08,7.25z M5.02,4.5h2.9L6.54,7.25H3.92L5.02,4.5z"/></g>
                         </svg>

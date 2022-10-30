@@ -114,6 +114,7 @@
         display: flex;
         flex-direction: row;
         justify-content: center;
+        padding-top: 15px;
         main[data-container="inner-container"] {
             height: 100%;
             display: flex;
@@ -121,7 +122,6 @@
             justify-content: flex-start;
             align-items: center;
             width: 400px;
-            margin-top: 15px;
             section[data-container="footer-sections"] {
                 width: calc(100% - 35px);
                 padding-block: 25px;

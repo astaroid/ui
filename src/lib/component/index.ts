@@ -16,8 +16,10 @@ import SearchBarDropdownMenuItem from './search-bar-dropdown-menu-item.svelte'
 import Tooltip from "./tooltip.svelte"
 import CrystalSkeletonContainer from "./crystal-skeleton-container.svelte"
 import AssetSkeletonContainer from "./asset-skeleton-container.svelte"
+import AssetMergeButton from "./asset-merge-button.svelte"
 
 export default {
+    AssetMergeButton,
     AuthSignupTabBody,
     AuthSigninTabBody,
     AuthTabController,

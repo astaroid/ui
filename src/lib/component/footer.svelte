@@ -115,6 +115,7 @@
         flex-direction: row;
         justify-content: center;
         padding-top: 15px;
+        bottom: 0px;
         main[data-container="inner-container"] {
             height: 100%;
             display: flex;

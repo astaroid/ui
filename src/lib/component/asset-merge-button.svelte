@@ -75,7 +75,7 @@
             border-style: solid;
             outline: none;
             cursor: pointer;
-            box-shadow: 0px 3px 7px rgb(170, 170, 170);
+            box-shadow: 0px 3px 7px rgb(150, 150, 150);
             &:disabled {
                 cursor: no-drop;
             }

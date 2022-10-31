@@ -429,16 +429,24 @@
             }
         }
         &[data-theme="dark"] {
-            section[data-container="coin-container"] p {
-                background-color: #212121;
-                border-inline-width: 0;
-                color: rgb(248, 246, 246);
+            section[data-container="coin-container"] {
+                margin-top: -0.5px;
+                p {
+                    background-color: #212121;
+                    border-style: solid;
+                    border-width: 1px;
+                    border-color: rgb(64, 64, 64);
+                    border-top: none;
+                    color: rgb(248, 246, 246);
+                }
             }
             main {
                 background-color: #212121;
                 border: none;
                 box-shadow: none;
-                
+                border-bottom-style: solid;
+                border-bottom-width: 1px;
+                border-bottom-color: rgb(64, 64, 64);
                 div[data-container="main-container"] {
                     div[data-container="button-container"] {
                         a,

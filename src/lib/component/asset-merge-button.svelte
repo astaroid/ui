@@ -162,6 +162,7 @@
             }
         }
         @media screen and (max-width: 599px) {
+            padding-inline: 10px;
             button[data-button="exit-button"] {
                 height: 48px;
                 width: 48px;

@@ -225,7 +225,6 @@
             box-shadow: rgba(40, 40, 41, 0.7) 0px 7px 29px 0px;
             color: #303030; 
             animation-name: scaling-anim;
-            animation-delay: 100ms;
             animation-duration: 340ms;
             animation-direction: normal;
             animation-iteration-count: 1;

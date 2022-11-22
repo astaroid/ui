@@ -18,6 +18,7 @@ import CrystalSkeletonContainer from "./crystal-skeleton-container.svelte"
 import AssetSkeletonContainer from "./asset-skeleton-container.svelte"
 import AssetMergeButton from "./asset-merge-button.svelte"
 import AssetContainer from "./asset-container.svelte"
+import CrystalContainer from "./crystal-container.svelte"
 
 export default {
     AssetMergeButton,
@@ -39,5 +40,6 @@ export default {
     SearchBarDropdownMenuItem,
     CrystalSkeletonContainer,
     AssetSkeletonContainer,
-    AssetContainer
+    AssetContainer,
+    CrystalContainer
 }

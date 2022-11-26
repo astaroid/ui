@@ -58,12 +58,13 @@ export default {
             }
         },
         theme: {
+            name: "theme",
             type: { required: true, name: "string" },
             description: "The theme of the component",
             defaultValue: "light",
             control: {
-                type: "radio",
-                options: [ "light", "dark" ]
+                type: "select",
+                options: [ "light", "dark", "system" ]
             }
         }
     }

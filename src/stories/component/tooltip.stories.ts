@@ -19,8 +19,8 @@ export default {
             description: "The theme of the component",
             defaultValue: "light",
             control: {
-                type: "radio",
-                options: [ "light", "dark" ]
+                type: "select",
+                options: [ "light", "dark", "system" ]
             }
         },
         show: {

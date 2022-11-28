@@ -1,7 +1,7 @@
 import MenuItem from "../../lib/component/menu-item.svelte"
 
 export default {
-    title: "Component/Menu Item",
+    title: "Component/Menu component/Menu Item",
     component: MenuItem,
     parameters: {
         backgrounds: {

@@ -1,7 +1,7 @@
 import SearchBarDropdownMenu from "../../lib/component/search-bar-dropdown-menu.svelte"
 
 export default {
-    title: "Component/Search Bar Dropdown Menu",
+    title: "Component/Search Bar component/Search Bar Dropdown Menu",
     component: SearchBarDropdownMenu,
     parameters: {
         backgrounds: {

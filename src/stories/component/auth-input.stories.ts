@@ -1,7 +1,7 @@
 import AuthInput from "../../lib/component/auth-input.svelte"
 
 export default {
-    title: "Component/Auth Input",
+    title: "Component/Auth component/Auth Input",
     component: AuthInput,
     parameters: {
         backgrounds: {

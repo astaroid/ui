@@ -1,7 +1,7 @@
 import AssetContainer from "../../lib/component/asset-container.svelte"
 
 export default {
-    title: "Component/Asset Container",
+    title: "Component/Asset component/Asset Container",
     component: AssetContainer,
     parameters: {
         backgrounds: {

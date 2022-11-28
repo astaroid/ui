@@ -1,7 +1,7 @@
 import SearchBar from "../../lib/component/search-bar.svelte"
 
 export default {
-    title: "Component/Search Bar",
+    title: "Component/Search Bar component/Search Bar",
     component: SearchBar,
     parameters: {
         backgrounds: {

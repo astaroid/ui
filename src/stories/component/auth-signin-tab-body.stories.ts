@@ -1,7 +1,7 @@
 import AuthSigninTabBody from "../../lib/component/auth-signin-tab-body.svelte"
 
 export default {
-    title: "Component/Auth Signin Tab Body",
+    title: "Component/Auth component/Auth Signin Tab Body",
     component: AuthSigninTabBody,
     parameters: {
         backgrounds: {

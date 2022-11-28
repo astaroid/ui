@@ -1,7 +1,7 @@
 import AssetMergeButton from "../../lib/component/asset-merge-button.svelte"
 
 export default {
-    title: "Component/Asset Merge Button",
+    title: "Component/Asset component/Asset Merge Button",
     component: AssetMergeButton,
     parameters: {
         backgrounds: {

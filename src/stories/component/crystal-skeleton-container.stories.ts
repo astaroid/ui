@@ -1,7 +1,7 @@
 import CrystalSkeletonContainer from "../../lib/component/crystal-skeleton-container.svelte"
 
 export default {
-    title: "Component/Crystal Skeleton Container",
+    title: "Component/Crystal component/Crystal Skeleton Container",
     component: CrystalSkeletonContainer,
     parameters: {
         backgrounds: {

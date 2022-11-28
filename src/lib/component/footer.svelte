@@ -18,7 +18,7 @@
             privacyPolicy: string
         }
     }
-    export let theme:"light"|"dark" = "light"
+    export let theme:"system"|"light"|"dark" = "system"
     export let width:number = 100
     export let unit:"px"|"mm"|"pt"|"cm"|"pc"|"in"|"%" = "%"
     export let links:FooterLinks = {
@@ -212,6 +212,25 @@
                 }
                 section[data-container="footer-detail"] {
                     color: rgb(118, 116, 116);
+                }
+            }
+        }
+        @media screen and (prefers-color-scheme: dark) {
+            &[data-theme="system"] {
+                background-color: #212121;
+                border: none;
+                main[data-container="inner-container"] {
+                    section[data-container="footer-sections"] div[data-container="footer-sections-item"]  {
+                        p[data-text="header"] {
+                            color: rgb(248, 246, 246);
+                        }
+                        a[data-text="item"] {
+                            color: rgb(118, 116, 116);
+                        }
+                    }
+                    section[data-container="footer-detail"] {
+                        color: rgb(118, 116, 116);
+                    }
                 }
             }
         }

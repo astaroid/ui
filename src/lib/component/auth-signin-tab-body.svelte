@@ -12,7 +12,7 @@
         "both"|
         "Email required"
 
-    export let theme:"light"|"dark" = "light"
+    export let theme:"system"|"light"|"dark" = "system"
     export let width:number = 100
     export let unit:"px"|"mm"|"pt"|"cm"|"pc"|"in"|"%" = "%"
     export let show:boolean = true
@@ -98,6 +98,21 @@
                 color: rgb(190, 190, 190);
                 &[data-disabled="true"] {
                     color: rgb(120, 120, 120);
+                }
+            }
+        }
+
+        @media screen and (prefers-color-scheme: dark) {
+            &[data-theme="system"] {
+                background-color: #212121;
+                border-style: solid;
+                border-color: #4e4c4c;
+                box-shadow: none;
+                p {
+                    color: rgb(190, 190, 190);
+                    &[data-disabled="true"] {
+                        color: rgb(120, 120, 120);
+                    }
                 }
             }
         }

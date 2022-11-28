@@ -17,7 +17,7 @@
         inputText: string
     }
 
-    export let theme:"light"|"dark" = "light"
+    export let theme:"system"|"light"|"dark" = "system"
     export let page:PageType = "home"
     export let notified:boolean = false
     export let message:MessageBarControl = null
@@ -29,7 +29,7 @@
 
     interface SearchBarDropDownMenuControl {
         searchValue: string
-        theme: "light"|"dark"
+        theme: "system"|"light"|"dark"
         page: PageType
         x: number
         y: number
@@ -482,6 +482,70 @@
                                 color: rgb(248, 246, 246);
                                 svg {
                                     fill: rgb(238, 236, 236);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        @media screen and (prefers-color-scheme: dark) {
+            &[data-theme="system"] {
+                section[data-container="coin-container"] {
+                    margin-top: -0.5px;
+                    p {
+                        background-color: #212121;
+                        border-style: solid;
+                        border-width: 1px;
+                        border-color: rgb(64, 64, 64);
+                        border-top: none;
+                        color: rgb(248, 246, 246);
+                    }
+                }
+                main {
+                    background-color: #212121;
+                    border: none;
+                    box-shadow: none;
+                    border-bottom-style: solid;
+                    border-bottom-width: 1px;
+                    border-bottom-color: rgb(64, 64, 64);
+                    div[data-container="main-container"] {
+                        div[data-container="button-container"] {
+                            a,
+                            button {
+                                color: rgb(113, 111, 111);
+                                svg {
+                                    fill: rgb(105, 105, 105);
+                                }
+                                &:hover {
+                                    color: rgb(248, 246, 246);
+                                    svg {
+                                        fill: rgb(238, 236, 236);
+                                    }
+                                }
+                            }
+                            a {
+                                &[data-current-page="true"] {
+                                    color: rgb(248, 246, 246);
+                                    svg {
+                                        fill: rgb(238, 236, 236);
+                                    }
+                                }
+                            }
+                            button {
+                                &[data-notified="true"]  {
+                                    color: #06d6a0;
+                                    svg {
+                                        fill: #06d6a0;
+                                    }
+                                }
+
+                                &[data-notified]:hover {
+                                    color: rgb(248, 246, 246);
+                                    svg {
+                                        fill: rgb(238, 236, 236);
+                                    }
                                 }
                             }
                         }

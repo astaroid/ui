@@ -13,7 +13,7 @@
         "Email not found"|
         "No internet"
 
-    export let theme:"light"|"dark" = "light"
+    export let theme:"system"|"light"|"dark" = "system"
     export let errorType:PageErrorMessage = "none"
     export let loading:boolean =  false
     export let tab:"sign in"|"sign up" = "sign in"
@@ -113,6 +113,11 @@
         background-color: #fafafa;
         &[data-theme="dark"] {
             background-color: #303030;
+        }
+        @media screen and (prefers-color-scheme: dark) {
+            &[data-theme="system"] {
+                background-color: #303030;
+            }
         }
         section[data-container="auth-tab"] {
             width: 420px;

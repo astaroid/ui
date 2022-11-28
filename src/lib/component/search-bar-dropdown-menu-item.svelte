@@ -1,7 +1,7 @@
 <script lang="ts">
     import { createEventDispatcher, onMount } from "svelte"
 
-    export let theme:"light"|"dark" = "light"
+    export let theme:"system"|"light"|"dark" = "system"
     export let searchBy:"volume"|"price"|"color"|"rarest" = "color"
     export let searchValue:string|number = String()
     export let selected:boolean = false
@@ -109,6 +109,16 @@
             border-top-color: #474849;
             &[data-selected="true"] {
                 background-color: rgb(38, 38, 38);
+            }
+        }
+
+        @media screen and (prefers-color-scheme: dark) {
+            &[data-theme="system"] {
+                color: rgb(135, 135, 135);
+                border-top-color: #474849;
+                &[data-selected="true"] {
+                    background-color: rgb(38, 38, 38);
+                }
             }
         }
     }

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte"
 
-    export let theme:"light"|"dark" = "light"
+    export let theme:"system"|"light"|"dark" = "system"
     export let disabled:boolean = false
     export let mode:"idle"|"active" = "idle"
 
@@ -161,6 +161,24 @@
                 }
             }
         }
+
+        @media screen and (prefers-color-scheme: dark) {
+            &[data-theme="system"] {
+                button {
+                    box-shadow: none;
+                    &[data-button="exit-button"] {
+                        background-color: rgb(33, 33, 35);
+                        border-width: 1.5px;
+                        border-style: solid;
+                        border-color: rgb(100, 100, 100);
+                        svg {
+                            fill: rgb(250, 250, 250);
+                        }
+                    }
+                }
+            }
+        }
+
         @media screen and (max-width: 599px) {
             padding-inline: 10px;
             button[data-button="exit-button"] {

@@ -28,7 +28,7 @@
         color?: string
     }
 
-    export let theme:"light"|"dark" = "light"
+    export let theme:"system"|"light"|"dark" = "system"
     export let show:boolean = true
     export let loading:boolean = false
     export let showPayoutMessages = true
@@ -402,6 +402,44 @@
                 }
             }
             
+        }
+        @media screen and (prefers-color-scheme: dark) {
+            &[data-theme="system"] {
+                background-color: #212121;
+                border-style: solid;
+                border-color: #4e4c4c;
+                box-shadow: none;
+                nav {
+                    background-color: rgb(25, 25, 25);
+                    border-color: #4e4c4c;
+                    color: rgb(253, 253, 253);
+                    button {
+                        svg {
+                            fill: rgb(253, 253, 253);
+                            color: rgb(253, 253, 253);
+                            stroke: rgb(253, 253, 253);
+                        }
+                        &:hover {
+                            background-color: rgb(34, 39, 44);
+                        }
+                    }
+                }
+                main {
+                    div[data-container="center"] {
+                        svg {
+                            fill: rgb(83, 83, 83); 
+                            stroke: rgb(83, 83, 83);   
+                        }
+                        span {
+                            color: rgb(97, 97, 97);
+                        }
+                    }
+                    &::-webkit-scrollbar-thumb {
+                        background-color: rgb(82, 82, 82);
+                    }
+                }
+                
+            }
         }
         @media screen and (min-width: 280px) {
             width: 85.25%;

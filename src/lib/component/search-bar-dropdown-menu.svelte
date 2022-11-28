@@ -4,13 +4,13 @@
     import SearchBarDropdownMenuItem from './search-bar-dropdown-menu-item.svelte'
 
     interface SearchBarDropdownMenuItemType {
-        theme: "light"|"dark"
+        theme: "system"|"light"|"dark"
         searchBy: "volume"|"price"|"color"|"rarest"
         searchValue: string|number
         selected: boolean
     }
 
-    export let theme:"light"|"dark" = "light"
+    export let theme:"system"|"light"|"dark" = "system"
     export let width:number = 100
     export let page:"home"|"assets" = "home"
     export let searchValue:string = String()
@@ -163,6 +163,12 @@
         &[data-theme="dark"] {
             background-color: #303030;
             border-color: #474849;
+        }
+        @media screen and (prefers-color-scheme: dark) {
+            &[data-theme="system"] {
+                background-color: #303030;
+                border-color: #474849;
+            }
         }
     }
 </style>

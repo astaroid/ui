@@ -2,7 +2,7 @@
     import { createEventDispatcher } from "svelte"
 
     export let tab:"sign up"|"sign in" = "sign in"
-    export let theme:"light"|"dark" = "light"
+    export let theme:"system"|"light"|"dark" = "system"
     export let width:number = 100
     export let unit:"px"|"mm"|"pt"|"cm"|"pc"|"in"|"%" = "%"
     export let disable:"sign in"|"sign up"|"none" = "none"
@@ -49,6 +49,28 @@
 
                 &:disabled {
                     color: rgb(110, 110, 110);
+                }
+            }
+        }
+        @media screen and (prefers-color-scheme: dark) {
+            &[data-theme="system"] {
+                background-color: rgb(25, 25, 25);
+                border-style: solid;
+                border-color: #4e4c4c;
+                border-width: 1px;
+                box-shadow: none;
+                button {
+                    color: white;
+                    &[data-current-tab="true"] {
+                        border-color: white;
+                        &:disabled {
+                            border-color: #4e4c4c;
+                        }
+                    }
+
+                    &:disabled {
+                        color: rgb(110, 110, 110);
+                    }
                 }
             }
         }

@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let theme:"light"|"dark" = "light"
+    export let theme:"system"|"light"|"dark" = "system"
 </script>
 <section data-theme={theme}>
     <div data-container="crystal-container"></div>
@@ -83,7 +83,16 @@
                 outline: none;
             }
         }
-
+        @media screen and (prefers-color-scheme: dark) {
+            &[data-theme="system"] {
+                button,
+                div[data-container="crystal-container"],
+                div[data-container="crystal-detail-container"] span {
+                    animation-name: dark-blinking-effect;
+                    background-color: rgb(55, 55, 55);
+                }
+            }
+        }
         @media screen and (max-width: 495px) {
             button,
             div[data-container="crystal-container"],

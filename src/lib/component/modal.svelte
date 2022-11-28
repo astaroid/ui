@@ -20,7 +20,7 @@
         value: string
     }
 
-    export let theme:"light"|"dark" = "light"
+    export let theme:"system"|"light"|"dark" = "system"
     export let show:boolean = false
     export let title:string = "Info"
     export let type:"info"|"warning"|"success"|"error" = "info"
@@ -463,6 +463,76 @@
             div[data-container="blurry-background"] {
                 animation-name: dark-mode-blur-anim;
                 background: rgba(215,215,215,0.5);
+            }
+        }
+
+        @media screen and (prefers-color-scheme: dark) {
+            &[data-theme="system"] {
+                div[data-container="inner-modal"] {
+                    background-color: #303030;
+                    box-shadow: rgba(10, 10, 11, 0.7) 0px 7px 29px 0px;
+                    header {
+                        background-color: #212121;
+                        border-bottom-color: rgb(77, 65, 65);
+                    }
+                    main {
+                        color: rgb(168, 176, 176);
+                        input {
+                            color: rgb(190, 190, 190);
+                            border-color: rgb(87, 75, 75);
+                            &:focus {
+                                border-color: #2196f3;
+                                box-shadow: 0 0 1.5px 0.45px #2195f3;
+                            }
+                            &[data-has-error="true"] {
+                                box-shadow: 0 0 1.5px 0.45px red;
+                                border-color: rgb(230, 0, 0);
+                            }
+                        }
+                    }
+                    footer button {
+                        &[data-button-type="default"] {
+                            background-color: rgb(43, 42, 42);
+                            color: rgb(250, 250, 250);
+                        }
+                        &[data-button-type="info"] {
+                            &:hover {
+                                background-color: darken(#2195f3, 5);
+                            }
+                            &:disabled {
+                                background-color: lighten(#2195f3, 5);
+                            }
+                        }
+                        &[data-button-type="error"] {
+                            &:hover {
+                                background-color: darken(#e53935, 5);
+                            }
+                            &:disabled {
+                                background-color: lighten(#e53935, 5);
+                            }
+                        }
+                        &[data-button-type="warning"] {
+                            &:hover {
+                                background-color: darken(#f9a825, 5);
+                            }
+                            &:disabled {
+                                background-color: lighten(#f9a825, 5);
+                            }
+                        }
+                        &[data-button-type="success"] {
+                            &:hover {
+                                background-color: darken(#01ad49, 5);
+                            }
+                            &:disabled {
+                                background-color: lighten(#01ad49, 5);
+                            }
+                        }
+                    }
+                }
+                div[data-container="blurry-background"] {
+                    animation-name: dark-mode-blur-anim;
+                    background: rgba(215,215,215,0.5);
+                }
             }
         }
     }

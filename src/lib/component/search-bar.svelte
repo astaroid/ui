@@ -1,7 +1,7 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte"
 
-    export let theme:"light"|"dark" = "light"
+    export let theme:"system"|"light"|"dark" = "system"
     export let width:number = 100
     export let unit:"px"|"mm"|"pt"|"cm"|"pc"|"in"|"%" = "%"
 
@@ -171,6 +171,28 @@
                 border-color: #474849;
                 input {
                     color: rgb(135, 135, 135);
+                }
+            }
+        }
+
+        @media screen and (prefers-color-scheme: dark) {
+            &[data-theme="system"] {
+                button {
+                    svg {
+                        fill: rgb(105, 105, 105);
+                    }
+                    &:hover {
+                        svg {
+                            fill: rgb(238, 236, 236);
+                        }
+                    }
+                }
+                form {
+                    background-color: #303030;
+                    border-color: #474849;
+                    input {
+                        color: rgb(135, 135, 135);
+                    }
                 }
             }
         }

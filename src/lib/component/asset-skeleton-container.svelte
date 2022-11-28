@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let theme:"light"|"dark" = "light"
+    export let theme:"system"|"light"|"dark" = "system"
 </script>
 <section data-theme={theme}>
     <div data-container="asset-container"></div>
@@ -66,6 +66,16 @@
                 border-radius: 5px;
                 background-color: rgb(236, 236, 236);
                 animation: blinking-effect 1s infinite linear;
+            }
+        }
+
+        @media screen and (prefers-color-scheme: dark) {
+            &[data-theme="system"] {
+                div[data-container="asset-container"],
+                div[data-container="asset-detail-container"] span {
+                    animation-name: dark-blinking-effect;
+                    background-color: rgb(55, 55, 55);
+                }
             }
         }
 

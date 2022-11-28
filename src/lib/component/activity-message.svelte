@@ -8,7 +8,7 @@
         "TRANSACTION_FEE_MESSAGE"|
         "PAYOUT_MESSAGE"
 
-    export let theme:"light"|"dark" = "light"
+    export let theme:"system"|"light"|"dark" = "system"
     export let width:number = 240
     export let unit:"px"|"mm"|"pt"|"cm"|"pc"|"in"|"%" = "px"
     export let message:string = String()
@@ -95,6 +95,18 @@
             main p[data-container="date"] {
                 color: rgb(190,185,185);
             } 
+        }
+
+        @media screen and (prefers-color-scheme: dark) {
+            &[data-theme="system"] {
+                color: rgb(245,245,245);
+                &:hover {
+                    background-color: rgba(101, 99, 99, 0.3);
+                }
+                main p[data-container="date"] {
+                    color: rgb(190,185,185);
+                } 
+            }
         }
         &[data-has-read="false"] {
             border-left-color: #06d6a0;

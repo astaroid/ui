@@ -20,7 +20,7 @@
         "Incorrect username format"|
         "both"
 
-    export let theme:"light"|"dark" = "light"
+    export let theme:"system"|"light"|"dark" = "system"
     export let width:number = 100
     export let unit:"px"|"mm"|"pt"|"cm"|"pc"|"in"|"%" = "%"
     export let show:boolean = true
@@ -148,15 +148,17 @@
         background-color: rgb(253, 253, 253);
         border-bottom-left-radius: 7px;
         border-bottom-right-radius: 7px;
-        &[data-theme="dark"] {
-            background-color: #212121;
-            border-style: solid;
-            border-color: #4e4c4c;
-            box-shadow: none;
-            div[data-container="policy"] span {
-                color: rgb(190, 190, 190);
-                a {
+        @media screen and (prefers-color-scheme: dark) {
+            &[data-theme="system"] {
+                background-color: #212121;
+                border-style: solid;
+                border-color: #4e4c4c;
+                box-shadow: none;
+                div[data-container="policy"] span {
                     color: rgb(190, 190, 190);
+                    a {
+                        color: rgb(190, 190, 190);
+                    }
                 }
             }
         }

@@ -12,7 +12,7 @@
         color?: string
     }
 
-    export let theme:"light"|"dark" = "light"
+    export let theme:"system"|"light"|"dark" = "system"
     export let show:boolean = false
     export let position:"fixed"|"absolute"|"relative" = "relative"
     export let placement:"start"|"center"|"end" = "start"
@@ -74,6 +74,12 @@
         &[data-theme="dark"] {
             background-color: rgb(23, 25, 25);
             border-color: #4e4c4c;
+        }
+        @media screen and (prefers-color-scheme: dark) {
+            &[data-theme="system"] {
+                background-color: rgb(23, 25, 25);
+                border-color: #4e4c4c;
+            }
         }
     }
 </style>

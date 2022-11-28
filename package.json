@@ -22,7 +22,7 @@
     "url": "https://github.com/astaroid/astaroid-ui"
   },
   "license": "MIT",
-  "author": "astaroid-team",
+  "author": "astaroid",
   "devDependencies": {
     "@babel/core": "^7.18.10",
     "@storybook/addon-actions": "^6.5.12",

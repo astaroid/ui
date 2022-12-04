@@ -1,7 +1,7 @@
 <script lang="ts">
     import LoadingSpinner from "../component/loading-spinner.svelte"
     import { clickoutside } from '@svelteuidev/composables'
-    import { createEventDispatcher } from "svelte"
+    import { createEventDispatcher, onMount } from "svelte"
     import ActivityMessage from "../component/activity-message.svelte"
     import Menu from "../component/menu.svelte"
     import Tooltip from "../component/tooltip.svelte"
@@ -140,9 +140,7 @@
     }
 
     const close = () => {
-        dispatcher("onClosed")
-        hasOpend = false
-        show = false
+        sectionElement ? sectionElement.classList.add("slide-out-anim") : void 0
     }
 
     const toggleMenu = () => {
@@ -156,8 +154,6 @@
         else 
             showMenu = true
     }
-
-    let reactiveTrigger = false
 
     const menuItemClicked = (e:CustomEvent<{ id:string }>) => {
         let id = e.detail.id
@@ -186,8 +182,9 @@
                 { type: "payout-messages" }
             )
             showPayoutMessages = !showPayoutMessages
-        } else if (id == "close-btn") 
-            show = false
+        } else if (id == "close-btn") {
+            close()
+        }
     }
 
     messages = filterMessages(unFilteredMessages)
@@ -199,6 +196,8 @@
     let showMenu = false
     let isMenuButtonClicked = false
     let menuItems:Array<MenuItemType> = menuItemsList()
+    let reactiveTrigger = false
+    let sectionElement:HTMLElement = null
 
     $: if (reactiveTrigger || !reactiveTrigger) {
         menuXPosition = sectionWidth - 192   
@@ -211,8 +210,20 @@
         messages = filterMessages(unFilteredMessages)
         menuItems = menuItemsList()
     }
+
+    onMount(() => {
+        sectionElement.classList.remove("slide-out-anim")
+        sectionElement.addEventListener("animationend", (e) => {
+            if (e.animationName.includes("slide-out")) {
+                sectionElement.classList.remove("slide-out-anim")
+                show = false
+                dispatcher("onClosed")
+                hasOpend = false
+            } 
+        })
+    })
 </script>
-<section bind:clientWidth={sectionWidth}  use:clickoutside={{ enabled: show, callback: close }} style="display: { show ? "flex" : "none" }; animation-play-state: { show ? "running" : "paused" }" data-theme={theme}>
+<section bind:this={sectionElement} bind:clientWidth={sectionWidth}  use:clickoutside={{ enabled: show, callback: close }} class="slide-out-anim slide-in-anim" style="display: { show ? "flex" : "none" }" data-theme={theme}>
     <Menu 
         theme={theme}
         x={menuXPosition}
@@ -261,11 +272,19 @@
     </main>
 </section>
 <style lang="less">
-    @keyframes show-anim {
+    @keyframes slide-in {
         from {
            right: -350px;
         }
         to {
+            right: 0;
+        }
+    }
+    @keyframes slide-out {
+        to {
+           right: -350px;
+        }
+        from {
             right: 0;
         }
     }
@@ -282,11 +301,23 @@
         border-style: solid;
         border-width: 1px;
         border-color: #e6e4e4;
-        animation-name: show-anim;
-        animation-play-state: paused;
-        animation-duration: 270ms;
-        animation-direction: normal;
-        animation-iteration-count: 1;
+        &.slide-in-anim {
+            animation-name: slide-in;
+            animation-duration: 245ms;
+            animation-direction: normal;
+            animation-iteration-count: 1;
+            animation-play-state: running;
+            right: 0;
+        }
+        &.slide-out-anim {
+            animation-name: slide-out;
+            animation-play-state: running;
+            animation-duration: 245ms;
+            animation-direction: normal;
+            animation-iteration-count: 1;
+            animation-play-state: running;
+            right: -350px;
+        }
         box-shadow: 0px 1.25px 2.4px 1.75px #f5f5f5;
         background-color: rgb(253, 253, 253);
         nav {

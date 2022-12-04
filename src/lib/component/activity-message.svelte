@@ -125,7 +125,6 @@
                 width: 100%;
                 height: auto;
                 &[data-container="message"] {
-                    margin-top: 10px;
                     font-size: 16.5px;
                     padding-bottom: 5px;
                 }

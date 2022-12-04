@@ -162,6 +162,19 @@
                 }
             }
         }
+
+        &[data-theme="dark"] {
+            background-color: #212121;
+            border-style: solid;
+            border-color: #4e4c4c;
+            box-shadow: none;
+            div[data-container="policy"] span {
+                color: rgb(190, 190, 190);
+                a {
+                    color: rgb(190, 190, 190);
+                }
+            }
+        }
         div[data-container="policy"] {
             width: calc(100% - 36px);
             margin: 0;
@@ -178,7 +191,7 @@
                 font-size: 15.5px;
                 a {
                     color: #424242;
-                    &:link {
+                   &:link {
                         outline: none;
                     }
                     &:hover {

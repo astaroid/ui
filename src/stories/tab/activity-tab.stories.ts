@@ -92,16 +92,14 @@ export default {
                     "createdAt": "now", 
                     "type": "BOUGHT_CRYSTAL_MESSAGE", 
                     "id": "123", 
-                    "message": 
-                    "Crystal bought for 34 coins" 
+                    "message": `Crystal bought for <img src="/coin.png" style="width: 26px; margin-bottom: -6px; margin-right: -3px"> 34`
                 },
                 { 
                     "read": true, 
                     "createdAt": "now", 
                     "type": "SOLD_ASSET_MESSAGE", 
                     "id": "133", 
-                    "message": 
-                    "Asset sold" 
+                    "message": "Asset sold" 
                 }
             ]
         },

@@ -66,10 +66,10 @@
             return (coin/1000000000).toFixed(3).concat("B")
         } else if (coin >= 1000000 && coin < 1000000000) {
             return (coin/1000000).toFixed(3).concat("M")
-        } else if (coin >= 100000 && coin < 1000000) {
+        } else if (coin >= 10000 && coin < 1000000) {
             return (coin/1000).toFixed(2).concat("K")
         } else {
-            return coin.toFixed(2)
+            return coin.toFixed()
         }
     }
 

@@ -45,7 +45,7 @@
         {
             type: "item",
             id: "bought-crystal-message-btn",
-            text: `${showBoughtCrystalMessages ? "Hide" : "Show"} all bought crystal messages`,
+            text: `${showBoughtCrystalMessages ? "Hide" : "Show"} all Bought Crystal Messages`,
             "icon data": showBoughtCrystalMessages ? `<svg xmlns="http://www.w3.org/2000/svg" style="width: 18.5px; height: 18.5px; fill: ${theme == "light" ? "#303030" : "#c1c2bd"}" viewBox="0 0 16 16">
                 <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"/>
                 <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"/>
@@ -58,7 +58,7 @@
         {
             type: "item",
             id: "sold-asset-messages-btn",
-            text: `${showSoldAssetMessages ? "Hide" : "Show"} all sold asset messages`,
+            text: `${showSoldAssetMessages ? "Hide" : "Show"} all Sold Asset Messages`,
             "icon data": showSoldAssetMessages ? `<svg xmlns="http://www.w3.org/2000/svg" style="width: 18.5px; height: 18.5px; fill: ${theme == "light" ? "#303030" : "#c1c2bd"}" viewBox="0 0 16 16">
                 <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"/>
                 <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"/>
@@ -71,7 +71,7 @@
         {
             type: "item",
             id: "transaction-fee-messages-btn",
-            text: `${showTransactionFeeMessages ? "Hide" : "Show"} all transaction fee messages`,
+            text: `${showTransactionFeeMessages ? "Hide" : "Show"} all Transaction Fee Messages`,
             "icon data": showTransactionFeeMessages ? `<svg xmlns="http://www.w3.org/2000/svg" style="width: 18.5px; height: 18.5px; fill: ${theme == "light" ? "#303030" : "#c1c2bd"}" viewBox="0 0 16 16">
                 <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"/>
                 <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"/>
@@ -84,7 +84,7 @@
         {
             type: "item",
             id: "payout-messages-btn",
-            text: `${showPayoutMessages ? "Hide" : "Show"} all payout messages`,
+            text: `${showPayoutMessages ? "Hide" : "Show"} all Payout Messages`,
             "icon data": showPayoutMessages ? `<svg xmlns="http://www.w3.org/2000/svg" style="width: 18.5px; height: 18.5px; fill: ${theme == "light" ? "#303030" : "#c1c2bd"}" viewBox="0 0 16 16">
                 <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"/>
                 <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"/>
@@ -101,7 +101,7 @@
         {
             id: "close-btn",
             type: "item",
-            text: "Close activity tab",
+            text: "Close Activity Tab",
             color: "#f03e3e",
             "icon data": `<svg xmlns="http://www.w3.org/2000/svg" style="fill: #f03e3e; width: 13.25px; height: 13.25px" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"/>

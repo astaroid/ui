@@ -147,7 +147,7 @@
                 width: calc(50% - 15px);
                 border-width: 0;
                 border-style: solid;
-                font-size: 25.25px;
+                font-size: 24px;
                 font-family: Poppins, sans-serif;
             }
             button {
@@ -278,7 +278,7 @@
             
             div[data-container="asset-detail-container"] {
                 span {
-                    font-size: 27px;
+                    font-size: 25px;
                 }
                 button {
                     height: 44.75px;

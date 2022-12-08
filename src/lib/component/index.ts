@@ -19,6 +19,7 @@ import AssetSkeletonContainer from "./asset-skeleton-container.svelte"
 import AssetMergeButton from "./asset-merge-button.svelte"
 import AssetContainer from "./asset-container.svelte"
 import CrystalContainer from "./crystal-container.svelte"
+import UserCard from "./user-card.svelte"
 
 export default {
     AssetMergeButton,
@@ -41,5 +42,6 @@ export default {
     CrystalSkeletonContainer,
     AssetSkeletonContainer,
     AssetContainer,
-    CrystalContainer
+    CrystalContainer,
+    UserCard
 }

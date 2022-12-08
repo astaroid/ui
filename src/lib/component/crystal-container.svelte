@@ -17,7 +17,7 @@
             return (value/1000000000).toFixed(3).concat("B")
         } else if (value >= 1000000 && value < 1000000000) {
             return (value/1000000).toFixed(3).concat("M")
-        } else if (value >= 1000 && value < 1000000) {
+        } else if (value >= 10000 && value < 1000000) {
             return (value/1000).toFixed(2).concat("K")
         } else {
             return value.toFixed()

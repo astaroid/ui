@@ -65,7 +65,13 @@
             span {
                 margin-left: 8.75px;
                 width: 90%;
-            }  
+                margin-top: 3px;
+            }
+            &:has(button) {
+                span {
+                    margin-top: 0;
+                }
+            }
             &:hover {
                 background-color: #f3f3f3;
             }

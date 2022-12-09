@@ -53,6 +53,12 @@ export default {
             defaultValue: 0,
             control: { type: "number" }
         },
+        verified: {
+            type: { name: "boolean" },
+            defaultValue: false,
+            description: "If true user email is verified",
+            control: { type: "boolean" }
+        }
     }
 }
 

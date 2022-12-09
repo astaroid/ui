@@ -1,8 +1,8 @@
-import AssetMergeButton from "../../lib/component/asset-merge-button.svelte"
+import AssetForageButton from "../../lib/component/asset-forge-button.svelte"
 
 export default {
-    title: "Component/Asset component/Asset Merge Button",
-    component: AssetMergeButton,
+    title: "Component/Asset component/Asset Forage Button",
+    component: AssetForageButton,
     parameters: {
         backgrounds: {
             default: "light",
@@ -54,7 +54,7 @@ export default {
 }
 
 const Template = (args:any) => ({
-    Component: AssetMergeButton,
+    Component: AssetForageButton,
     props: args,
     on: {
         onStartMerge: args.onStartMerge,

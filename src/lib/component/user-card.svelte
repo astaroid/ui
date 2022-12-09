@@ -5,8 +5,8 @@
     export let email:string
     export let username:string
     export let profileImage:string = "/default_profile_blank.jpg"
-    export let coinsNumber:number = 0
-    export let assetsNumber:number = 0
+    export let coin:number = 0
+    export let assetCount:number = 0
     export let verified:boolean = false
 
     const format = (value:number): string => {
@@ -30,16 +30,16 @@
         <p data-text="email">{email}</p>
     </Tooltip>
     <div data-container="record">
-        <Tooltip position="bottom" theme={theme} label="Coin{ coinsNumber > 1 ? "s" : String() }">
+        <Tooltip position="bottom" theme={theme} label="Coin{ coin > 1 ? "s" : String() }">
             <div data-container="record-item">
                 <img src="/coin.png" alt="">
-                <p>{format(coinsNumber)}</p>
+                <p>{format(coin)}</p>
             </div>
         </Tooltip>
         <Tooltip position="bottom" theme={theme} label="Asset volume">
             <div data-container="record-item">
                 <img src="/crystal.png" alt="">
-                <p>{format(assetsNumber)}</p>
+                <p>{format(assetCount)}</p>
             </div>
         </Tooltip>
         

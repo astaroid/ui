@@ -41,13 +41,13 @@ export default {
             defaultValue: "/default_profile_blank.jpg",
             control: { type: "text" }
         },
-        coinsNumber: {
+        coin: {
             type: { name: "number" },
             description: "The user total coins",
             defaultValue: 0,
             control: { type: "number" }
         },
-        assetsNumber: {
+        assetCount: {
             type: { name: "number" },
             description: "The user total assets",
             defaultValue: 0,

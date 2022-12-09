@@ -45,11 +45,11 @@ export default {
             control: { type: "number" },
             description: "The price of the crystal"
         },
-        rarest: {
+        unique: {
             type: { name: "number", required: true },
             defaultValue: 0,
             control: { type: "number" },
-            description: "The rarest rate of the crystal"
+            description: "The unique rate of the crystal"
         },
         volume: {
             type: { name: "number", required: true },

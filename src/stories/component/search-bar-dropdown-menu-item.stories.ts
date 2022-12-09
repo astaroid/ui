@@ -43,7 +43,7 @@ export default {
             defaultValue: "color",
             control: {
                 type: "select",
-                options: ["color", "volume", "price", "rarest"]
+                options: ["color", "volume", "price", "unique"]
             }
         },
         selected: {

@@ -5,7 +5,7 @@
 
     interface SearchBarDropdownMenuItemType {
         theme: "system"|"light"|"dark"
-        searchBy: "volume"|"price"|"color"|"rarest"
+        searchBy: "volume"|"price"|"color"|"unique"
         searchValue: string|number
         selected: boolean
     }
@@ -47,7 +47,7 @@
                     },
                     {
                         theme,
-                        searchBy: "rarest",
+                        searchBy: "unique",
                         selected: false,
                         searchValue: parseFloat(searchValue.match(numRegExp).join(String()))
                     }

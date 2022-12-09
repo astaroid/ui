@@ -7,7 +7,7 @@
     export let id:string = "00000000-0000-0000-0000-000000000000"
     export let color:string = "red"
     export let volume:number = 0
-    export let rarest:number = 0
+    export let unique:number = 0
     export let price:number = 10
     export let disabled:boolean = false
     export let showLabels:boolean = false
@@ -27,14 +27,14 @@
     const formatColor = () => {
         if (colorFormatType == "keyword") {
             colorFormatType = "rgb"
-            formatedColor = new Color(color).keyword() 
+            formattedColor = new Color(color).keyword() 
         } else if (colorFormatType == "rgb") {
             colorFormatType = "hex"
             let c = new Color(color)
-            formatedColor = `rgba(${c.red()}, ${c.green()}, ${c.blue()}, ${c.alpha()})`
+            formattedColor = `rgba(${c.red()}, ${c.green()}, ${c.blue()}, ${c.alpha()})`
         } else if (colorFormatType == "hex") {
             colorFormatType = "keyword"
-            formatedColor = new Color(color).hex()
+            formattedColor = new Color(color).hex()
         }
     }
 
@@ -42,14 +42,14 @@
 
     let colorFormatType:"keyword"|"hex"|"rgb" = "rgb"
 
-    let formatedColor = new Color(color).keyword()
+    let formattedColor = new Color(color).keyword()
 </script>
 <section data-theme={theme}>
     <div data-container="crystal-container">
         <Tooltip show={showLabels} position="bottom" theme={theme} label="Crystal color">
             <div on:click={formatColor} data-container="color-container">
                 <button style="background-color: {color};"></button>
-                <span style="text-transform: {colorFormatType == "rgb" ? "capitalize": "none"};">{formatedColor}</span>
+                <span style="text-transform: {colorFormatType == "rgb" ? "capitalize": "none"};">{formattedColor}</span>
             </div>
         </Tooltip>
         <div data-container="crystal-image"></div>
@@ -58,8 +58,8 @@
         <Tooltip show={showLabels} position="bottom" theme={theme} label="Crystal volume">
             <span data-text="crystal-volume">#{format(volume)}</span>
         </Tooltip>
-        <Tooltip show={showLabels} position="bottom" theme={theme} label="Crystal rarest rate">
-            <span style="color: { parseFloat(format(rarest)) < 50 ? "rgb(240, 40, 0)" : "#06c694" }" data-text="crystal-rarest">{format(rarest)}%</span>
+        <Tooltip show={showLabels} position="bottom" theme={theme} label="Crystal unique rate">
+            <span style="color: { parseFloat(format(unique)) < 50 ? "rgb(240, 40, 0)" : "#06c694" }" data-text="crystal-unique">{format(unique)}%</span>
         </Tooltip>
     </div>
         <button on:click={() => dispatcher("onBuy", { id, price }) } disabled={disabled}>
@@ -142,7 +142,7 @@
                 border-style: solid;
                 font-size: 22px;
                 font-family: Poppins, sans-serif;
-                &[data-text="crystal-rarest"] {
+                &[data-text="crystal-unique"] {
                     color: #06c694;
                 }
             }

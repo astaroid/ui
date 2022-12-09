@@ -5,6 +5,7 @@
     export let profileImage:string = "/default_profile_blank.jpg"
     export let coinsNumber:number = 0
     export let assetsNumber:number = 0
+    export let verified:boolean = false
 
     const format = (value:number): string => {
         if (value >= 1000000000) {

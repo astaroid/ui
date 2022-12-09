@@ -36,7 +36,7 @@
                 <p>{format(coin)}</p>
             </div>
         </Tooltip>
-        <Tooltip position="bottom" theme={theme} label="Asset volume">
+        <Tooltip position="bottom" theme={theme} label="Asset{ assetCount > 1 ? "s" : String() }">
             <div data-container="record-item">
                 <img src="/crystal.png" alt="">
                 <p>{format(assetCount)}</p>

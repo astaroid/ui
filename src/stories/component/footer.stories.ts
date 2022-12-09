@@ -16,7 +16,7 @@ export default {
     argTypes: {
         links: {
             type: { required: true },
-            description: "The Javascript object of all links of the footer component",
+            description: "The Javascript object of all links in the footer component",
             control: {
                 type: "object"
             },
@@ -28,7 +28,7 @@ export default {
                 company: {
                     about: "[string]",
                     blog: "[string]",
-                    careers: "[string]"
+                    // careers: "[string]"
                 },
                 contact: {
                     github: "[string]",

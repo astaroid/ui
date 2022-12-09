@@ -6,7 +6,7 @@
         }
         company: {
             blog: string
-            careers: string
+            // careers: string
             about: string
         }
         contact: {
@@ -21,25 +21,7 @@
     export let theme:"system"|"light"|"dark" = "system"
     export let width:number = 100
     export let unit:"px"|"mm"|"pt"|"cm"|"pc"|"in"|"%" = "%"
-    export let links:FooterLinks = {
-        product: {
-            crystal: "[string]",
-            coin: "[string]"
-        },
-        company: {
-            about: "[string]",
-            blog: "[string]",
-            careers: "[string]"
-        },
-        contact: {
-            github: "[string]",
-            twitter: "[string]"
-        },
-        legal: {
-            termsOfService: "[string]",
-            privacyPolicy: "[string]"
-        }
-    }
+    export let links:FooterLinks
 </script>
 <footer style="width: {`${width}${unit}`}" data-theme={theme}>
     <main data-container="inner-container">
@@ -62,9 +44,9 @@
                 <a target="	_blank" href={links.company.about} data-text="item">
                     about
                 </a>
-                <a target="	_blank" href={links.company.careers} data-text="item">
+                <!-- <a target="	_blank" href={links.company.careers} data-text="item">
                     careers
-                </a>
+                </a> -->
                 <a target="	_blank" href={links.company.blog} data-text="item">
                     blog
                 </a>

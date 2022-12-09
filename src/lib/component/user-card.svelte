@@ -33,6 +33,9 @@
             <p>{format(assetsNumber)}</p>
         </div>
     </div>
+    <button data-container="verify-indicator" data-verified={verified}>
+        Not Verified
+    </button>
 </section>
 <style lang="less">
     section {
@@ -96,6 +99,23 @@
             
 
         }
+        button[data-container="verify-indicator"] {
+            margin-top: 8.75px;
+            outline: none;
+            background-color: transparent;
+            border-style: solid;
+            border-width: 1px;
+            padding-block: 6px;
+            padding-inline: 12px;
+            border-radius: 15px;
+            border-color: #f9a825;
+            color: #f9a825;
+            font-size: 13.5px;
+            display: none;
+            &[data-verified="false"] {
+                display: block;
+            }
+        }
         &[data-theme="dark"] {
             img[data-image="profile-image"] {
                 border-color: #4e4c4c;
@@ -147,6 +167,9 @@
                     height: 20px;
                 }
             }
+            button[data-container="verify-indicator"] {
+                font-size: 11.5px;
+            }
         }
         @media screen and (min-width: 320px) {
             img[data-image="profile-image"] {
@@ -169,6 +192,9 @@
                     height: 22px;
                 }
             }
+            button[data-container="verify-indicator"] {
+                font-size: 12.5px;
+            }
         }
         @media screen and (min-width: 600px) {
             img[data-image="profile-image"] {
@@ -190,6 +216,9 @@
                     width: 23px;
                     height: 23px;
                 }
+            }
+            button[data-container="verify-indicator"] {
+                font-size: 13.5px;
             }
         }
     }

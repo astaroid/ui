@@ -15,7 +15,7 @@
         }
     }
 </script>
-<section data-container="wapper">
+<section data-container="wrapper">
     <main data-theme={theme}>
         <button style="animation-play-state: { mode == "active" ? "running" : "paused" }" on:click={() => dispatcher("onCancelMerge")} data-button="exit-button">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" >
@@ -46,7 +46,7 @@
             transform: scale(1);
         }
     }
-    section[data-container="wapper"] {
+    section[data-container="wrapper"] {
         position: sticky;
         bottom: 0;
         padding: 0 0 0 0;

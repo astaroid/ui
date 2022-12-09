@@ -1,4 +1,6 @@
 <script lang="ts">
+    import Tooltip from "../component/tooltip.svelte"
+    
     export let theme:"system"|"light"|"dark" = "system"
     export let email:string
     export let username:string
@@ -21,17 +23,26 @@
 </script>
 <section data-theme={theme}>
     <img data-image="profile-image" src={profileImage} alt="">
-    <p data-text="username">{username}</p>
-    <p data-text="email">{email}</p>
+    <Tooltip position="bottom" theme={theme} label="Username">
+        <p data-text="username">{username}</p>
+    </Tooltip>
+    <Tooltip position="bottom" theme={theme} label="Email">
+        <p data-text="email">{email}</p>
+    </Tooltip>
     <div data-container="record">
-        <div data-container="record-item">
-            <img src="/coin.png" alt="">
-            <p>{format(coinsNumber)}</p>
-        </div>
-        <div data-container="record-item">
-            <img src="/crystal.png" alt="">
-            <p>{format(assetsNumber)}</p>
-        </div>
+        <Tooltip position="bottom" theme={theme} label="Coin{ coinsNumber > 1 ? "s" : String() }">
+            <div data-container="record-item">
+                <img src="/coin.png" alt="">
+                <p>{format(coinsNumber)}</p>
+            </div>
+        </Tooltip>
+        <Tooltip position="bottom" theme={theme} label="Asset volume">
+            <div data-container="record-item">
+                <img src="/crystal.png" alt="">
+                <p>{format(assetsNumber)}</p>
+            </div>
+        </Tooltip>
+        
     </div>
     <button data-container="verify-indicator" data-verified={verified}>
         Not Verified

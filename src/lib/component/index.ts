@@ -21,6 +21,7 @@ import AssetContainer from "./asset-container.svelte"
 import CrystalContainer from "./crystal-container.svelte"
 import UserCard from "./user-card.svelte"
 import CrystalFilterButton from "./crystal-filter-button.svelte"
+import SwitchInput from "./switch-input.svelte"
 
 export default {
     AssetForageButton,
@@ -45,5 +46,6 @@ export default {
     AssetContainer,
     CrystalContainer,
     UserCard,
-    CrystalFilterButton
+    CrystalFilterButton,
+    SwitchInput
 }

@@ -13,15 +13,15 @@
     const overrideStyle = { 
         "&": { 
             backgroundColor: theme == "light" ? "#e9ecef" : "rgb(74, 74, 74)",
-            borderColor: theme == "light" ? "#e9ecef" : "rgb(74, 74, 74)"
+            borderColor: theme == "light" ? "#dee2e6" : "rgb(94, 94, 94)"
         },
         "&::after": {
             backgroundColor: theme == "light" ? "white" : "rgb(36, 38, 38)",
-            borderColor: theme == "light" ? "white" : "rgb(36, 38, 38)"
+            borderColor: theme == "light" ? "#dee2e6" : "rgb(84, 84, 84)"
         },
         "&::before": {
             backgroundColor: theme == "light" ? "white" : "rgb(36, 38, 38)",
-            borderColor: theme == "light" ? "white" : "rgb(36, 38, 38)"
+            borderColor: theme == "light" ? "#dee2e6" : "rgb(84, 84, 84)"
         },
         "&:checked": {
             backgroundColor: formattedColor.hex(),
@@ -29,11 +29,11 @@
         },
         "&:checked::after": {
             backgroundColor: theme == "light" ? "white" : "rgb(36, 38, 38)",
-            borderColor: theme == "light" ? "white" : "rgb(36, 38, 38)"
+            borderColor: theme == "light" ? "#dee2e6" : "rgb(84, 84, 84)"
         },
         "&:checked::before": {
             backgroundColor: theme == "light" ? "white" : "rgb(36, 38, 38)",
-            borderColor: theme == "light" ? "white" : "rgb(36, 38, 38)"
+            borderColor: theme == "light" ? "#dee2e6" : "rgb(84, 84, 84)"
         },
     }
 
@@ -41,23 +41,23 @@
         overrideStyle['@media screen and (prefers-color-scheme: dark)'] = {
             "&": { 
                 backgroundColor: "rgb(74, 74, 74)",
-                borderColor: "rgb(74, 74, 74)"
+                borderColor: "rgb(94, 94, 94)"
             },
             "&::after": {
                 backgroundColor: "rgb(36, 38, 38)",
-                borderColor: "rgb(36, 38, 38)"
+                borderColor: "rgb(84, 84, 84)"
             },
             "&::before": {
                 backgroundColor: "rgb(36, 38, 38)",
-                borderColor: "rgb(36, 38, 38)"
+                borderColor: "rgb(84, 84, 84)"
             },
             "&:checked::after": {
                 backgroundColor: "rgb(36, 38, 38)",
-                borderColor: "rgb(36, 38, 38)"
+                borderColor: "rgb(84, 84, 84)"
             },
             "&:checked::before": {
                 backgroundColor: "rgb(36, 38, 38)",
-                borderColor: "rgb(36, 38, 38)"
+                borderColor: "rgb(84, 84, 84)"
             }
         }
     } else {

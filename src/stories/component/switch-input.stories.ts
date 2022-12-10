@@ -46,10 +46,7 @@ export default {
 
 const Template  = (args:any) => ({
     Component: SwitchInput,
-    props: args,
-    on: {
-        onInput: args.onInput
-    }
+    props: args
 })
 
 export const Input = Template.bind({})

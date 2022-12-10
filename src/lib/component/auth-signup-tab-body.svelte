@@ -1,5 +1,5 @@
 <script lang="ts">
-    import AuthInput from "./auth-input.svelte"
+    import TextInput from "./text-input.svelte"
     import { createEventDispatcher } from "svelte"
     import { Checkbox } from "@svelteuidev/core"
     import { Circle } from "svelte-loading-spinners"
@@ -89,7 +89,7 @@
     } 
 </script>
 <section style="width: {`${width}${unit}`}; display: { show ? "block" : "none" }" data-theme={theme}>
-    <AuthInput 
+    <TextInput 
         bind:theme={theme} 
         placeholder="Email"
         type="text"
@@ -99,7 +99,7 @@
             email = e.detail.inputValue
         }}
     />
-    <AuthInput 
+    <TextInput 
         bind:theme={theme} 
         placeholder="Username"
         type="text"
@@ -109,7 +109,7 @@
             username = e.detail.inputValue
         }}
     />
-    <AuthInput 
+    <TextInput 
         bind:theme={theme} 
         placeholder="Password"
         type="password"

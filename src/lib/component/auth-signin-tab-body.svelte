@@ -1,5 +1,5 @@
 <script lang="ts">
-    import AuthInput from "./auth-input.svelte"
+    import TextInput from "./text-input.svelte"
     import { createEventDispatcher } from "svelte"
     import { Circle } from "svelte-loading-spinners"
 
@@ -44,7 +44,7 @@
     let usernameOrEmail:string = String()
 </script>
 <section style="width: {`${width}${unit}`}; display: { show ? "block" : "none" }" data-theme={theme}>
-    <AuthInput 
+    <TextInput 
         bind:theme={theme} 
         placeholder="Username or email"
         type="text"
@@ -54,7 +54,7 @@
             usernameOrEmail = e.detail.inputValue
         }}
     />
-    <AuthInput 
+    <TextInput 
         bind:theme={theme} 
         placeholder="Password"
         type="password"

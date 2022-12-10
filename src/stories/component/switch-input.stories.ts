@@ -25,7 +25,7 @@ export default {
         },
         color: {
             type: { name: "string" },
-            defaultValue: "green",
+            defaultValue: "#228be6",
             control: { type: "color" },
             description: "The color of the switch input"
         },

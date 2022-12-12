@@ -23,6 +23,8 @@ import UserCard from "./user-card.svelte"
 import CrystalFilterButton from "./crystal-filter-button.svelte"
 import SwitchInput from "./switch-input.svelte"
 import CheckboxInput from "./checkbox-input.svelte"
+import SelectInput from "./select-input.svelte"
+import SelectInputMenu from "./select-input-menu.svelte"
 
 export default {
     AssetForageButton,
@@ -49,5 +51,7 @@ export default {
     UserCard,
     CrystalFilterButton,
     SwitchInput,
-    CheckboxInput
+    CheckboxInput,
+    SelectInput,
+    SelectInputMenu
 }

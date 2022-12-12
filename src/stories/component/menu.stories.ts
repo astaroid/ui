@@ -22,7 +22,6 @@ export default {
             description: "The event emitter when a menu item is clicked"
         },
         menuItems: {
-            name: "menu items",
             description: "The list of the menu items",
             control: {
                 type: "object"
@@ -68,7 +67,7 @@ export default {
         },
         position: {
             type: { required: true, name: "string" },
-            description: "The theme of the component",
+            description: "The type of CSS position of the component",
             defaultValue: "relative",
             control: {
                 type: "select",

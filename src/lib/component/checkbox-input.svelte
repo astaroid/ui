@@ -77,4 +77,4 @@
 
     let size:"lg"|"md"|"sm"|"xl"|"xs" = "sm"
 </script>
-<Checkbox disabled={disabled} override={overrideStyle} size={size} label={label} checked={checked} />
+<Checkbox disabled={disabled} override={overrideStyle} size={size} label={label} bind:checked={checked} />

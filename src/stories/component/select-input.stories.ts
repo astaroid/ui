@@ -13,6 +13,10 @@ export default {
         },
     },
     argTypes: {
+        onInput: {
+            action: "onInput", 
+            description: "The event emitter when a select item value is picked"
+        },
         theme: {
             type: { required: true, name: "string" },
             description: "The theme of the component",
@@ -72,7 +76,10 @@ export default {
 
 const Template  = (args:any) => ({
     Component: SelectInput,
-    props: args
+    props: args,
+    on: {
+        onInput: args.onInput
+    }
 })
 
 export const Input = Template.bind({})

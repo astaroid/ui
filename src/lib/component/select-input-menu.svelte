@@ -13,7 +13,7 @@
 
     const dispatcher = createEventDispatcher()
 </script>
-<section bind:clientHeight={menuHeight} data-theme={theme} use:clickoutside={{ enabled: show, callback: () => dispatcher("onClickOutside") }} style="width: {width}{unit}; top: {y}px; left: {x}px; visibility: { show ? "visible" : "hidden" }">
+<section bind:clientHeight={menuHeight} data-theme={theme} use:clickoutside={{ enabled: show, callback: () => dispatcher("onClickOutside") }} style="width: calc({width}{unit} - 2px); top: {y}px; left: {x}px; visibility: { show ? "visible" : "hidden" }">
     {#each options as option, index }
         <p on:pointerdown={() => dispatcher("onSelect", { option })}>{option}</p>
     {/each}

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { clickoutside } from "@svelteuidev/composables"
-    import { onMount } from "svelte";
+    import { onMount, createEventDispatcher } from "svelte"
     import SelectInputMenu from "./select-input-menu.svelte"
 
     export let theme:"system"|"light"|"dark" = "system"
@@ -11,12 +11,15 @@
     export let disabled:boolean = false
     export let value:string = String()
 
+    const dispatcher = createEventDispatcher()
+
     const onClick = () => {
         if (sectionElement && window) {
-            menuXPosition = sectionElement.getBoundingClientRect().x
-            menuYPosition = sectionElement.getBoundingClientRect().y + selectHeight + 5 /*Padding top*/
+            menuWidth = sectionElement.clientWidth
+            menuXPosition = sectionElement.clientLeft - 2 /*Margin left*/
+            menuYPosition = sectionElement.clientTop + selectHeight + 3 /*Margin top*/
             if (menuYPosition + menuHeight >= window.innerHeight) {
-                menuYPosition -= (menuHeight + selectHeight + 10 /*Padding top*/) 
+                menuYPosition -= (menuHeight + selectHeight + 13 /*Padding top*/) 
             }
         }
         if (!disabled) {
@@ -35,22 +38,25 @@
     const onSelect = (ev:CustomEvent<{option: string}>) => {
         showMenu = false
         value = ev.detail.option
+        dispatcher("onInput", { value })
     }
 
     let showMenu = false
     let isMenuButtonClicked = false
     let menuXPosition = 0
     let menuYPosition = 0
+    let menuWidth = width
     let menuHeight = 50
     let selectHeight = 0
     let sectionElement:HTMLElement = null
 
     onMount(() => {
         if (sectionElement && window) {
-            menuXPosition = sectionElement.getBoundingClientRect().x
-            menuYPosition = sectionElement.getBoundingClientRect().y + selectHeight + 5 /*Padding top*/
+            menuWidth = sectionElement.clientWidth
+            menuXPosition = sectionElement.clientLeft - 2 /*Margin left*/
+            menuYPosition = sectionElement.clientTop + selectHeight + 3 /*Margin top*/
             if (menuYPosition + menuHeight >= window.innerHeight) {
-                menuYPosition -= (menuHeight + selectHeight + 10 /*Padding top*/) 
+                menuYPosition -= (menuHeight + selectHeight + 13 /*Padding top*/) 
             }
         }
     })
@@ -60,18 +66,18 @@
     <svg data-to-select="{showMenu}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
     </svg>
+    <SelectInputMenu 
+        show={showMenu} 
+        options={options} 
+        theme={theme} 
+        width={menuWidth}
+        unit="px"
+        x={menuXPosition} 
+        y={menuYPosition}
+        bind:menuHeight={menuHeight}
+        on:onSelect={onSelect}
+        on:onClickOutside={clickedOutsideMenu}/>
 </section>
-<SelectInputMenu 
-    show={showMenu} 
-    options={options} 
-    theme={theme} 
-    width={width}
-    unit={unit}
-    x={menuXPosition} 
-    y={menuYPosition}
-    bind:menuHeight={menuHeight}
-    on:onSelect={onSelect}
-    on:onClickOutside={clickedOutsideMenu} />
 <style lang="less">
     section {
         padding-inline: 11px;
@@ -80,7 +86,7 @@
         border-width: 1px;
         border-radius: 3px;
         border-color: #dee2e6;
-        background-color: #e9ecef;
+        background-color: rgb(243, 243, 243);
         height: 18px;
         display: flex;
         align-items: center;
@@ -89,13 +95,14 @@
         p {
             padding: 0 0 0 0;
             margin: 0 0 0 0;
-            height: 100%;
             font-family: Poppins, 'Segoe UI', Tahoma, sans-serif;
             font-size: 15.76px;
-            display: flex;
-            align-items: center;
             color: #1f2323;
             width: calc(100% - 22px);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: fit-content;
             &[data-has-value="false"] {
                 color: lighten(#1f2323, 35);
             }
@@ -168,23 +175,23 @@
             }
         }
         @media screen and (min-width: 280px) {
-            height: 21px;
+            height: 19px;
             p {
-                font-size: 18px;
+                font-size: 16.86px;
             }
             svg {
-                height: 19px;
-                width: 19px;
+                height: 18.8px;
+                width: 18.8px;
             }
         }
         @media screen and (min-width: 320px) {
-            height: 22px;
+            height: 18.7px;
             p {
-                font-size: 19.25px;
+                font-size: 16.25px;
             }
             svg {
-                height: 20px;
-                width: 20px;
+                height: 18px;
+                width: 18px;
             }
         }
         @media screen and (min-width: 600px) {

@@ -55,7 +55,7 @@
 </section>
 <style lang="less">
     section {
-        background-color: #fafafa;
+        background-color: #fdfdfd;
         position: relative;
         font-family: Arial, Helvetica, sans-serif;
         height: auto;

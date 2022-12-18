@@ -66,11 +66,11 @@ export default {
             control: { type: "number" },
             description: "The position of the menu on the x-axis",
         },
-        menuHeight: {
+        height: {
             defaultValue: 50,
             type: { name: "number" },
             control: { type: "number" },
-            description: "The minium height of the menu",
+            description: "The height of the menu",
         }
     }
 }

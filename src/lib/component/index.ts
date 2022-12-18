@@ -25,6 +25,8 @@ import SwitchInput from "./switch-input.svelte"
 import CheckboxInput from "./checkbox-input.svelte"
 import SelectInput from "./select-input.svelte"
 import SelectInputMenu from "./select-input-menu.svelte"
+import AccountSection from "./account-section.svelte"
+import AccountSectionItem from "./account-section-item.svelte"
 
 export default {
     AssetForageButton,
@@ -53,5 +55,7 @@ export default {
     SwitchInput,
     CheckboxInput,
     SelectInput,
-    SelectInputMenu
+    SelectInputMenu,
+    AccountSection,
+    AccountSectionItem
 }

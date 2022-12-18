@@ -73,12 +73,12 @@
                 }
             }
             &:hover {
-                background-color: #f3f3f3;
+                background-color: #f4f4f4;
             }
             &[data-theme="dark"] {
                 color: #c1c2bd;
                 &:hover {
-                    background-color: rgb(38, 40, 40);
+                    background-color: #242626;
                 }
             }
         }
@@ -109,7 +109,7 @@
                 &[data-theme="system"] {
                     color: #c1c2bd;
                     &:hover {
-                        background-color: rgb(38, 40, 40);
+                        background-color: #242626;
                     }
                 }
             }

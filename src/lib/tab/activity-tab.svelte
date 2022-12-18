@@ -6,16 +6,16 @@
     import Menu from "../component/menu.svelte"
     import Tooltip from "../component/tooltip.svelte"
 
-    type ActivtyMessageType = "SOLD_ASSET_MESSAGE"|
+    type ActivityMessageType = "SOLD_ASSET_MESSAGE"|
         "BOUGHT_CRYSTAL_MESSAGE"|
         "TRANSACTION_FEE_MESSAGE"|
         "PAYOUT_MESSAGE"
 
-    interface ActivtyMessage {
+    interface ActivityMessage {
         id: string
         read: boolean
         createdAt: string
-        type: ActivtyMessageType
+        type: ActivityMessageType
         message: string
     } 
 
@@ -35,7 +35,7 @@
     export let showTransactionFeeMessages = true
     export let showSoldAssetMessages = true
     export let showBoughtCrystalMessages = true
-    export let messages:Array<ActivtyMessage> = Array<ActivtyMessage>()
+    export let messages:Array<ActivityMessage> = Array<ActivityMessage>()
     
     const dispatcher = createEventDispatcher()
 
@@ -106,7 +106,7 @@
         }
     ])
 
-    const filterMessages = (messages:Array<ActivtyMessage>):Array<ActivtyMessage> => {
+    const filterMessages = (messages:Array<ActivityMessage>):Array<ActivityMessage> => {
         messages = messages
         .filter(message => {
             if (!showBoughtCrystalMessages)
@@ -199,7 +199,7 @@
     $: if (reactiveTrigger || !reactiveTrigger) {
         menuXPosition = sectionWidth - 192   
         if (!Array.isArray(messages))
-            messages = Array<ActivtyMessage>()
+            messages = Array<ActivityMessage>()
         if (show && !hasOpened) {
             dispatcher("onOpened")
             hasOpened = true

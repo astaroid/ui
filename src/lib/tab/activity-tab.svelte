@@ -326,7 +326,7 @@
             right: -350px;
         }
         box-shadow: 0px 1.25px 2.4px 1.75px #f5f5f5;
-        background-color: rgb(253, 253, 253);
+        background-color: #fefeff;
         nav {
             font-weight: bold;
             color: #303030;
@@ -343,7 +343,7 @@
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
-            background-color: #f5f5f5;
+            background-color: #fafafa;
             border-color: #e6e4e4;
             button {
                 border: solid;
@@ -378,10 +378,15 @@
             scrollbar-gutter: stable both-edge;
             height: calc(100% - 50px);
             &::-webkit-scrollbar {
-                width: 8px;
+                width: 11.25px;
+                background-color: #f7f7f7;
+                border-style: solid;
+                border-width: 1px;
+                border-color: #dadada;
+                border-block-width: 0px;
             }
             &::-webkit-scrollbar-thumb {
-                background-color: rgba(187, 187, 179, 0.5);
+                background-color: #d7d7d7b3;
             }
             div[data-container="center"] {
                 width: 100%;
@@ -406,12 +411,12 @@
 
         }
         &[data-theme="dark"] {
-            background-color: #212121;
+            background-color: #1e1e1e;
             border-style: solid;
             border-color: #4e4c4c;
             box-shadow: none;
             nav {
-                background-color: rgb(25, 25, 25);
+                background-color: #161616;
                 border-color: #4e4c4c;
                 color: rgb(253, 253, 253);
                 button {
@@ -435,20 +440,24 @@
                         color: rgb(97, 97, 97);
                     }
                 }
+                &::-webkit-scrollbar {
+                    background-color: rgb(50, 50, 50);
+                    border-color: rgb(78, 78, 78);
+                }
                 &::-webkit-scrollbar-thumb {
-                    background-color: rgb(82, 82, 82);
+                    background-color: rgb(86, 86, 86);
                 }
             }
             
         }
         @media screen and (prefers-color-scheme: dark) {
             &[data-theme="system"] {
-                background-color: #212121;
+                background-color: #1e1e1e;
                 border-style: solid;
                 border-color: #4e4c4c;
                 box-shadow: none;
                 nav {
-                    background-color: rgb(25, 25, 25);
+                    background-color: #161616;
                     border-color: #4e4c4c;
                     color: rgb(253, 253, 253);
                     button {
@@ -472,18 +481,22 @@
                             color: rgb(97, 97, 97);
                         }
                     }
+                    &::-webkit-scrollbar {
+                        background-color: rgb(50, 50, 50);
+                        border-color: rgb(78, 78, 78);
+                    }
                     &::-webkit-scrollbar-thumb {
-                        background-color: rgb(82, 82, 82);
+                        background-color: rgb(86, 86, 86);
                     }
                 }
                 
             }
         }
         @media screen and (min-width: 280px) {
-            width: 85.25%;
+            width: 92.25%;
         }
         @media screen and (min-width: 320px) {
-            width: 83%;
+            width: 90%;
         }
         @media screen and (min-width: 600px) {
             width: 350px;

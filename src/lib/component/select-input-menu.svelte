@@ -1,6 +1,6 @@
 <script lang="ts">
     import { clickoutside } from "@svelteuidev/composables"
-    import { createEventDispatcher } from "svelte"
+    import { createEventDispatcher, onMount } from "svelte"
 
     export let theme:"system"|"light"|"dark" = "system"
     export let unit:"px"|"mm"|"pt"|"cm"|"pc"|"in"|"%" = "px"
@@ -9,11 +9,19 @@
     export let show:boolean = false
     export let x:number = 0
     export let y:number = 0
-    export let menuHeight = 50
+    export let height = 50
 
     const dispatcher = createEventDispatcher()
+
+    $: {
+        if (sectionElement) height = sectionElement.clientHeight
+    }
+
+    onMount(() => height = sectionElement.clientHeight)
+
+    let sectionElement:HTMLElement = null
 </script>
-<section bind:clientHeight={menuHeight} data-theme={theme} use:clickoutside={{ enabled: show, callback: () => dispatcher("onClickOutside") }} style="width: calc({width}{unit} - 2px); top: {y}px; left: {x}px; visibility: { show ? "visible" : "hidden" }">
+<section data-theme={theme} bind:this={sectionElement} use:clickoutside={{ enabled: show, callback: () => dispatcher("onClickOutside") }} style="width: calc({width}{unit} - 2px); top: {y}px; left: {x}px; visibility: { show ? "visible" : "hidden" }">
     {#each options as option, index }
         <p on:pointerdown={() => dispatcher("onSelect", { option })}>{option}</p>
     {/each}
@@ -25,7 +33,7 @@
         border-width: 1px;
         border-radius: 3px;
         border-color: rgb(233, 236, 239);
-        background-color: #fafafa;
+        background-color: rgb(253, 253, 253);
         min-height: 50px;
         height: fit-content;
         position: absolute;
@@ -49,7 +57,7 @@
             font-size: 14.5px;
             font-family: Poppins, 'Segoe UI', Tahoma, sans-serif;
             &:hover {
-                background-color: #f3f3f3;
+                background-color: rgb(244, 244, 244);
             }
         }
         &[data-theme="dark"] {

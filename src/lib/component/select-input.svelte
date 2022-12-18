@@ -18,9 +18,9 @@
             menuWidth = sectionElement.clientWidth
             menuXPosition = sectionElement.clientLeft - 2 /*Margin left*/
             menuYPosition = sectionElement.clientTop + selectHeight + 3 /*Margin top*/
-            if (menuYPosition + menuHeight >= window.innerHeight) {
+            if (sectionElement.offsetTop + menuHeight >= window.innerHeight) {
                 menuYPosition -= (menuHeight + selectHeight + 13 /*Padding top*/) 
-            }
+            } 
         }
         if (!disabled) {
             showMenu = !showMenu
@@ -55,9 +55,9 @@
             menuWidth = sectionElement.clientWidth
             menuXPosition = sectionElement.clientLeft - 2 /*Margin left*/
             menuYPosition = sectionElement.clientTop + selectHeight + 3 /*Margin top*/
-            if (menuYPosition + menuHeight >= window.innerHeight) {
+            if (sectionElement.offsetTop + menuHeight + 3 >= window.innerHeight) {
                 menuYPosition -= (menuHeight + selectHeight + 13 /*Padding top*/) 
-            }
+            } 
         }
     })
 </script>
@@ -74,7 +74,7 @@
         unit="px"
         x={menuXPosition} 
         y={menuYPosition}
-        bind:menuHeight={menuHeight}
+        bind:height={menuHeight}
         on:onSelect={onSelect}
         on:onClickOutside={clickedOutsideMenu}/>
 </section>

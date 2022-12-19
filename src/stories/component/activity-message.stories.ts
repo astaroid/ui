@@ -7,8 +7,8 @@ export default {
         backgrounds: {
             default: "light",
             values: [
-                { name: 'light', value: '#fafafa' },
-                { name: 'dark', value: '#303030' },
+                { name: 'light', value: '#fefeff' },
+                { name: 'dark', value: '#1e1e1e' },
             ]
         }
     },

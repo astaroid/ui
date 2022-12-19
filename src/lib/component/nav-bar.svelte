@@ -1,19 +1,76 @@
 <script lang="ts">
-    import { createEventDispatcher } from "svelte"
+    import { createEventDispatcher, onMount } from "svelte"
+    import MessageBar from "./message-bar.svelte"
+    import SearchBarDropdownMenu from "./search-bar-dropdown-menu.svelte"
+    import SearchBar from "./search-bar.svelte"
+    import Tooltip from "./tooltip.svelte"
 
-    type TabType = "home"|"search"|"assets"|"activity"|"profile"
+    type PageType = "home"|"assets"
 
-    export let theme:"light"|"dark" = "light"
-    export let tab:TabType = "home"
+    type TabType = "activity"|"account"
+
+    interface MessageBarControl {
+        message: string
+        show: boolean
+        type: "normal"|"input-able"|"removable"
+        loading: boolean
+        inputText: string
+    }
+
+    export let theme:"system"|"light"|"dark" = "system"
+    export let page:PageType = "home"
     export let notified:boolean = false
+    export let message:MessageBarControl = null
+    export let homePageLink:string = "/"
+    export let assetsPageLink:string = "/"
+    export let coin:number = 0
 
     const dispatcher = createEventDispatcher()
 
-    let enterActivityTab = false
+    interface SearchBarDropDownMenuControl {
+        searchValue: string
+        theme: "system"|"light"|"dark"
+        page: PageType
+        x: number
+        y: number
+        width: number
+        show: boolean
+    }
+
+    const searchBarDropDownMenuControl:SearchBarDropDownMenuControl = {
+        searchValue: String(),
+        theme,
+        page,
+        x: 0,
+        y: 0,
+        width: 100,
+        show: false
+    }
 
     $:{
+        if (!message) {
+            message = {
+                message: String(),
+                show: false,
+                type: "normal",
+                loading: false,
+                inputText: "click me"
+            }
+        }
         if (tab == "activity") 
             notified = false
+    }
+
+    const formatCoinNumber = () => {
+        if (coin >= 1000000000) {
+            return (coin/1000000000).toFixed(3).concat("B")
+        } else if (coin >= 1000000 && coin < 1000000000) {
+            return (coin/1000000).toFixed(3).concat("M")
+        } else if (coin >= 10000 && coin < 1000000) {
+            return (coin/1000).toFixed(2).concat("K")
+        } else {
+            return coin.toFixed()
+        }
     }
 
     const setTab = (tabToSet:TabType) => {
@@ -21,201 +78,476 @@
         if (tabToSet == "activity") notified = false
         dispatcher("onTabSelected", { tab })
     }
+
+    const toggleSearchBar = (show:boolean) => {
+        if (tabButtonContainer && searchBarContainer) {
+            if (show) {
+                tabButtonContainer.style.display = "none"
+                searchBarContainer.style.display = "block"
+            } else {
+                tabButtonContainer.style.display = "flex"
+                searchBarContainer.style.display = "none"
+            }
+        }
+    }
+
+    const searchBarOnFocusInOrClick = (e:CustomEvent<{ value: string, searchBarRect: DOMRect }>) => {
+        isSearchBarFocused = true
+        let eventDetail = e.detail
+        if (eventDetail.value) {
+            searchBarDropDownMenuControl.width = eventDetail.searchBarRect.width
+            searchBarDropDownMenuControl.x = eventDetail.searchBarRect.x
+            searchBarDropDownMenuControl.y = eventDetail.searchBarRect.y
+            searchBarDropDownMenuControl.show = true
+            searchBarDropDownMenuControl.searchValue = eventDetail.value
+        } else {
+            searchBarDropDownMenuControl.show = false
+            searchBarDropDownMenuControl.searchValue = String()
+        }
+    }
+
+    const searchBarDropdownMenuOnClickOutside = () => {
+        if (!isSearchBarFocused)
+            searchBarDropDownMenuControl.show = false
+    }
+
+    const searchBarResize = (e:CustomEvent<{ searchBarRect: DOMRect }>) => {
+        let eventDetail = e.detail
+        searchBarDropDownMenuControl.width = eventDetail.searchBarRect.width
+        searchBarDropDownMenuControl.x = eventDetail.searchBarRect.x
+        searchBarDropDownMenuControl.y = eventDetail.searchBarRect.y
+    }
+
+    const searchBarOnInput = (e:CustomEvent<{ value: string, searchBarRect: DOMRect }>) => {
+        let eventDetail = e.detail
+        if (eventDetail.value) {
+            searchBarDropDownMenuControl.width = eventDetail.searchBarRect.width
+            searchBarDropDownMenuControl.x = eventDetail.searchBarRect.x
+            searchBarDropDownMenuControl.y = eventDetail.searchBarRect.y
+            searchBarDropDownMenuControl.show = true
+            searchBarDropDownMenuControl.searchValue = eventDetail.value
+        } else {
+            searchBarDropDownMenuControl.show = false
+            searchBarDropDownMenuControl.searchValue = String()
+        }
+    }
+
+    let enterActivityTabButton = false
+
+    let isSearchBarFocused = false
+
+    let tab:TabType = null
+
+    let tabButtonContainer:HTMLElement = null
+
+    let searchBarContainer:HTMLElement = null
+
+
+    onMount(() => {
+        if (!message) {
+            message = {
+                message: String(),
+                show: false,
+                type: "normal",
+                loading: false,
+                inputText: "click me"
+            }
+        }
+
+        window.matchMedia("screen and (max-width: 599px)").addEventListener("change", (e) => {
+            if (tabButtonContainer && searchBarContainer) {
+                searchBarDropDownMenuControl.show = false
+
+                if (!e.matches) {
+                    tabButtonContainer.style.display = "flex"
+                    searchBarContainer.style.width = "283px"
+                    searchBarContainer.style.display = "block"
+                } else {
+                    searchBarContainer.style.width = "100%"
+                    searchBarContainer.style.display = "none"
+                }
+            }
+        })
+    })
 </script>
 <nav data-theme={theme}>
-    <div data-container="tab-container">
-        <button data-current-tab={ tab == "home" ? "true": "false" } on:click={() => setTab("home")}> 
-            <svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7.07926 0.222253C7.31275 -0.007434 7.6873 -0.007434 7.92079 0.222253L14.6708 6.86227C14.907 7.09465 14.9101 7.47453 14.6778 7.71076C14.4454 7.947 14.0655 7.95012 13.8293 7.71773L13 6.90201V12.5C13 12.7761 12.7762 13 12.5 13H2.50002C2.22388 13 2.00002 12.7761 2.00002 12.5V6.90201L1.17079 7.71773C0.934558 7.95012 0.554672 7.947 0.32229 7.71076C0.0899079 7.47453 0.0930283 7.09465 0.32926 6.86227L7.07926 0.222253ZM7.50002 1.49163L12 5.91831V12H10V8.49999C10 8.22385 9.77617 7.99999 9.50002 7.99999H6.50002C6.22388 7.99999 6.00002 8.22385 6.00002 8.49999V12H3.00002V5.91831L7.50002 1.49163ZM7.00002 12H9.00002V8.99999H7.00002V12Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
-            </svg>
-            <span>
-                Home
-            </span> 
-        </button>
-        <button data-current-tab={ tab == "search" ? "true": "false" } on:click={() => setTab("search")}>
-            <svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10 6.5C10 8.433 8.433 10 6.5 10C4.567 10 3 8.433 3 6.5C3 4.567 4.567 3 6.5 3C8.433 3 10 4.567 10 6.5ZM9.30884 10.0159C8.53901 10.6318 7.56251 11 6.5 11C4.01472 11 2 8.98528 2 6.5C2 4.01472 4.01472 2 6.5 2C8.98528 2 11 4.01472 11 6.5C11 7.56251 10.6318 8.53901 10.0159 9.30884L12.8536 12.1464C13.0488 12.3417 13.0488 12.6583 12.8536 12.8536C12.6583 13.0488 12.3417 13.0488 12.1464 12.8536L9.30884 10.0159Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
-            </svg>
-            <span>
-                Search
-            </span>
-        </button>
-        <button data-current-tab={ tab == "assets" ? "true": "false" } on:click={() => setTab("assets")}>
-            <svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7.28856 0.796908C7.42258 0.734364 7.57742 0.734364 7.71144 0.796908L13.7114 3.59691C13.8875 3.67906 14 3.85574 14 4.05V10.95C14 11.1443 13.8875 11.3209 13.7114 11.4031L7.71144 14.2031C7.57742 14.2656 7.42258 14.2656 7.28856 14.2031L1.28856 11.4031C1.11252 11.3209 1 11.1443 1 10.95V4.05C1 3.85574 1.11252 3.67906 1.28856 3.59691L7.28856 0.796908ZM2 4.80578L7 6.93078V12.9649L2 10.6316V4.80578ZM8 12.9649L13 10.6316V4.80578L8 6.93078V12.9649ZM7.5 6.05672L12.2719 4.02866L7.5 1.80176L2.72809 4.02866L7.5 6.05672Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
-            </svg>
-            <span>
-                Assets
-            </span>
-        </button>
-        <button on:pointerleave={() => enterActivityTab = false} on:pointerenter={() => enterActivityTab = true} data-notified={notified} data-current-tab={ tab == "activity" ? "true": "false" } on:click={() => setTab("activity")}>
-            {#if notified && !enterActivityTab }
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" >
-                    <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
-                </svg>
-            {:else}
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/>
-                </svg>
-            {/if}
-            <span>
-                Activity
-            </span>
-        </button>
-        <button data-current-tab={ tab == "profile" ? "true": "false" } on:click={() => setTab("profile")}>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-            </svg>
-            <span>
-                Profile
-            </span>
-        </button>
-    </div>
+    <MessageBar {...message} />
+    <main>
+        <div data-container="main-container">
+            <div bind:this={tabButtonContainer} data-container="button-container">
+                <Tooltip theme={theme} label="Home" position="bottom">
+                    <a href={homePageLink} data-current-page={ page == "home" ? "true": "false" }> 
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
+                        </svg>
+                    </a>
+                </Tooltip>
+                <Tooltip theme={theme} label="Assets" position="bottom">
+                    <a href={assetsPageLink} data-current-page={ page == "assets" ? "true": "false" }>
+                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" viewBox="0 0 20 20">
+                            <g><path d="M16,3H4L2,8l8,9l8-9L16,3z M8.21,7.25L9.59,4.5h0.82l1.38,2.75H8.21z M9.25,8.75v5.15L4.67,8.75H9.25z M10.75,8.75h4.58 l-4.58,5.15V8.75z M16.08,7.25h-2.62L12.09,4.5h2.9L16.08,7.25z M5.02,4.5h2.9L6.54,7.25H3.92L5.02,4.5z"/></g>
+                        </svg>
+                    </a>
+                </Tooltip>
+                <div data-container="search-button-container">
+                    <Tooltip theme={theme} label="Search" position="bottom"> 
+                        <button on:click={() => toggleSearchBar(true)} data-search-button>
+                            <svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10 6.5C10 8.433 8.433 10 6.5 10C4.567 10 3 8.433 3 6.5C3 4.567 4.567 3 6.5 3C8.433 3 10 4.567 10 6.5ZM9.30884 10.0159C8.53901 10.6318 7.56251 11 6.5 11C4.01472 11 2 8.98528 2 6.5C2 4.01472 4.01472 2 6.5 2C8.98528 2 11 4.01472 11 6.5C11 7.56251 10.6318 8.53901 10.0159 9.30884L12.8536 12.1464C13.0488 12.3417 13.0488 12.6583 12.8536 12.8536C12.6583 13.0488 12.3417 13.0488 12.1464 12.8536L9.30884 10.0159Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </Tooltip>
+                </div>
+                <Tooltip theme={theme} label="Activity" position="bottom">
+                    <button on:pointerleave={() => enterActivityTabButton = false} on:pointerenter={() => enterActivityTabButton = true} data-notified={notified} on:click={() => setTab("activity")}>
+                        {#if notified && !enterActivityTabButton }
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" >
+                                <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+                            </svg>
+                        {:else}
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/>
+                            </svg>
+                        {/if}
+                    </button>
+                </Tooltip>
+                <Tooltip theme={theme} label="Account" position="bottom">
+                    <button on:click={() => setTab("account")}>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2m0 10c2.7 0 5.8 1.29 6 2H6c.23-.72 3.31-2 6-2m0-12C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 10c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </button>
+                </Tooltip>
+            </div>
+            <div bind:this={searchBarContainer} data-container="search-bar-container">
+                <SearchBar 
+                    width={100} 
+                    unit="%" 
+                    theme={theme} 
+                    on:onResize={searchBarResize} 
+                    on:onClick={searchBarOnFocusInOrClick}
+                    on:onFocusIn={searchBarOnFocusInOrClick} 
+                    on:onFocusOut={() => isSearchBarFocused = false} 
+                    on:onInput={searchBarOnInput} 
+                    on:onBackBtnClicked={() => toggleSearchBar(false)}/>
+            </div>
+        </div>
+    </main>
+    <section data-container="coin-container">
+        <Tooltip theme={theme} label={coin > 1 ? "Coins" : "Coin"} position="bottom">
+            <p>
+                <img src="/coin.png" alt="">
+                <span>{formatCoinNumber()}</span>
+            </p>
+        </Tooltip>
+    </section>
+    <SearchBarDropdownMenu 
+        {...searchBarDropDownMenuControl}
+        on:onClickOutside={searchBarDropdownMenuOnClickOutside} 
+        on:onSearchResultClicked={(e) => dispatcher("onSearchResultClicked", e.detail)}/>
+    
 </nav>
 <style lang="less">
     nav {
-        height: 60px;
         width: 100%;
-        background-color: #f5f5f5;
-        border-style: solid;
-        border-width: 0;
-        box-shadow: 0 1px 0 rgb(0 0 0 / 15%);
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        font-family: Arial, Helvetica, sans-serif;
         padding: 0 0 0 0;
-        &[data-theme="dark"] {
-            background-color: #212121;
-            border: none;
-            box-shadow: none;
-            div[data-container="tab-container"] button {
-                color: rgb(113, 111, 111);
-                svg {
-                    stroke: rgb(105, 105, 105);
-                    fill: rgb(105, 105, 105);
-                }
-                &:hover, 
-                &[data-current-tab="true"],
-                &[data-notified]:hover {
-                    color: rgb(248, 246, 246);
-                    svg {
-                        fill: rgb(238, 236, 236);
-                        stroke: rgb(238, 236, 236);
-                    }
-                }
-            }
-        }
-        div[data-container="tab-container"] {
-            height: 100%;
+        height: fit-content;
+        section[data-container="coin-container"] {
+            width: 100%;
             display: flex;
             justify-content: center;
-            align-items: center;
-            width: 400px;
-            button {
-                cursor: pointer;
-                padding: 0 0 0 0;
-                height: 100%;
+            p {
+                width: 130px;
+                margin: 0 0 0 0;
+                padding-block: 7.8px;
+                padding-inline: 10px;
+                padding-bottom: 11px;
+                color: #030303;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                font-size: 17.75px;
-                color: rgb(145, 145, 145);
-                background-color: transparent;
-                border: none;
-                &:hover, 
-                &[data-current-tab="true"],
-                &[data-notified]:hover {
-                    color: #212121;
-                    svg {
-                        fill: #212121;
-                        stroke: #212121;
-                    }
-                }
-                &[data-notified="true"] {
-                    color: #06d6a0;
-                    svg {
-                        fill: #06d6a0;
-                        stroke: #06d6a0;
-                    }
-                }
-                &:focus {
-                    outline: none;
-                }
+                font-size: 20px;
+                background-color: #f5f5f5;
+                font-family: Arial, Helvetica, sans-serif;
+                border-style: solid;
+                border-width: 0;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+                border-inline-width: 1px;
+                border-inline-color: rgb(0 0 0 / 15%);
+                box-shadow: 0 1px 0 rgb(0 0 0 / 15%);
                 span {
-                    margin-top: 5px;
+                    margin: 0 0 0 0;
+                    padding: 0 0 0 0;
                 }
-                svg {
-                    stroke: rgb(135, 135, 135);
-                    fill: rgb(135, 135, 135);
-                    width: 24px;
-                    height: 24px;
+                img {
+                    height: 30px;
+                    width: 30px;
                     margin-right: 4px;
-                    
-                }
-                &[data-notified] {
-                    svg {
-                        width: 27px;
-                        height: 27px;
-                        margin-right: 2px;
-                    }
                 }
             }
-            @media screen and (min-width: 280px) {
-                width: 100%;
-                button {
-                    width: calc(100%/5);
+        }
+        main {
+            height: 57.75px;
+            width: 100%;
+            background-color: #f5f5f5;
+            border-style: solid;
+            border-width: 0;
+            box-shadow: 0 1px 0 rgb(0 0 0 / 15%);
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 0 0 0 0;
+            div[data-container="main-container"] {
+                --inner-nav-bar-width: 400px;
+                --button-size: 70px;
+                height: 100%;
+                display: flex;
+                padding-inline: 15px;
+                justify-content: space-between;
+                align-items: center;
+                width: calc(var(--inner-nav-bar-width) - 30px);
+                div[data-container="search-bar-container"] {
+                    height: fit-content;
+                    width: 283px;
+                    padding: 0 0 0 0;
                 }
-            }
-            @media screen and (min-width: 320px) {
-                width: 100%;
-                button {
-                    width: calc(100%/5);
-                }
-            }
-            @media screen and (max-width: 600px) {
-                button {
-                    span {
+                div[data-container="button-container"] {
+                    display: flex;
+                    justify-content: space-between;
+                    height: 38px;
+                    width: calc(var(--button-size) * 4);
+                    align-items: center;
+                    div[data-container="search-button-container"] {
                         display: none;
                     }
-                    svg {
-                        width: 28px;
-                        height: 28px;
-                        margin-right: 0;
-                    }
-                        &[data-notified] {
+                    a,
+                    button {
+                        cursor: pointer;
+                        padding: 0 0 0 0;
+                        height: 100%;
+                        display: flex;
+                        width: --button-size;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 17.75px;
+                        color: rgb(145, 145, 145);
+                        background-color: transparent;
+                        border: none;
+                        &:hover {
+                            color: #030303;
+                            svg {
+                                fill: #030303;
+                            }
+                        }
+                        &:focus,
+                        &:link {
+                            outline: none;
+                        }
                         svg {
-                            width: 31px;
-                            height: 31px;
+                            fill: rgb(135, 135, 135);
+                            width: 26.5px;
+                            height: 26.5px;
+                        }
+                    }
+                    a {
+                        &[data-current-page="true"] {
+                            color: #030303;
+                            svg {
+                                fill: #030303;
+                            }
+                        }
+                        
+                    }
+
+                    button {
+                        &[data-notified="true"] {
+                            color: #06d6a0;
+                            svg {
+                                fill: #06d6a0;
+                            }
+                        }
+                        &[data-notified="true"]:hover {
+                            color: #030303;
+                            svg {
+                                fill: #030303;
+                            }
+                        }
+                    }
+                }
+                
+                @media screen and (min-width: 280px) {
+                    --inner-nav-bar-width: 100%;
+                }
+                @media screen and (min-width: 320px) {
+                    --inner-nav-bar-width: 100%;
+                }
+                @media screen and (max-width: 599px) {
+                    div[data-container="search-bar-container"] {
+                        display: none;
+                        width: 100%;
+                    }
+                    
+                    div[data-container="button-container"] {
+                        width: 100%;
+                        --button-size: calc(100%/5);
+                        div[data-container="search-button-container"] {
+                            display: block;
+                        }
+                        a,
+                        button{
+                            svg {
+                                width: 24.5px;
+                                height: 24.5px;
+                            }
+                        }
+                    }
+                }
+                @media screen and (min-width: 600px) {
+                    --inner-nav-bar-width: 650px;
+                    --button-size: 65px;
+                }
+                @media screen and (min-width: 912px) {
+                    --inner-nav-bar-width: 820px;
+                    --button-size: 75px;
+                }
+                @media screen and (min-width: 1024px) {
+                    --inner-nav-bar-width: 860px;
+                    --button-size: 78px;
+                }
+                @media screen and (min-width: 1280px) {
+                    --inner-nav-bar-width: 1020px;
+                    --button-size: 84px;
+                }
+            }
+        }
+        &[data-theme="dark"] {
+            section[data-container="coin-container"] {
+                margin-top: -0.5px;
+                p {
+                    background-color: #212121;
+                    border-style: solid;
+                    border-width: 1px;
+                    border-color: rgb(64, 64, 64);
+                    border-top: none;
+                    color: rgb(248, 246, 246);
+                }
+            }
+            main {
+                background-color: #212121;
+                border: none;
+                box-shadow: none;
+                border-bottom-style: solid;
+                border-bottom-width: 1px;
+                border-bottom-color: rgb(64, 64, 64);
+                div[data-container="main-container"] {
+                    div[data-container="button-container"] {
+                        a,
+                        button {
+                            color: rgb(113, 111, 111);
+                            svg {
+                                fill: rgb(105, 105, 105);
+                            }
+                            &:hover {
+                                color: rgb(248, 246, 246);
+                                svg {
+                                    fill: rgb(238, 236, 236);
+                                }
+                            }
+                        }
+                        a {
+                            &[data-current-page="true"] {
+                                color: rgb(248, 246, 246);
+                                svg {
+                                    fill: rgb(238, 236, 236);
+                                }
+                            }
+                        }
+                        button {
+                            &[data-notified="true"]  {
+                                color: #06d6a0;
+                                svg {
+                                    fill: #06d6a0;
+                                }
+                            }
+
+                            &[data-notified]:hover {
+                                color: rgb(248, 246, 246);
+                                svg {
+                                    fill: rgb(238, 236, 236);
+                                }
+                            }
                         }
                     }
                 }
             }
-            @media screen and (min-width: 600px) {
-                width: 650px;
-                button {
-                    width: calc(650px/5);
+        }
+
+        @media screen and (prefers-color-scheme: dark) {
+            &[data-theme="system"] {
+                section[data-container="coin-container"] {
+                    margin-top: -0.5px;
+                    p {
+                        background-color: #212121;
+                        border-style: solid;
+                        border-width: 1px;
+                        border-color: rgb(64, 64, 64);
+                        border-top: none;
+                        color: rgb(248, 246, 246);
+                    }
                 }
-            }
-            @media screen and (min-width: 912px) {
-                width: 720px;
-                button {
-                    width: calc(720px/5);
-                }
-            }
-            @media screen and (min-width: 1024px) {
-                width: 800px;
-                button {
-                    width: calc(800px/5);
-                }
-            }
-            @media screen and (min-width: 1280px) {
-                width: 860px;
-                button {
-                    width: calc(860px/5);
+                main {
+                    background-color: #212121;
+                    border: none;
+                    box-shadow: none;
+                    border-bottom-style: solid;
+                    border-bottom-width: 1px;
+                    border-bottom-color: rgb(64, 64, 64);
+                    div[data-container="main-container"] {
+                        div[data-container="button-container"] {
+                            a,
+                            button {
+                                color: rgb(113, 111, 111);
+                                svg {
+                                    fill: rgb(105, 105, 105);
+                                }
+                                &:hover {
+                                    color: rgb(248, 246, 246);
+                                    svg {
+                                        fill: rgb(238, 236, 236);
+                                    }
+                                }
+                            }
+                            a {
+                                &[data-current-page="true"] {
+                                    color: rgb(248, 246, 246);
+                                    svg {
+                                        fill: rgb(238, 236, 236);
+                                    }
+                                }
+                            }
+                            button {
+                                &[data-notified="true"]  {
+                                    color: #06d6a0;
+                                    svg {
+                                        fill: #06d6a0;
+                                    }
+                                }
+
+                                &[data-notified]:hover {
+                                    color: rgb(248, 246, 246);
+                                    svg {
+                                        fill: rgb(238, 236, 236);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
+        
     }
 </style>

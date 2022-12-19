@@ -41,7 +41,7 @@ export default {
             description: "The type of message",
             control: {
                 type: "select",
-                options: [ "normal", "removable", "inputable" ]
+                options: [ "normal", "removable", "input-able" ]
             }
         },
         show: {

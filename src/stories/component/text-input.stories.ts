@@ -1,8 +1,8 @@
-import AuthInput from "../../lib/component/auth-input.svelte"
+import TextInput from "../../lib/component/text-input.svelte"
 
 export default {
-    title: "Component/Auth Input",
-    component: AuthInput,
+    title: "Component/Input component/Text Input",
+    component: TextInput,
     parameters: {
         backgrounds: {
             default: 'light',
@@ -78,31 +78,31 @@ export default {
             description: "The theme of the component",
             defaultValue: "light",
             control: {
-                type: "radio",
-                options: [ "light", "dark" ]
+                type: "select",
+                options: [ "light", "dark", "system" ]
             }
         }
     }
 }
 
 const Template  = (args:any) => ({
-    Component: AuthInput,
+    Component: TextInput,
     props: args,
     on: {
         onInput: args.onInput
     }
 })
 
-export const InputBox = Template.bind({})
-InputBox.args = {
+export const Input = Template.bind({})
+Input.args = {
     theme: "light"
 }
 
-export const DarkInputBox = Template.bind({})
-DarkInputBox.args = {
+export const DarkInput = Template.bind({})
+DarkInput.args = {
     theme: "dark"
 }
-DarkInputBox.parameters = {
+DarkInput.parameters = {
     backgrounds: {
         default: 'dark'
     }

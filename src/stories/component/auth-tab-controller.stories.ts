@@ -1,7 +1,7 @@
 import  AuthTabController from "../../lib/component/auth-tab-controller.svelte"
 
 export default {
-    title: "Component/Auth Tab Controller",
+    title: "Component/Auth component/Auth Tab Controller",
     component: AuthTabController,
     parameters: {
         backgrounds: {
@@ -62,8 +62,8 @@ export default {
             description: "The theme of the component",
             defaultValue: "light",
             control: {
-                type: "radio",
-                options: [ "light", "dark" ]
+                type: "select",
+                options: [ "light", "dark", "system" ]
             }
         }
     }

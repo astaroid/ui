@@ -1,7 +1,7 @@
 import MenuItem from "../../lib/component/menu-item.svelte"
 
 export default {
-    title: "Component/Menu Item",
+    title: "Component/Menu component/Menu Item",
     component: MenuItem,
     parameters: {
         backgrounds: {
@@ -78,12 +78,13 @@ export default {
             defaultValue: false,
         },
         theme: {
+            name: "theme",
             type: { required: true, name: "string" },
             description: "The theme of the component",
             defaultValue: "light",
             control: {
-                type: "radio",
-                options: [ "light", "dark" ]
+                type: "select",
+                options: [ "light", "dark", "system" ]
             }
         }
     }

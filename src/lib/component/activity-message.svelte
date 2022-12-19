@@ -8,7 +8,7 @@
         "TRANSACTION_FEE_MESSAGE"|
         "PAYOUT_MESSAGE"
 
-    export let theme:"light"|"dark" = "light"
+    export let theme:"system"|"light"|"dark" = "system"
     export let width:number = 240
     export let unit:"px"|"mm"|"pt"|"cm"|"pc"|"in"|"%" = "px"
     export let message:string = String()
@@ -33,21 +33,15 @@
 </script>
 <section on:click={() => dispatcher("onClicked", { id, read, message, type, createAt } ) } style="width: {`${width}${unit}`}" data-theme={theme} data-has-read={read}>
     {#if type == "BOUGHT_CRYSTAL_MESSAGE"}
-        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24">
-            <g>
-                <rect fill="none" height="24" width="24"/>
-                <path d="M18,6h-2c0-2.21-1.79-4-4-4S8,3.79,8,6H6C4.9,6,4,6.9,4,8v12c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V8C20,6.9,19.1,6,18,6z M10,10c0,0.55-0.45,1-1,1s-1-0.45-1-1V8h2V10z M12,4c1.1,0,2,0.9,2,2h-4C10,4.9,10.9,4,12,4z M16,10c0,0.55-0.45,1-1,1 s-1-0.45-1-1V8h2V10z"/>
-            </g>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+            <path d="M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1H2zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
         </svg>
     {:else if type == "SOLD_ASSET_MESSAGE" }
-        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24">
-            <g>
-                <path d="M0,0h24v24H0V0z" fill="none"/>
-            </g>
-            <g>
-                <path d="M21.41,11.41l-8.83-8.83C12.21,2.21,11.7,2,11.17,2H4C2.9,2,2,2.9,2,4v7.17c0,0.53,0.21,1.04,0.59,1.41l8.83,8.83 c0.78,0.78,2.05,0.78,2.83,0l7.17-7.17C22.2,13.46,22.2,12.2,21.41,11.41z M6.5,8C5.67,8,5,7.33,5,6.5S5.67,5,6.5,5S8,5.67,8,6.5 S7.33,8,6.5,8z"/>
-            </g>
-        </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" viewBox="0 0 20 20">
+        <g>
+            <path d="M16,3H4L2,8l8,9l8-9L16,3z M8.21,7.25L9.59,4.5h0.82l1.38,2.75H8.21z M9.25,8.75v5.15L4.67,8.75H9.25z M10.75,8.75h4.58 l-4.58,5.15V8.75z M16.08,7.25h-2.62L12.09,4.5h2.9L16.08,7.25z M5.02,4.5h2.9L6.54,7.25H3.92L5.02,4.5z"/>
+        </g>
+    </svg>
     {:else if type == "TRANSACTION_FEE_MESSAGE" }
         <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24">
             <g>
@@ -85,7 +79,7 @@
         color: #303030; 
         cursor: pointer;
         &:hover {
-            background-color: rgba(228, 228, 225, 0.3);
+            background-color: rgba(232, 232, 232, 0.3);
         }       
         &[data-theme="dark"] {
             color: rgb(245,245,245);
@@ -95,6 +89,18 @@
             main p[data-container="date"] {
                 color: rgb(190,185,185);
             } 
+        }
+
+        @media screen and (prefers-color-scheme: dark) {
+            &[data-theme="system"] {
+                color: rgb(245,245,245);
+                &:hover {
+                    background-color: rgba(101, 99, 99, 0.3);
+                }
+                main p[data-container="date"] {
+                    color: rgb(190,185,185);
+                } 
+            }
         }
         &[data-has-read="false"] {
             border-left-color: #06d6a0;
@@ -113,7 +119,6 @@
                 width: 100%;
                 height: auto;
                 &[data-container="message"] {
-                    margin-top: 10px;
                     font-size: 16.5px;
                     padding-bottom: 5px;
                 }

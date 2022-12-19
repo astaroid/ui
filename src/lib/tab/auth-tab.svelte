@@ -16,7 +16,7 @@
     const SignUpErrorMessages:Array<string> = ["Email already exist", "Username already exist", "Username and email already exist", "both"]
     const SignInErrorMessage:Array<string> = ["Username or email not found", "Incorrect password", "Email not found", "none"]
 
-    export let theme:"light"|"dark" = "light"
+    export let theme:"system"|"light"|"dark" = "system"
     export let width:number = 100
     export let unit:"px"|"mm"|"pt"|"cm"|"pc"|"in"|"%" = "%"
     export let tab:"sign up"|"sign in" = "sign in"
@@ -49,7 +49,7 @@
         show={ tab == "sign in" }
         errorType={signInErrorType}
         loading={ tab == "sign in" && loading}
-        on:onMagicLinkClick={(e) => dispatcher("onMagicLinkClick", { ...e.detail })}
+        on:onForgetPassword={(e) => dispatcher("onForgetPassword")}
         on:onSignIn={(e) => dispatcher("onSignIn", { ...e.detail })}
     />
     <AuthSignupTabBody
@@ -67,6 +67,19 @@
     main {
         width: 100%;
         height: auto;      
-        padding: 0 0 0 0;  
+        padding: 0 0 0 0; 
+        box-shadow: rgb(230, 220, 220) 0px 8px 27px 0;
+        border-style: solid;
+        border-width: 0;
+        border-radius: 7px;
+        &[data-theme="dark"] {
+            box-shadow: none;
+        }
+
+        @media screen and (prefers-color-scheme: dark) {
+            &[data-theme="system"] {
+                box-shadow: none;
+            }
+        }
     }
 </style>

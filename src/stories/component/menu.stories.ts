@@ -1,7 +1,7 @@
 import Menu from "../../lib/component/menu.svelte"
 
 export default {
-    title: "Component/Menu",
+    title: "Component/Menu component/Menu",
     component: Menu,
     parameters: {
         backgrounds: {
@@ -22,7 +22,6 @@ export default {
             description: "The event emitter when a menu item is clicked"
         },
         menuItems: {
-            name: "menu items",
             description: "The list of the menu items",
             control: {
                 type: "object"
@@ -68,7 +67,7 @@ export default {
         },
         position: {
             type: { required: true, name: "string" },
-            description: "The theme of the component",
+            description: "The type of CSS position of the component",
             defaultValue: "relative",
             control: {
                 type: "select",
@@ -96,12 +95,13 @@ export default {
             }
         },
         theme: {
+            name: "theme",
             type: { required: true, name: "string" },
             description: "The theme of the component",
             defaultValue: "light",
             control: {
-                type: "radio",
-                options: [ "light", "dark" ]
+                type: "select",
+                options: [ "light", "dark", "system" ]
             }
         }
     }

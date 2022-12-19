@@ -1,5 +1,4 @@
-import { defaultNavigator } from "@svelteuidev/composables";
-import ActivityTab from "../../lib/tab/activity-tab.svelte";
+import ActivityTab from "../../lib/tab/activity-tab.svelte"
 
 export default {
     title: "Tab/Activity Tab",
@@ -93,27 +92,25 @@ export default {
                     "createdAt": "now", 
                     "type": "BOUGHT_CRYSTAL_MESSAGE", 
                     "id": "123", 
-                    "message": 
-                    "Crystal bought for 34 coins" 
+                    "message": `Crystal bought for <img src="/coin.png" style="width: 26px; margin-bottom: -6px; margin-right: -3px"> 34`
                 },
                 { 
                     "read": true, 
                     "createdAt": "now", 
                     "type": "SOLD_ASSET_MESSAGE", 
                     "id": "133", 
-                    "message": 
-                    "Asset sold" 
+                    "message": "Asset sold" 
                 }
             ]
         },
         theme: {
             name: "theme",
             type: { required: true, name: "string" },
-            description: "The theme of the tab",
+            description: "The theme of the component",
             defaultValue: "light",
             control: {
-                type: "radio",
-                options: [ "light", "dark" ]
+                type: "select",
+                options: [ "light", "dark", "system" ]
             }
         }
     }

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte"
 
-    export let theme:"light"|"dark" = "light"
+    export let theme:"system"|"light"|"dark" = "system"
     export let id:string
     export let width:number = 100
     export let unit:"px"|"mm"|"pt"|"cm"|"pc"|"in"|"%" = "%"
@@ -13,15 +13,13 @@
 
     const dispatcher = createEventDispatcher()
 
-    color = color ? color : theme == "light" ? "#303030" : "#c1c2bd"
-
     const onClicked = () => {
         if (type == "item")
             dispatcher("onClicked", { id })
     }
 </script>
-<section on:click={onClicked} data-disabled={ type == "item" && disabled } style="color: {color}; width: calc({width}{unit} { type != "divider" ? "- 26px": String() })" data-item-type={type} data-theme={theme}>
-    {#if type == "label" }
+<section on:click={onClicked} data-disabled={ type == "item" && disabled } style="{color ? `color: ${color}` : String()}; width: calc({width}{unit} { type != "divider" ? "- 26px": String() })" data-item-type={type} data-theme={theme}>
+    {#if type == "label"}
         {text}
     {:else if type == "item"}
         {#if iconData}
@@ -40,6 +38,7 @@
         padding-bottom: 10px;
         padding-left: 13px;
         padding-right: 13px;
+        color: #303030;
         button[data-container="empty"] {
             background-color: transparent;
             height: 17px;
@@ -66,13 +65,20 @@
             span {
                 margin-left: 8.75px;
                 width: 90%;
-            }  
+                margin-top: 3px;
+            }
+            &:has(button) {
+                span {
+                    margin-top: 0;
+                }
+            }
             &:hover {
-                background-color: #f3f3f3;
+                background-color: #f4f4f4;
             }
             &[data-theme="dark"] {
+                color: #c1c2bd;
                 &:hover {
-                    background-color: rgb(38, 40, 40);
+                    background-color: #242626;
                 }
             }
         }
@@ -95,6 +101,27 @@
             border-top-color: rgb(228, 231, 234);
             &[data-theme="dark"] {
                 border-top-color: #4e4c4c;
+            }
+        }
+
+        @media screen and (prefers-color-scheme: dark) {
+            &[data-item-type="item"] {
+                &[data-theme="system"] {
+                    color: #c1c2bd;
+                    &:hover {
+                        background-color: #242626;
+                    }
+                }
+            }
+            &[data-item-type="label"]  {
+                &[data-theme="system"] {
+                    color: rgb(144, 146, 150) !important
+                }
+            }
+            &[data-item-type="divider"] {
+                &[data-theme="system"] {
+                    border-top-color: #4e4c4c;
+                }
             }
         }
     }

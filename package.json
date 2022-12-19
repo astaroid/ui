@@ -1,7 +1,7 @@
 {
   "name": "astaroid-ui",
-  "private": false,
-  "version": "1.0.0",
+  "private": true,
+  "version": "0.1.0-beta",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -15,23 +15,23 @@
     "svelte-kit",
     "storybook",
     "UI",
-    "component library"
+    "components library"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/astaroid/astaroid-ui"
   },
   "license": "MIT",
-  "author": "astaroid-team",
+  "author": "astaroid",
   "devDependencies": {
     "@babel/core": "^7.18.10",
-    "@storybook/addon-actions": "^6.5.10",
-    "@storybook/addon-docs": "^6.5.10",
-    "@storybook/addon-essentials": "^6.5.10",
-    "@storybook/addon-interactions": "^6.5.10",
-    "@storybook/addon-links": "^6.5.10",
+    "@storybook/addon-actions": "^6.5.12",
+    "@storybook/addon-docs": "^6.5.12",
+    "@storybook/addon-essentials": "^6.5.12",
+    "@storybook/addon-interactions": "^6.5.12",
+    "@storybook/addon-links": "^6.5.12",
     "@storybook/builder-vite": "^0.2.2",
-    "@storybook/svelte": "^6.5.10",
+    "@storybook/svelte": "^6.5.12",
     "@storybook/testing-library": "^0.0.13",
     "@sveltejs/vite-plugin-svelte": "^1.0.1",
     "@svelteuidev/composables": "^0.7.0",

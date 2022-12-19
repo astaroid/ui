@@ -7,8 +7,8 @@ export default {
         backgrounds: {
             default: "light",
             values: [
-                { name: 'light', value: '#fafafa' },
-                { name: 'dark', value: '#303030' },
+                { name: 'light', value: '#fefeff' },
+                { name: 'dark', value: '#1e1e1e' },
             ]
         }
     },
@@ -18,12 +18,13 @@ export default {
             description: "The event emitted when component is clicked"
         },
         theme: {
+            name: "theme",
             type: { required: true, name: "string" },
             description: "The theme of the component",
             defaultValue: "light",
             control: {
-                type: "radio",
-                options: [ "light", "dark" ]
+                type: "select",
+                options: [ "light", "dark", "system" ]
             }
         },
         width: {

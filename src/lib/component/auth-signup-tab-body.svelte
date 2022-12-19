@@ -1,8 +1,8 @@
 <script lang="ts">
-    import AuthInput from "./auth-input.svelte"
+    import TextInput from "./text-input.svelte"
     import { createEventDispatcher } from "svelte"
-    import { Checkbox } from '@svelteuidev/core'
-    import LoadingSpinner from "./loading-spinner.svelte"
+    import { Checkbox } from "@svelteuidev/core"
+    import { Circle } from "svelte-loading-spinners"
 
     type ErrorMessage = "none"|
         "Email already exist"|
@@ -20,7 +20,7 @@
         "Incorrect username format"|
         "both"
 
-    export let theme:"light"|"dark" = "light"
+    export let theme:"system"|"light"|"dark" = "system"
     export let width:number = 100
     export let unit:"px"|"mm"|"pt"|"cm"|"pc"|"in"|"%" = "%"
     export let show:boolean = true
@@ -89,7 +89,7 @@
     } 
 </script>
 <section style="width: {`${width}${unit}`}; display: { show ? "block" : "none" }" data-theme={theme}>
-    <AuthInput 
+    <TextInput 
         bind:theme={theme} 
         placeholder="Email"
         type="text"
@@ -99,7 +99,7 @@
             email = e.detail.inputValue
         }}
     />
-    <AuthInput 
+    <TextInput 
         bind:theme={theme} 
         placeholder="Username"
         type="text"
@@ -109,7 +109,7 @@
             username = e.detail.inputValue
         }}
     />
-    <AuthInput 
+    <TextInput 
         bind:theme={theme} 
         placeholder="Password"
         type="password"
@@ -119,25 +119,23 @@
             password = e.detail.inputValue
         }}
     />
-    {#if !loading}
-        <div data-container="policy">
-            <Checkbox size={"xs"} bind:checked={isAgreed} />
-            <span>Agree to the <a href="#policy" on:click|preventDefault={() => dispatcher("onPolicyLinkClick")} target="_blank" rel="noopener noreferrer">Privacy policy</a></span>
-        </div>
-        <button on:click={signUp} disabled={!isAgreed}>
+    <div data-container="policy">
+        <Checkbox disabled={loading} size={"xs"} bind:checked={isAgreed} />
+        <span>Agree to the <a href="#policy" on:click|preventDefault={() => dispatcher("onPolicyLinkClick")} target="_blank" rel="noopener noreferrer">Privacy policy</a></span>
+    </div>
+    <button on:click={signUp} disabled={!isAgreed || loading}>
+        {#if !loading }
             Continue
-        </button>
-    {:else}
-        <div data-container="loading-spinner">
-            <LoadingSpinner size={50} />
-        </div>
-    {/if}
+        {:else}
+            <Circle color="white" size={26.5} />
+        {/if}
+    </button>
     
 </section>
 <style lang="less">
     section {
         width: 100%;
-        min-height: 345px;
+        min-height: 365px;
         height: 100%;
         padding: 0;
         padding-top: 15px;
@@ -147,10 +145,24 @@
         border-width: 1px;
         border-top-width: 0;
         border-color: #bdbdbd;
-        box-shadow: 0px 1.25px 2.4px 1.75px #f5f5f5;
         background-color: rgb(253, 253, 253);
         border-bottom-left-radius: 7px;
         border-bottom-right-radius: 7px;
+        @media screen and (prefers-color-scheme: dark) {
+            &[data-theme="system"] {
+                background-color: #212121;
+                border-style: solid;
+                border-color: #4e4c4c;
+                box-shadow: none;
+                div[data-container="policy"] span {
+                    color: rgb(190, 190, 190);
+                    a {
+                        color: rgb(190, 190, 190);
+                    }
+                }
+            }
+        }
+
         &[data-theme="dark"] {
             background-color: #212121;
             border-style: solid;
@@ -179,7 +191,7 @@
                 font-size: 15.5px;
                 a {
                     color: #424242;
-                    &:link {
+                   &:link {
                         outline: none;
                     }
                     &:hover {
@@ -187,19 +199,6 @@
                     }
                 }
             }
-        }
-        div[data-container="loading-spinner"] {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: nowrap;
-            width: calc(100% - 36px);
-            margin: 0;
-            margin-top: 8px;
-            margin-left: 18px;
-            margin-right: 18px;
-            height: auto;
         }
         button {
             width: calc(100% - 36px);
@@ -213,7 +212,7 @@
             height: 48px;
             border-width: 0;
             outline: none;
-            background-color: #06e0a7;
+            background-color: #06d6a0;
             border-radius: 5px; 
             display: flex;
             flex-direction: column;
@@ -226,7 +225,7 @@
             }
             &:disabled {
                 cursor: no-drop;
-                background-color: #06aa81
+                background-color: #08b489
             }
         }
     }

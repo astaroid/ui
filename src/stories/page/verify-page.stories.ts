@@ -17,12 +17,12 @@ export default {
         },
         theme: {
             name: "theme",
-            type: { name: "string", required: true },
+            type: { required: true, name: "string" },
+            description: "The theme of the component",
             defaultValue: "light",
-            description: "The theme of the page",
             control: {
-                type: "radio",
-                options: [ "light", "dark" ]
+                type: "select",
+                options: [ "light", "dark", "system" ]
             }
         },
         error: {

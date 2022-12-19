@@ -23,18 +23,18 @@ export default {
             action: "onSignIn", 
             description: "The event emitter when the continue button is clicked"
         },
-        onMagicLinkClick: {
-            action: "onMagicLinkClick",
-            description: "The event emitter when the magic link is clicked"
+        onForgetPassword: {
+            action: "onForgetPassword",
+            description: "The event emitter when the forget password is clicked"
         },
         theme: {
             name: "theme",
-            type: { name: "string", required: true },
+            type: { required: true, name: "string" },
+            description: "The theme of the component",
             defaultValue: "light",
-            description: "The theme of the page",
             control: {
-                type: "radio",
-                options: [ "light", "dark" ]
+                type: "select",
+                options: [ "light", "dark", "system" ]
             }
         },
         errorType: {
@@ -82,7 +82,7 @@ const Template = (args:any) => ({
     props: args,
     on: {
         onSignIn: args.onSignIn,
-        onMagicLinkClick: args.onMagicLinkClick,
+        onForgetPassword: args.onForgetPassword,
         onSignUp: args.onSignUp,
         onPolicyLinkClick: args.onPolicyLinkClick,
         onTabSelected: args.onTabSelected

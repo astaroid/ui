@@ -376,6 +376,7 @@
             overflow-y: auto;
             overflow-x: hidden;
             scrollbar-gutter: stable both-edge;
+            scroll-behavior: smooth;
             height: calc(100% - 50px);
             &::-webkit-scrollbar {
                 width: 11.25px;

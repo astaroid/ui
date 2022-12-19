@@ -162,8 +162,24 @@
     const menuItemClicked = (e:CustomEvent<{ id:string }>) => {
         let id = e.detail.id
         reactiveTrigger = !reactiveTrigger
-        if (id == "") {
-
+        if (id == "profile-btn" && sectionElement) {
+            let profileAccountSection:HTMLElement = sectionElement.querySelector("main div[data-container='profile-section']")
+            profileAccountSection ? profileAccountSection.scrollIntoView() : void 0
+        } else if (id == "verification-btn" && sectionElement) {
+            let verificationAccountSection:HTMLElement = sectionElement.querySelector("main div[data-container='verification-section']")
+            verificationAccountSection ? verificationAccountSection.scrollIntoView() : void 0
+        } else if (id == "purchase-btn" && sectionElement) {
+            let purchaseAccountSection:HTMLElement = sectionElement.querySelector("main div[data-container='purchase-section']")
+            purchaseAccountSection ? purchaseAccountSection.scrollIntoView() : void 0
+        } else if (id == "payout-btn" && sectionElement) {
+            let payoutAccountSection:HTMLElement = sectionElement.querySelector("main div[data-container='payout-section']")
+            payoutAccountSection ? payoutAccountSection.scrollIntoView() : void 0
+        } else if (id == "settings-btn" && sectionElement) {
+            let settingsAccountSection:HTMLElement = sectionElement.querySelector("main div[data-container='settings-section']")
+            settingsAccountSection ? settingsAccountSection.scrollIntoView() : void 0
+        } else if (id == "danger-zone-btn" && sectionElement) {
+            let dangerZoneAccountSection:HTMLElement = sectionElement.querySelector("main div[data-container='danger-zone-section']")
+            dangerZoneAccountSection ? dangerZoneAccountSection.scrollIntoView() : void 0
         } else if (id == "close-btn") {
             close()
         }
@@ -276,14 +292,16 @@
     </nav>
     <main>
         {#if !loading }
-            <UserCard 
-                theme={theme}
-                email={user.email}
-                username={user.username}
-                coin={user.coin}
-                assetCount={user.assetCount}
-                verified={user.verified}/>
-            <div data-container="account-section" style="display: { !user.verified ? "block" : "none" };">
+            <div data-container="profile-section">
+                <UserCard 
+                    theme={theme}
+                    email={user.email}
+                    username={user.username}
+                    coin={user.coin}
+                    assetCount={user.assetCount}
+                    verified={user.verified}/>
+            </div>
+            <div class="account-section" data-container="verification-section" style="display: { !user.verified ? "block" : "none" };">
                 <AccountSection 
                     theme={theme}
                     title="Verification"
@@ -301,7 +319,7 @@
                         }
                     ]}/>
             </div>
-            <div data-container="account-section">
+            <div class="account-section" data-container="purchase-section">
                 <AccountSection 
                     theme={theme}
                     title="Purchase"
@@ -327,7 +345,7 @@
                         }
                     ]}/>
             </div>
-            <div data-container="account-section">
+            <div class="account-section" data-container="payout-section">
                 <AccountSection 
                     theme={theme}
                     title="Payout"
@@ -336,7 +354,7 @@
                     on:onInput={onPayout}
                     sectionItems={payoutSectionItems}/>
             </div>
-            <div data-container="account-section">
+            <div class="account-section" data-container="settings-section">
                 <AccountSection 
                     theme={theme}
                     title="Settings"
@@ -386,7 +404,7 @@
                         }
                     ]}/>
             </div>
-            <div data-container="account-section">
+            <div class="account-section" data-container="danger-zone-section">
                 <AccountSection 
                     theme={theme}
                     title="Danger Zone"
@@ -533,7 +551,7 @@
             &::-webkit-scrollbar-thumb {
                 background-color: #d7d7d7b3;
             }
-            div[data-container="account-section"] {
+            div.account-section {
                 width: calc(100% - 26px);
                 padding-inline: 13px;
                 margin-top: 15px;
@@ -643,10 +661,10 @@
             }
         }
         @media screen and (min-width: 280px) {
-            width: 92.25%;
+            width: 94.25%;
         }
         @media screen and (min-width: 320px) {
-            width: 90%;
+            width: 93%;
         }
         @media screen and (min-width: 600px) {
             width: 350px;

@@ -22,21 +22,21 @@ export default {
             },
             defaultValue: {
                 product: {
-                    crystal: "[string]",
-                    coin: "[string]"
+                    crystal: "#",
+                    coin: "#"
                 },
                 company: {
-                    about: "[string]",
-                    blog: "[string]",
-                    careers: "[string]"
+                    about: "#",
+                    blog: "#",
+                    careers: "#"
                 },
                 contact: {
-                    github: "[string]",
-                    twitter: "[string]"
+                    github: "#",
+                    twitter: "#"
                 },
                 legal: {
-                    termsOfService: "[string]",
-                    privacyPolicy: "[string]"
+                    termsOfService: "#",
+                    privacyPolicy: "#"
                 }
             }
         },

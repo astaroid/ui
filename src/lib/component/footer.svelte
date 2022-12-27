@@ -175,9 +175,25 @@
         }
         @media screen and (max-width: 599px) {
             height: 420px;
-            main[data-container="inner-container"] section[data-container="footer-sections"] {
-                height: calc(84% - 75px);
-                grid-template-columns: repeat(2, 1fr);
+            main[data-container="inner-container"] {
+                section[data-container="footer-sections"] {
+                    height: calc(84% - 75px);
+                    grid-template-columns: repeat(2, 1fr);
+                    row-gap: 10px;
+                    div[data-container="footer-sections-item"] {
+                        p[data-text="header"] {
+                            font-size: 16.5px;
+                        }
+                        a[data-text="item"] {
+                            font-size: 17.95px;
+                        }
+                    }
+                }
+                section[data-container="footer-detail"] {
+                    p {
+                        font-size: 15.25px;
+                    }
+                }
             }
         }
         &[data-theme="dark"] {

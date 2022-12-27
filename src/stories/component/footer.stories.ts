@@ -28,7 +28,7 @@ export default {
                 company: {
                     about: "[string]",
                     blog: "[string]",
-                    // careers: "[string]"
+                    careers: "[string]"
                 },
                 contact: {
                     github: "[string]",

@@ -6,7 +6,7 @@
         }
         company: {
             blog: string
-            // careers: string
+            careers: string
             about: string
         }
         contact: {
@@ -44,9 +44,9 @@
                 <a target="	_blank" href={links.company.about} data-text="item">
                     about
                 </a>
-                <!-- <a target="	_blank" href={links.company.careers} data-text="item">
+                <a target="	_blank" href={links.company.careers} data-text="item">
                     careers
-                </a> -->
+                </a>
                 <a target="	_blank" href={links.company.blog} data-text="item">
                     blog
                 </a>

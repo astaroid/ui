@@ -8,7 +8,8 @@ import MessageBar from "./message-bar.svelte"
 import ActivityMessage from "./activity-message.svelte"
 import MenuItem from "./menu-item.svelte"
 import Menu from "./menu.svelte"
-import Footer from "./footer.svelte"
+import LargeFooter from "./large-footer.svelte"
+import SmallFooter from "./small-footer.svelte"
 import Modal from "./modal.svelte"
 import SearchBar from './search-bar.svelte'
 import SearchBarDropdownMenu from './search-bar-dropdown-menu.svelte'
@@ -40,7 +41,8 @@ export default {
     MenuItem,
     Menu,
     ActivityMessage,
-    Footer,
+    LargeFooter,
+    SmallFooter,
     Modal,
     Tooltip,
     SearchBar,

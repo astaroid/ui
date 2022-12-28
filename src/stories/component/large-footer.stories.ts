@@ -1,8 +1,8 @@
-import Footer from "../../lib/component/footer.svelte"
+import LargeFooter from "../../lib/component/large-footer.svelte"
 
 export default {
-    title: "Component/Footer",
-    component: Footer,
+    title: "Component/Footer component/Large Footer",
+    component: LargeFooter,
     parameters: {
         layout: 'fullscreen',
         backgrounds: {
@@ -22,21 +22,21 @@ export default {
             },
             defaultValue: {
                 product: {
-                    crystal: "[string]",
-                    coin: "[string]"
+                    crystal: "#",
+                    coin: "#"
                 },
                 company: {
-                    about: "[string]",
-                    blog: "[string]",
-                    // careers: "[string]"
+                    about: "#",
+                    blog: "#",
+                    careers: "#"
                 },
                 contact: {
-                    github: "[string]",
-                    twitter: "[string]"
+                    github: "#",
+                    twitter: "#"
                 },
                 legal: {
-                    termsOfService: "[string]",
-                    privacyPolicy: "[string]"
+                    termsOfService: "#",
+                    privacyPolicy: "#"
                 }
             }
         },
@@ -71,7 +71,7 @@ export default {
 }
 
 const Template = (args:any) => ({
-    Component: Footer,
+    Component: LargeFooter,
     props: args
 })
 

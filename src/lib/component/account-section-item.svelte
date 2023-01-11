@@ -6,7 +6,7 @@
     import { createEventDispatcher } from "svelte"
 
     export let theme:"system"|"light"|"dark" = "system"
-    export let id:string
+    export let id:string = "account-section-item-001"
     export let title:string = String()
     export let description:string = String()
     export let type:"button"|"select"|"checkbox"|"switch" = "button"
@@ -16,7 +16,7 @@
     export let color:string = "#228be6"
     export let disabled:boolean = false
     export let label:string = String()
-    export let placeholder:string = String()
+    export let placeholder:string = "Placeholder"
     export let value:string = String()
 
     const dispatcher = createEventDispatcher()
@@ -43,6 +43,10 @@
     const onSelect = () => {
         dispatcher("onInput", { id, type: "select", value })
     }
+
+    let darkColor = new Color(color).darken(0.15).hex()
+
+    let lightColor = new Color(color).lighten(0.1).hex()
 </script>
 <section data-theme={theme} data-type={type} data-disabled={disabled} data-has-divider={divider} on:pointerdown={onClick}>
     <div data-container="body">
@@ -77,7 +81,7 @@
         {:else if type == "button"}
             <button 
                 disabled={disabled} 
-                style="background-color: {color}; color: white; --btn-dark-color: {new Color(color).darken(0.15).hex()}; --btn-light-color: {new Color(color).lighten(0.1).hex()}" 
+                style="background-color: {color}; color: white; --btn-dark-color: {darkColor}; --btn-light-color: {lightColor}" 
                 on:click={onInputButtonClick}>
             {label}
             </button>

@@ -31,7 +31,7 @@
         color = null
 </script>
 <section data-theme={theme} style="width: {width}{unit}">
-    <p data-text="title" data-show-title={title ? "true" : "false"} style="{color ? `color: ${color}` : void 0}">{title}</p>
+    <p data-text="title" style="{color ? `color: ${color}` : void 0}">{title}</p>
     <main>
         {#each sectionItems as item, index}
             <AccountSectionItem 
@@ -53,7 +53,7 @@
             margin-bottom: 6px;
             padding-inline: 15px;
             color: #1e1e1e;
-            &[data-show-title="false"] {
+            &:empty {
                 display: none;
             }
         }

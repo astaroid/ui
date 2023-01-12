@@ -15,7 +15,7 @@ export default {
     argTypes: {
         onClicked: {
             action: "onClicked",
-            description: "The event emitted when component is clicked"
+            description: "The event emitted when activity message is clicked"
         },
         theme: {
             name: "theme",
@@ -71,7 +71,7 @@ export default {
         },
         message: {
             type: { name: "string", required: true },
-            description: "The message of activity",
+            description: "The message of activity message",
             defaultValue: "message",
             control: { type: "text" }
         },

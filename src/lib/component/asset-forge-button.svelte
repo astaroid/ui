@@ -10,14 +10,21 @@
     const onClick = () => {
         if (mode == "idle") {
             dispatcher("onStartMerge")
+            mode = "active"
         } else {
+            mode = "idle"
             dispatcher("onEndMerge")
         }
+    }
+
+    const onCancelMerge = () => {
+        dispatcher("onCancelMerge")
+        mode = "idle"
     }
 </script>
 <section data-container="wrapper">
     <main data-theme={theme}>
-        <button style="animation-play-state: { mode == "active" ? "running" : "paused" }" on:click={() => dispatcher("onCancelMerge")} data-button="exit-button">
+        <button data-mode={mode} on:click={onCancelMerge} data-button="exit-button">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" >
                 <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
             </svg>
@@ -38,12 +45,20 @@
     </main>
 </section>
 <style lang="less">
-    @keyframes amin-exit-btn {
+    @keyframes anim-exit-btn-in {
         from {
             transform: scale(0);
         }
         to {
             transform: scale(1);
+        }
+    }
+    @keyframes anim-exit-btn-out {
+        from {
+            transform: scale(1);
+        }
+        to {
+            transform: scale(0);
         }
     }
     section[data-container="wrapper"] {
@@ -91,7 +106,6 @@
                 border-radius: 25.5px;
                 margin-bottom: 15px;
                 background-color: white;
-                animation-name: amin-exit-btn;
                 animation-duration: 280ms;
                 animation-play-state: paused;
                 animation-timing-function: ease-out;
@@ -99,6 +113,17 @@
                     height: 30px;
                     width: 30px;
                     fill: rgb(40, 40, 40);
+                }
+                &[data-mode="active"] {
+                    animation-name: anim-exit-btn-in;
+                    animation-play-state: running;
+                    transform: scale(1);
+                }
+
+                &[data-mode="idle"] {
+                    animation-name: anim-exit-btn-out;
+                    animation-play-state: running;
+                    transform: scale(0);
                 }
             }
             &[data-button="forge-button"] {

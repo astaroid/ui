@@ -26,6 +26,7 @@
     export let show:boolean = true
     export let errorType:ErrorMessage = "none"
     export let loading:boolean = false
+    export let privacyPolicyLink = "/privacy-policy"
 
     const dispatcher = createEventDispatcher()
 
@@ -121,7 +122,7 @@
     />
     <div data-container="policy">
         <Checkbox disabled={loading} size={"xs"} bind:checked={isAgreed} />
-        <span>Agree to the <a href="#policy" on:click|preventDefault={() => dispatcher("onPolicyLinkClick")} target="_blank" rel="noopener noreferrer">Privacy policy</a></span>
+        <span>Agree to the <a href={privacyPolicyLink} target="_blank" rel="noopener noreferrer">Privacy policy</a></span>
     </div>
     <button on:click={signUp} disabled={!isAgreed || loading}>
         {#if !loading }

@@ -5,7 +5,7 @@
     export let theme:"system"|"light"|"dark" = "system"
     export let width:number = 100
     export let unit:"px"|"mm"|"pt"|"cm"|"pc"|"in"|"%" = "%"
-    export let disable:"sign in"|"sign up"|"none" = "none"
+    export let disabled:"sign in"|"sign up"|"none" = "none"
 
     const dispatcher = createEventDispatcher()
 
@@ -16,8 +16,8 @@
 </script>
 
 <nav style="width: {`${width}${unit}`}" data-theme={theme}>
-    <button disabled={ disable == "sign in" } on:click={() => setTab("sign in")} data-current-tab={ tab == "sign in" ? "true": "false" } >Sign in</button>
-    <button disabled={ disable == "sign up" } on:click={() => setTab("sign up")} data-current-tab={ tab == "sign up" ? "true": "false" } >Sign up</button>
+    <button disabled={ disabled == "sign in" } on:click={() => setTab("sign in")} data-current-tab={ tab == "sign in" ? "true": "false" } >Sign in</button>
+    <button disabled={ disabled == "sign up" } on:click={() => setTab("sign up")} data-current-tab={ tab == "sign up" ? "true": "false" } >Sign up</button>
 </nav>
 
 <style lang="less">

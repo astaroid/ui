@@ -29,7 +29,6 @@ export default {
             control: { type: "boolean" }
         },
         errorType: {
-            name: "error type",
             type: { name: "string" },
             defaultValue: "none",
             description: "The type of error the component should display",

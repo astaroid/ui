@@ -113,7 +113,7 @@
         bind:theme={theme} 
         placeholder="Password"
         type="password"
-        message={ errorType == "Incorrect password format" ? "Password must be at least six characters with one number and special characte" : "Password not filled" }
+        message={ errorType == "Incorrect password format" ? "Password must be at least six characters with one number and special characters" : "Password not filled" }
         error={ errorType == "Incorrect password format" || errorType == "Username and password not filled" || errorType == "Password not filled" || errorType == "Username and email and password not filled" || errorType == "Email and password not filled" }
         on:onInput={(e) => {
             password = e.detail.inputValue

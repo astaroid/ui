@@ -39,7 +39,7 @@ export default {
         disabled: {
             name:"disabled",
             type: { name: "string" },
-            description: "The unit of width of the component",
+            description: "The tab to disable",
             defaultValue: "none",
             control: {
                 type: "select",

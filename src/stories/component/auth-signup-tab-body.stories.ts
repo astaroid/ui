@@ -33,6 +33,14 @@ export default {
                 options: [ "none", "Email already exist", "Username already exist", "Username and email already exist" ]
             }
         },
+        privacyPolicyLink: {
+            type: { name: "string" },
+            defaultValue: "/privacy-policy",
+            description: "The link to  the website privacy policy",
+            control: {
+                type: "text"
+            }
+        },
         show: {
             name: "show",
             type: { name: "boolean" },

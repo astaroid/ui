@@ -34,7 +34,7 @@ export default {
             description: "The type of error the component should display",
             control: {
                 type: "select",
-                options: [ "none", "Email already exist", "Username already exist", "Username and email already exist", "both" ]
+                options: [ "none", "Email already exist", "Username already exist", "Username and email already exist" ]
             }
         },
         show: {

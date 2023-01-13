@@ -17,10 +17,6 @@ export default {
             action: "onSignUp", 
             description: "The event emitter when the continue button is clicked"
         },
-        onPolicyLinkClick: {
-            action: "onPolicyLinkClick",
-            description: "The event emitter when the magic link is clicked"
-        },
         loading: {
             name: "loading",
             defaultValue: false,
@@ -82,8 +78,7 @@ const Template = (args:any) => ({
     Component: AuthSignupTabBody,
     props: args,
     on: {
-        onSignUp: args.onSignUp,
-        onPolicyLinkClick: args.onPolicyLinkClick
+        onSignUp: args.onSignUp
     }
 })
 

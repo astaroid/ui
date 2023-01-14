@@ -11,7 +11,7 @@
 
     let formattedColor = new Color(color)
     
-    const overrideStyle = { 
+    let overrideStyle:any = { 
         "&.checkbox .inner .input": { 
             backgroundColor: theme == "light" ? "white" : "rgb(74, 74, 74)",
             borderColor: theme == "light" ? "#ced4da" : "rgb(94, 94, 94)"
@@ -29,30 +29,43 @@
         },
         "&.checkbox label": {
             fontFamily: "Arial, Helvetica, sans-serif",
-            color: theme == "light" ? "rgb(31, 35, 35)" : "rgb(245,245,245)"
+            color: theme == "light" ? "rgb(31, 35, 35)" : "rgb(245,245,245)",
+            fontSize: "14px"
+        },
+        '@media screen and (min-width: 320px)': {
+            "&.checkbox label": {
+                fontSize: "15px"
+            }
+        },
+        '@media screen and (min-width: 600px)': {
+            "&.checkbox label": {
+                fontSize: "15.35px"
+            }
         }
     }
 
     $: if (theme == "system") {
-        overrideStyle['@media screen and (prefers-color-scheme: dark)'] = {
-            "&.checkbox .inner .input": { 
-                backgroundColor: "rgb(74, 74, 74)",
-                borderColor: "rgb(94, 94, 94)"
-            },
-            "&.checkbox .inner .input:checked": { 
-                backgroundColor: formattedColor.hex(),
-            },
-            "&.checkbox .inner .input.disabled": {
-                backgroundColor: "rgb(94, 94, 94)",
-                borderColor: "rgb(124, 124, 124)"
-            },
-            "&.checkbox .inner .input.disabled + .iconWrapper": {
-                backgroundColor: "rgb(94, 94, 94)",
-                borderColor: "rgb(124, 124, 124)"
-            },
-            "&.checkbox label": {
-                marginTop: "3px",
-                color: "rgb(245,245,245)"
+        overrideStyle = {
+            ...overrideStyle,
+            '@media screen and (prefers-color-scheme: dark)': {
+                "&.checkbox .inner .input": { 
+                    backgroundColor: "rgb(74, 74, 74)",
+                    borderColor: "rgb(94, 94, 94)"
+                },
+                "&.checkbox .inner .input:checked": { 
+                    backgroundColor: formattedColor.hex(),
+                },
+                "&.checkbox .inner .input.disabled": {
+                    backgroundColor: "rgb(94, 94, 94)",
+                    borderColor: "rgb(124, 124, 124)"
+                },
+                "&.checkbox .inner .input.disabled + .iconWrapper": {
+                    backgroundColor: "rgb(94, 94, 94)",
+                    borderColor: "rgb(124, 124, 124)"
+                },
+                "&.checkbox label": {
+                    color: "rgb(245,245,245)"
+                }
             }
         }
     } else  {

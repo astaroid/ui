@@ -13,6 +13,10 @@ export default {
         },
     },
     argTypes: {
+        onSelect: {
+            action: "onSelect",
+            description: "The event emitted when the select input menu option is selected"
+        },
         theme: {
             type: { required: true, name: "string" },
             description: "The theme of the component",
@@ -77,7 +81,10 @@ export default {
 
 const Template  = (args:any) => ({
     Component: SelectInputMenu,
-    props: args
+    props: args,
+    on: {
+        onSelect: args.onSelect
+    }
 })
 
 export const Input = Template.bind({})

@@ -15,7 +15,7 @@ export default {
     argTypes: {
         onInput: {
             action: "onInput", 
-            description: "The event emitter when a select item value is picked"
+            description: "The event emitter when the select input option is selected"
         },
         theme: {
             type: { required: true, name: "string" },
@@ -58,7 +58,7 @@ export default {
             description: "If true the select input is disabled"
         },
         options: {
-            description: "The list options available to the select input",
+            description: "The list of available options to the select input",
             control: {
                 type: "object"
             },

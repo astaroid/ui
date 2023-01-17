@@ -25,37 +25,25 @@
     export let title:string = "Info"
     export let type:"info"|"warning"|"success"|"error" = "info"
     export let message:string = `Message type is ${type}`
-    export let leftButton:ModalButton = null
-    export let rightButton:ModalButton = null
-    export let input:ModalInput = null
-
-    if (!leftButton) {
-        leftButton =  {
-            type: "default",
-            text: "Cancel",
-            disabled: false,
-            loading: false
-        }
+    export let leftButton:ModalButton = {
+        type: "default",
+        text: "Cancel",
+        disabled: false,
+        loading: false
     }
-
-    if (!rightButton) {
-        rightButton = {
-            type: "info",
-            text: "Next",
-            disabled: false,
-            loading: false
-        }
+    export let rightButton:ModalButton = {
+        type: "info",
+        text: "Next",
+        disabled: false,
+        loading: false
     }
-
-    if (!input) {
-        input = {
-            show: false,
-            type: "text",
-            placeholder: String(),
-            error: false,
-            errorMessage: String(),
-            value: null
-        }
+    export let input:ModalInput = {
+        show: false,
+        type: "text",
+        placeholder: String(),
+        error: false,
+        errorMessage: String(),
+        value: null
     }
 
     const dispatcher = createEventDispatcher()

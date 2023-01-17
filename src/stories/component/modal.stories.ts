@@ -28,7 +28,7 @@ export default {
         },
         onRightButtonClicked: {
             action: "onRightButtonClicked", 
-            description: "The event emitter when the modal left button is clicked"
+            description: "The event emitter when the modal right button is clicked"
         },
         leftButton: {
             name: "left button",
@@ -57,7 +57,7 @@ export default {
             }
         },
         message: {
-            description: "The message to pass to modal",
+            description: "The message of the modal",
             control: {
                 type: "text"
             }

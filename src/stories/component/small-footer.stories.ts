@@ -42,32 +42,27 @@ export default {
             }
         },
         githubLink: {
-            name: "githubLink",
-            type: { required: true, name: "string" },
+            type: { name: "string" },
             description: "The link to the author github account",
             control: { type: "text" }
         },
         twitterLink: {
-            name: "twitterLink",
-            type: { required: true, name: "string" },
+            type: { name: "string" },
             description: "The link to the author twitter account",
             control: { type: "text" }
         },
         privacyPolicyLink: {
-            name: "privacyPolicyLink",
-            type: { required: true, name: "string" },
+            type: { name: "string" },
             description: "The link to the website privacy policy page",
             control: { type: "text" }
         },
         websiteTutorialLink: {
-            name: "websiteTutorialLink",
-            type: { required: true, name: "string" },
+            type: { name: "string" },
             description: "The link to the website tutorial page",
             control: { type: "text" }
         },
         emailLink: {
-            name: "emailLink",
-            type: { required: true, name: "string" },
+            type: { name: "string" },
             description: "The link to the website email",
             control: { type: "text" }
         },

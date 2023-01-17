@@ -31,7 +31,6 @@ export default {
             description: "The event emitter when the modal right button is clicked"
         },
         leftButton: {
-            name: "left button",
             description: "The metadata for the modal left button",
             control: {
                 type: "object"
@@ -44,7 +43,6 @@ export default {
             }
         },
         rightButton: {
-            name: "right button",
             description: "The metadata for the modal right button",
             control: {
                 type: "object"

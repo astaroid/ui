@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { Temporal } from "@js-temporal/polyfill"
     interface FooterLinks {
         product: {
             crystal: string
@@ -18,10 +19,13 @@
             privacyPolicy: string
         }
     }
+
     export let theme:"system"|"light"|"dark" = "system"
     export let width:number = 100
     export let unit:"px"|"mm"|"pt"|"cm"|"pc"|"in"|"%" = "%"
     export let links:FooterLinks
+
+    let year = Temporal.Now.zonedDateTimeISO().year
 </script>
 <footer style="width: {`${width}${unit}`}" data-theme={theme}>
     <main data-container="inner-container">
@@ -76,7 +80,7 @@
         </section>
         <section data-container="footer-detail">
             <p>
-                Copyright &copy; Astaroid.
+                Copyright &copy; {year} Astaroid
             </p>
             <p>
                 All right reserved.

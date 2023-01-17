@@ -25,7 +25,7 @@ export default {
         },
         show: {
             type: { name: "boolean" },
-            description: "If true the component will be shown",
+            description: "If true the tooltip will be shown",
             control: {
                 type: "boolean"
             },

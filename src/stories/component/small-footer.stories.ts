@@ -61,9 +61,9 @@ export default {
             description: "The link to the website tutorial page",
             control: { type: "text" }
         },
-        emailLink: {
+        discordLink: {
             type: { name: "string" },
-            description: "The link to the website email",
+            description: "The link to the website discord account",
             control: { type: "text" }
         },
         websiteName: {

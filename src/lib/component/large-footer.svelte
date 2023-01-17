@@ -193,7 +193,7 @@
                             font-size: 16.35px;
                         }
                         a[data-text="item"] {
-                            font-size: 17.75px;
+                            font-size: 17.2px;
                         }
                     }
                 }

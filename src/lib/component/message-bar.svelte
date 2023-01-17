@@ -9,6 +9,11 @@
     export let inputText:string = "click me"
 
     const dispatcher = createEventDispatcher()
+
+    const onExitBtnClick = () => {
+        show = false
+        dispatcher("onExit")
+    }
 </script>
 <section style="display: { show ? "flex" : "none" }">
     <p>{@html message}</p>
@@ -20,10 +25,7 @@
         {/if}
     {/if}
     {#if type == "removable" }
-        <button data-type="exit" on:click={() => {
-            show = false
-            dispatcher("onExit")
-        }}>
+        <button data-type="exit" on:click={onExitBtnClick}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
                 <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
             </svg>

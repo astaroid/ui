@@ -32,7 +32,8 @@ export default {
                 },
                 contact: {
                     github: "#",
-                    twitter: "#"
+                    twitter: "#",
+                    discord: "#"
                 },
                 legal: {
                     termsOfService: "#",

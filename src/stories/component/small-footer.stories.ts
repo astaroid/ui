@@ -43,12 +43,12 @@ export default {
         },
         githubLink: {
             type: { name: "string" },
-            description: "The link to the author github account",
+            description: "The link to the website github account",
             control: { type: "text" }
         },
         twitterLink: {
             type: { name: "string" },
-            description: "The link to the author twitter account",
+            description: "The link to the website twitter account",
             control: { type: "text" }
         },
         privacyPolicyLink: {

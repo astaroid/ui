@@ -13,6 +13,7 @@
         contact: {
             twitter: string
             github: string
+            discord: string
         }
         legal: {
             termsOfService: string
@@ -61,6 +62,9 @@
                 </p>
                 <a target="	_blank" href={links.contact.twitter} data-text="item">
                     twitter
+                </a>
+                <a target="	_blank" href={links.contact.discord} data-text="item">
+                    discord
                 </a>
                 <a target="	_blank" href={links.contact.github} data-text="item">
                     github
@@ -178,7 +182,7 @@
             }
         }
         @media screen and (max-width: 599px) {
-            height: 400px;
+            height: 425px;
             main[data-container="inner-container"] {
                 section[data-container="footer-sections"] {
                     height: calc(84% - 75px);

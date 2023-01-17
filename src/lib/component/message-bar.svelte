@@ -3,7 +3,7 @@
     import { createEventDispatcher } from "svelte"
 
     export let message:string = "Message"
-    export let type:"normal"|"input-able"|"removable" = "normal"
+    export let type:"normal"|"inputable"|"removable" = "normal"
     export let show:boolean = true
     export let loading:boolean = false
     export let inputText:string = "click me"
@@ -12,7 +12,7 @@
 </script>
 <section style="display: { show ? "flex" : "none" }">
     <p>{@html message}</p>
-    {#if type == "input-able" }
+    {#if type == "inputable" }
         {#if !loading}
             <button on:click={() => dispatcher("onInputClicked")} data-type="input">{inputText}</button>
         {:else}

@@ -63,14 +63,14 @@ export default {
             }
         },
         title: {
-            type: { name: "string", required: true },
+            type: { name: "string" },
             description: "The title of the modal",
             control: {
                 type: "text"
             }
         },
         type: {
-            type: { name: "string", required: true },
+            type: { name: "string" },
             description: "The type of the modal",
             control: {
                 type: "select",

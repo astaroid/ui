@@ -56,13 +56,13 @@ export default {
         privacyPolicyLink: {
             name: "privacyPolicyLink",
             type: { required: true, name: "string" },
-            description: "The link to the website privacy policy link",
+            description: "The link to the website privacy policy page",
             control: { type: "text" }
         },
         websiteTutorialLink: {
             name: "websiteTutorialLink",
             type: { required: true, name: "string" },
-            description: "The link to the website tutorial",
+            description: "The link to the website tutorial page",
             control: { type: "text" }
         },
         emailLink: {

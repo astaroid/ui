@@ -11,8 +11,8 @@ export default {
             action: 'onLoaded', 
             description: "The event emitter when the page is loaded"
         },
-        onBackClicked: {
-            action: 'onBackClicked', 
+        onBackBtnClicked: {
+            action: 'onBackBtnClicked', 
             description: "The event emitter when the Go Back button is clicked"
         },
         theme: {
@@ -47,7 +47,7 @@ const Template = (args:any) => ({
     props: args,
     on: {
         onLoaded: args.onLoaded,
-        onBackClicked: args.onBackClicked
+        onBackBtnClicked: args.onBackBtnClicked
     }
 })
 

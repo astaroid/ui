@@ -15,7 +15,15 @@ export default {
     argTypes: {
         onClicked: {
             action: "onClicked",
-            description: "The event emitter when a component is clicked"
+            description: "The event emitter when the search bar dropdown menu item is clicked"
+        },
+        onHover: {
+            action: "onHover",
+            description: "The event emitter when a pointer device hover over the search bar dropdown menu item"
+        },
+        onHoverOut: {
+            action: "onHoverOut",
+            description: "The event emitter when a pointer device hover out the search bar dropdown menu item"
         },
         theme: {
             name: "theme",
@@ -61,7 +69,9 @@ const Template = (args:any) => ({
     Component: SearchBarDropdownMenuItem,
     props: args,
     on: {
-        onClicked: args.onClicked
+        onClicked: args.onClicked,
+        onHover: args.onHover,
+        onHoverOut: args.onHoverOut
     }
 })
 

@@ -36,7 +36,6 @@ export default {
             }
         },
         searchValue: {
-            name: "search value",
             type: { name: "string", required: true },
             description: "The value of the search bar menu item",
             defaultValue: "search",
@@ -45,9 +44,8 @@ export default {
             }
         },
         searchBy: {
-            name: "search by",
             type: { name: "string" },
-            description: "The value the search bar menu item  is filtered with",
+            description: "The type of value the search bar menu item is filtered with",
             defaultValue: "color",
             control: {
                 type: "select",

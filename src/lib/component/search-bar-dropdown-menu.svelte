@@ -33,7 +33,7 @@
                     theme,
                     searchBy: "volume",
                     selected: false,
-                    searchValue: parseFloat(searchValue.match(numRegExp).join(String()))
+                    searchValue: Math.ceil(parseFloat(searchValue.match(numRegExp).join(String())))
                 }
             ]
             if (page == "home") {
@@ -112,10 +112,7 @@
         oldSearchValue = searchValue
     }
 
-    $: if (show) {
-        if (window)
-            window.addEventListener("keydown", keydownListener)
-    } 
+    $: if (show && window) window.addEventListener("keydown", keydownListener)
 
     $: if (!show) {
         searchBarDropDownMenuItemSelectedIndex = 0

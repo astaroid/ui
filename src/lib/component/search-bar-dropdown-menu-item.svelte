@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { createEventDispatcher, onMount } from "svelte"
+    import { createEventDispatcher, onDestroy, onMount } from "svelte"
 
     export let theme:"system"|"light"|"dark" = "system"
     export let searchBy:"volume"|"price"|"color"|"unique" = "color"
@@ -12,18 +12,28 @@
         if (selected)
             dispatcher("onClicked", { searchBy, searchValue })
     }
+    
+    const onHover = () => {
+        if (!section) return
+        if (section.matches(":hover")) {
+            dispatcher("onHover")
+        }
+    }
+
+    const onHoverOut = () => dispatcher("onHoverOut")
+
     let section:HTMLElement = null
-
+    
     onMount(() => {
-        section.addEventListener("pointerenter", () => {
-            if (section.matches(":hover")) {
-                dispatcher("onHover")
-            }
-        })
+        section.addEventListener("pointerenter", onHover)
 
-        section.addEventListener("pointerleave", () => {
-            dispatcher("onHoverOut")
-        })
+        section.addEventListener("pointerleave", onHoverOut)
+    })
+
+    onDestroy(() => {
+        section.removeEventListener("pointerenter", onHover)
+
+        section.removeEventListener("pointerleave", onHoverOut)
     })
 </script>
 <section bind:this={section} data-selected={selected} on:click={onClicked} data-search-by={searchBy} data-theme={theme}>

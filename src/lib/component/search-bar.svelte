@@ -82,7 +82,7 @@
     section {
         margin: 0 0 0 0;
         padding: 0 0 0 0;
-        height: 35px;
+        height: 37.5px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -115,7 +115,7 @@
             justify-content: center;
             align-items: center;
             width: 100%;
-            height: 33px;
+            height: 35.5px;
             background-color: white;
             border-style: solid;
             border-width: 1px;
@@ -140,7 +140,7 @@
                 padding: 0 0 0 0;
                 border: none;
                 height: 100%;
-                font-size: 14.75px;
+                font-size: 14.85px;
                 padding-inline: 10px;
                 width: calc(100% - 75px);
                 color: rgb(35, 35, 35);

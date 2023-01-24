@@ -35,23 +35,23 @@ export default {
         coin: {
             control: { type: "number" },
             defaultValue: 100,
-            description: "The user number of coins"
+            description: "The user coins count"
         },
         homePageLink: {
             control: { type: "text" },
-            description: "The link to the astaroid website home page",
+            description: "The link to the website home page",
             defaultValue: "/"
         },
         assetsPageLink: {
             control: { type: "text" },
-            description: "The link to the astaroid website assets page",
+            description: "The link to the website assets page",
             defaultValue: "/"
         },
         notified: {
             type: { name: "boolean" },
             control: { type: "boolean" },
             defaultValue: false,
-            description: "If true then there is a notification message"
+            description: "If true then there is an activity message"
         },
         message: {
             control: { type: "object" },
@@ -67,7 +67,7 @@ export default {
         page: {
             name: "page",
             type: { required: true, name: "string" },
-            description: "The selected tab",
+            description: "The page navbar component is mounted",
             defaultValue: "home",
             control: {
                 type: "select",

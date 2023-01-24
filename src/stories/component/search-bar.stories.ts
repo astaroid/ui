@@ -19,7 +19,7 @@ export default {
         },
         onInput: {
             action: "onInput",
-            description: "The event emitter when the data is inputted into the search bar"
+            description: "The event emitter when the value is inputted into the search bar"
         },
         onBackBtnClicked: {
             action: "onBackBtnClicked",

@@ -38,13 +38,11 @@ export default {
             description: "The user number of coins"
         },
         homePageLink: {
-            name: "home page link",
             control: { type: "text" },
             description: "The link to the astaroid website home page",
             defaultValue: "/"
         },
         assetsPageLink: {
-            name: "assets page link",
             control: { type: "text" },
             description: "The link to the astaroid website assets page",
             defaultValue: "/"

@@ -134,6 +134,7 @@
 
     let searchBarContainer:HTMLElement = null
 
+    let countType:"coin"|"asset" = page == "home" ? "coin" : "asset"
 
     onMount(() => {
         window.matchMedia("screen and (max-width: 599px)").addEventListener("change", (e) => {
@@ -215,11 +216,11 @@
             </div>
         </div>
     </main>
-    <section data-container="coin-container">
-        <Tooltip theme={theme} label={coinCount > 1 ? "Coins" : "Coin"} position="bottom">
+    <section data-container="count-container">
+        <Tooltip theme={theme} label={ countType == "coin" ? (coinCount > 1 ? "Coins" : "Coin") : (assetCount > 1 ? "Assets" : "Asset") } position="bottom">
             <p>
-                <img src="/coin.png" alt="">
-                <span>{formatNumber(coinCount)}</span>
+                <img src={ countType == "coin" ? "/coin.png" : "/crystal.png" } alt="">
+                <span>{formatNumber( countType == "coin" ? coinCount : assetCount)}</span>
             </p>
         </Tooltip>
     </section>
@@ -234,7 +235,7 @@
         width: 100%;
         padding: 0 0 0 0;
         height: fit-content;
-        section[data-container="coin-container"] {
+        section[data-container="count-container"] {
             width: 100%;
             display: flex;
             justify-content: center;
@@ -266,6 +267,7 @@
                     height: 30px;
                     width: 30px;
                     margin-right: 4px;
+                    margin-top: -4.5px;
                 }
             }
         }
@@ -406,7 +408,7 @@
             }
         }
         &[data-theme="dark"] {
-            section[data-container="coin-container"] {
+            section[data-container="count-container"] {
                 margin-top: -0.5px;
                 p {
                     background-color: #212121;
@@ -469,7 +471,7 @@
 
         @media screen and (prefers-color-scheme: dark) {
             &[data-theme="system"] {
-                section[data-container="coin-container"] {
+                section[data-container="count-container"] {
                     margin-top: -0.5px;
                     p {
                         background-color: #212121;

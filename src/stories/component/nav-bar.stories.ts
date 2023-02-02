@@ -76,7 +76,7 @@ export default {
             defaultValue: "home",
             control: {
                 type: "select",
-                options: [ "home", "assets" ]
+                options: [ "home", "asset" ]
             }
         }
     }

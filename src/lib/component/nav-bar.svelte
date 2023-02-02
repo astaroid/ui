@@ -24,6 +24,7 @@
     export let homePageLink:string = "/"
     export let assetsPageLink:string = "/"
     export let coinCount:number = 0
+    export let assetCount:number = 0
 
     const dispatcher = createEventDispatcher()
 

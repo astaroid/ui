@@ -37,6 +37,11 @@ export default {
             defaultValue: 100,
             description: "The user coins count"
         },
+        assetCount: {
+            control: { type: "number" },
+            defaultValue: 100,
+            description: "The user assets count"
+        },
         homePageLink: {
             control: { type: "text" },
             description: "The link to the website home page",

@@ -12,7 +12,7 @@
 
     export let theme:"system"|"light"|"dark" = "system"
     export let width:number = 100
-    export let page:"home"|"assets" = "home"
+    export let page:"home"|"asset" = "home"
     export let searchValue:string = String()
     export let show:boolean
     export let x:number = 0

@@ -5,7 +5,7 @@
     import SearchBar from "./search-bar.svelte"
     import Tooltip from "./tooltip.svelte"
 
-    type PageType = "home"|"assets"
+    type PageType = "home"|"asset"
 
     type TabType = "activity"|"account"
 
@@ -22,7 +22,7 @@
     export let notified:boolean = false
     export let message:MessageBarControl = null
     export let homePageLink:string = "/"
-    export let assetsPageLink:string = "/"
+    export let assetPageLink:string = "/"
     export let coinCount:number = 0
     export let assetCount:number = 0
 
@@ -165,8 +165,8 @@
                         </svg>
                     </a>
                 </Tooltip>
-                <Tooltip theme={theme} label="Assets" position="bottom">
-                    <a href={assetsPageLink} data-current-page={ page == "assets" ? "true": "false" }>
+                <Tooltip theme={theme} label="Asset" position="bottom">
+                    <a href={assetPageLink} data-current-page={ page == "asset" ? "true": "false" }>
                         <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" viewBox="0 0 20 20">
                             <g><path d="M16,3H4L2,8l8,9l8-9L16,3z M8.21,7.25L9.59,4.5h0.82l1.38,2.75H8.21z M9.25,8.75v5.15L4.67,8.75H9.25z M10.75,8.75h4.58 l-4.58,5.15V8.75z M16.08,7.25h-2.62L12.09,4.5h2.9L16.08,7.25z M5.02,4.5h2.9L6.54,7.25H3.92L5.02,4.5z"/></g>
                         </svg>

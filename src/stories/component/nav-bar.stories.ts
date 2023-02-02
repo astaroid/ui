@@ -47,9 +47,9 @@ export default {
             description: "The link to the website home page",
             defaultValue: "/"
         },
-        assetsPageLink: {
+        assetPageLink: {
             control: { type: "text" },
-            description: "The link to the website assets page",
+            description: "The link to the website asset page",
             defaultValue: "/"
         },
         notified: {

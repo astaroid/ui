@@ -235,6 +235,7 @@
         width: 100%;
         padding: 0 0 0 0;
         height: fit-content;
+        position: fixed;
         section[data-container="count-container"] {
             width: 100%;
             display: flex;

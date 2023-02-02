@@ -12,7 +12,7 @@
     interface MessageBarControl {
         message: string
         show: boolean
-        type: "normal"|"input-able"|"removable"
+        type: "normal"|"inputable"|"removable"
         loading: boolean
         inputText: string
     }
@@ -23,7 +23,7 @@
     export let message:MessageBarControl = null
     export let homePageLink:string = "/"
     export let assetsPageLink:string = "/"
-    export let coin:number = 0
+    export let coinCount:number = 0
 
     const dispatcher = createEventDispatcher()
 
@@ -48,28 +48,19 @@
     }
 
     $:{
-        if (!message) {
-            message = {
-                message: String(),
-                show: false,
-                type: "normal",
-                loading: false,
-                inputText: "click me"
-            }
-        }
         if (tab == "activity") 
             notified = false
     }
 
-    const formatCoinNumber = () => {
-        if (coin >= 1000000000) {
-            return (coin/1000000000).toFixed(3).concat("B")
-        } else if (coin >= 1000000 && coin < 1000000000) {
-            return (coin/1000000).toFixed(3).concat("M")
-        } else if (coin >= 10000 && coin < 1000000) {
-            return (coin/1000).toFixed(2).concat("K")
+    const formatNumber = (num:number) => {
+        if (num >= 1000000000) {
+            return (num/1000000000).toFixed(3).concat("B")
+        } else if (num >= 1000000 && num < 1000000000) {
+            return (num/1000000).toFixed(3).concat("M")
+        } else if (num >= 10000 && num < 1000000) {
+            return (num/1000).toFixed(2).concat("K")
         } else {
-            return coin.toFixed()
+            return num.toFixed()
         }
     }
 
@@ -144,16 +135,6 @@
 
 
     onMount(() => {
-        if (!message) {
-            message = {
-                message: String(),
-                show: false,
-                type: "normal",
-                loading: false,
-                inputText: "click me"
-            }
-        }
-
         window.matchMedia("screen and (max-width: 599px)").addEventListener("change", (e) => {
             if (tabButtonContainer && searchBarContainer) {
                 searchBarDropDownMenuControl.show = false
@@ -234,10 +215,10 @@
         </div>
     </main>
     <section data-container="coin-container">
-        <Tooltip theme={theme} label={coin > 1 ? "Coins" : "Coin"} position="bottom">
+        <Tooltip theme={theme} label={coinCount > 1 ? "Coins" : "Coin"} position="bottom">
             <p>
                 <img src="/coin.png" alt="">
-                <span>{formatCoinNumber()}</span>
+                <span>{formatNumber(coinCount)}</span>
             </p>
         </Tooltip>
     </section>

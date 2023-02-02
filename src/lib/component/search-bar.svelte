@@ -7,7 +7,7 @@
 
     const dispatcher = createEventDispatcher()
 
-    const searchBarBlockBorderWidth = 2.5
+    const searchBarBlockBorderWidth = 2
 
     const onInput = () => {
         if (formElement) {

@@ -32,7 +32,7 @@ export default {
                 options: [ "light", "dark", "system" ]
             }
         },
-        coin: {
+        coinCount: {
             control: { type: "number" },
             defaultValue: 100,
             description: "The user coins count"

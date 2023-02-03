@@ -29,6 +29,14 @@ export default {
             action: "onForgetPassword",
             description: "The event emitter when forget password link is clicked"
         },
+        privacyPolicyLink: {
+            type: { name: "string" },
+            defaultValue: "/privacy-policy",
+            description: "The link to  the website privacy policy",
+            control: {
+                type: "text"
+            }
+        },
         errorType: {
             type: { name: "string" },
             defaultValue: "none",

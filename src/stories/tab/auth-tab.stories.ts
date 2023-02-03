@@ -21,10 +21,6 @@ export default {
             action: "onSignUp", 
             description: "The event emitter when user enable to sign up"
         },
-        onPolicyLinkClick: {
-            action: "onPolicyLinkClick",
-            description: "The event emitter when the magic link is clicked"
-        },
         onSignIn: {
             action: "onSignIn", 
             description: "The event emitter when user enable to sign in"
@@ -109,7 +105,6 @@ const Template = (args:any) => ({
         onSignIn: args.onSignIn,
         onForgetPassword: args.onForgetPassword,
         onSignUp: args.onSignUp,
-        onPolicyLinkClick: args.onPolicyLinkClick,
         onTabSelected: args.onTabSelected
     }
 })

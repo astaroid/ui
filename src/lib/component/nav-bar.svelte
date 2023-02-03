@@ -296,7 +296,7 @@
                 width: calc(var(--inner-nav-bar-width) - 30px);
                 div[data-container="search-bar-container"] {
                     height: fit-content;
-                    width: 283px;
+                    width: 290px;
                     padding: 0 0 0 0;
                 }
                 div[data-container="button-container"] {
@@ -333,8 +333,8 @@
                         }
                         svg {
                             fill: rgb(135, 135, 135);
-                            width: 26.5px;
-                            height: 26.5px;
+                            width: 26.85px;
+                            height: 26.85px;
                         }
                     }
                     a {
@@ -384,8 +384,8 @@
                         a,
                         button{
                             svg {
-                                width: 24.5px;
-                                height: 24.5px;
+                                width: 26px;
+                                height: 26px;
                             }
                         }
                     }

@@ -661,10 +661,10 @@
             }
         }
         @media screen and (min-width: 280px) {
-            width: 94.25%;
+            width: 99.4%;
         }
         @media screen and (min-width: 320px) {
-            width: 93%;
+            width: 99.4%;
         }
         @media screen and (min-width: 600px) {
             width: 350px;

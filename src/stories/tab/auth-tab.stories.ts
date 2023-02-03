@@ -79,7 +79,7 @@ export default {
                 options: [ "sign in", "sign up" ]
             }
         },
-        disable: {
+        disabled: {
             name:"disable",
             type: { name: "string" },
             description: "The tab button to disable",

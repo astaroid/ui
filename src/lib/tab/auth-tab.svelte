@@ -22,6 +22,7 @@
     export let errorType:GlobalErrorMessage = "none"
     export let loading:boolean =  false
     export let disabled:"sign in"|"sign up"|"none" = "none"
+    export let privacyPolicyLink = "/privacy-policy"
 
     $:signInErrorType = (SignInErrorMessage.concat(errorType) ? errorType : "none") as any
     
@@ -56,9 +57,9 @@
         width={100}
         theme={theme}
         show={ tab == "sign up" }
+        privacyPolicyLink={privacyPolicyLink}
         errorType={signUpErrorType}
         loading={ tab == "sign up" && loading}
-        on:onPolicyLinkClick={(e) => dispatcher("onPolicyLinkClick")}
         on:onSignUp={(e) => dispatcher("onSignUp", { ...e.detail })}
     />
 </main>

@@ -338,7 +338,7 @@
             padding: 12px;
             padding-top: 5px;
             padding-bottom: 5px;
-            font-size: 21.75px;
+            font-size: 20px;
             display: flex;
             flex-direction: row;
             justify-content: space-between;

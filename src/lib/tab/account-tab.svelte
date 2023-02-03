@@ -74,7 +74,7 @@
     }
 
     const close = () => {
-        sectionElement ? sectionElement.classList.add("slide-out-anim") : void 0
+        sectionElement && sectionElement.classList.add("slide-out-anim")
     }
 
     const toggleMenu = () => {
@@ -498,7 +498,7 @@
             padding: 12px;
             padding-top: 5px;
             padding-bottom: 5px;
-            font-size: 21.75px;
+            font-size: 20px;
             display: flex;
             flex-direction: row;
             justify-content: space-between;

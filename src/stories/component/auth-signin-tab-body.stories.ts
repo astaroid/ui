@@ -15,11 +15,11 @@ export default {
     argTypes: {
         onSignIn: {
             action: "onSignIn", 
-            description: "The event emitter when the continue button is clicked"
+            description: "The event emitter when user enable to sign in"
         },
         onForgetPassword: {
             action: "onForgetPassword",
-            description: "The event emitter when the forget password is clicked"
+            description: "The event emitter when forget password link is clicked"
         },
         loading: {
             name: "loading",

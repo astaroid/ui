@@ -30,7 +30,6 @@ export default {
             description: "The event emitter when forget password link is clicked"
         },
         errorType: {
-            name: "error type",
             type: { name: "string" },
             defaultValue: "none",
             description: "The type of error the tab should display",
@@ -40,7 +39,6 @@ export default {
             }
         },
         width: {
-            name: "width",
             type: { required: true, name: "number" },
             description: "The width of the tab",
             control: {
@@ -49,14 +47,12 @@ export default {
             defaultValue: 100
         },
         loading: {
-            name: "loading",
             defaultValue: false,
             type: { name: "boolean" },
             description: "If true the loading spinner animation will start",
             control: { type: "boolean" }
         },
         unit: {
-            name:"unit",
             type: { name: "string" },
             description: "The unit of width of the tab",
             defaultValue: "%",
@@ -66,7 +62,6 @@ export default {
             }
         },
         tab: {
-            name: "tab",
             type: { name: "string" },
             description: "The selected tab",
             defaultValue: "sign in",
@@ -76,7 +71,6 @@ export default {
             }
         },
         disabled: {
-            name:"disable",
             type: { name: "string" },
             description: "The tab button to disable",
             defaultValue: "none",
@@ -86,7 +80,6 @@ export default {
             }
         },
         theme: {
-            name: "theme",
             type: { required: true, name: "string" },
             description: "The theme of the component",
             defaultValue: "light",

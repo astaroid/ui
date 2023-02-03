@@ -43,7 +43,6 @@ export default {
             defaultValue: true,
         },
         showBoughtCrystalMessages: {
-            name: "show bought crystal messages",
             description: "If true all bought crystal messages will be shown",
             control: {
                 type: "boolean"
@@ -51,7 +50,6 @@ export default {
             defaultValue: true,
         },
         showSoldAssetMessages: {
-            name: "show sold asset messages",
             description: "If true all solid asset messages will be shown",
             control: {
                 type: "boolean"
@@ -59,7 +57,6 @@ export default {
             defaultValue: true,
         },
         showTransactionFeeMessages: {
-            name: "show transaction fee messages",
             description: "If true all transaction fee messages will be shown",
             control: {
                 type: "boolean"
@@ -67,7 +64,6 @@ export default {
             defaultValue: true,
         },
         showPayoutMessages: {
-            name: "show payout messages",
             description: "If true all payout messages will be shown",
             control: {
                 type: "boolean"

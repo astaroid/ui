@@ -15,7 +15,7 @@ export default {
     argTypes: {
         onSignUp: {
             action: "onSignUp", 
-            description: "The event emitter when the continue button is clicked"
+            description: "The event emitter when user enable to sign up"
         },
         loading: {
             name: "loading",

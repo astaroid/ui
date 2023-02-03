@@ -84,6 +84,7 @@
             border-width: 0px;
             border-bottom-width: 4px;
             font-weight: bold;
+            text-transform: capitalize;
             color: #303030;
             cursor: pointer;
             &[data-current-tab="true"] {

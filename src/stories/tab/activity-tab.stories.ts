@@ -24,7 +24,7 @@ export default {
         },
         onMessageClicked: {
             action: "onMessageClicked",
-            description: "The event emitter when the activity message is clicked"
+            description: "The event emitter when a activity message is clicked"
         },
         onHideMessages: {
             action: "onHideMessages",
@@ -82,7 +82,7 @@ export default {
             control: { type: "boolean" }
         },
         messages: {
-            description: "The list of the activity message",
+            description: "The list of all the activity messages",
             control: {
                 type: "object"
             },

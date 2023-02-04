@@ -136,7 +136,10 @@
     }
 
     const close = () => {
-        sectionElement ? sectionElement.classList.add("slide-out-anim") : void 0
+        if (sectionElement) {
+            sectionElement.classList.add("slide-out-anim")
+            sectionElement.classList.remove("slide-in-anim")
+        }
     }
 
     const toggleMenu = () => {
@@ -185,7 +188,6 @@
 
     messages = filterMessages(unFilteredMessages)
 
-    let hasOpened = false
     let sectionWidth = 350
     let menuXPosition = sectionWidth - 192
     let menuYPosition = 43
@@ -200,12 +202,14 @@
         menuXPosition = sectionWidth - 192   
         if (!Array.isArray(messages))
             messages = Array<ActivityMessage>()
-        if (show && !hasOpened) {
-            dispatcher("onOpened")
-            hasOpened = true
-        }
         messages = filterMessages(unFilteredMessages)
         menuItems = menuItemsList()
+    }
+
+    $: if (show && sectionElement) {
+        sectionElement.style.display = "flex"
+        sectionElement.classList.remove("slide-out-anim")
+        sectionElement.classList.add("slide-in-anim")
     }
 
     onMount(() => {
@@ -213,14 +217,25 @@
             menuItemIconTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light"
             menuItems = menuItemsList()
         }
-        sectionElement.classList.remove("slide-out-anim")
+        if (show) {
+            sectionElement.style.display = "flex"
+            sectionElement.classList.remove("slide-out-anim")
+            sectionElement.classList.add("slide-in-anim")
+        } else {
+            sectionElement.classList.remove("slide-in-anim")
+            sectionElement.classList.add("slide-out-anim")
+            sectionElement.style.display = "none"
+        }
         sectionElement.addEventListener("animationend", (e) => {
             if (e.animationName.includes("slide-out")) {
                 sectionElement.classList.remove("slide-out-anim")
                 show = false
+                sectionElement.style.display = "none"
                 dispatcher("onClosed")
-                hasOpened = false
-            } 
+            } else if (e.animationName.includes("slide-in")) {
+                sectionElement.classList.remove("slide-in-anim")
+                dispatcher("onOpened")
+            }
         })
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener("change", (e) => {
             if (theme == "system") {
@@ -230,7 +245,7 @@
         })
     })
 </script>
-<section bind:this={sectionElement} bind:clientWidth={sectionWidth}  use:clickoutside={{ enabled: show, callback: close }} class="slide-out-anim slide-in-anim" style="display: { show ? "flex" : "none" }" data-theme={theme}>
+<section bind:this={sectionElement} bind:clientWidth={sectionWidth} use:clickoutside={{ enabled: show, callback: close }} data-theme={theme}>
     <Menu 
         theme={theme}
         x={menuXPosition}
@@ -315,16 +330,7 @@
         border-style: solid;
         border-width: 1px;
         border-color: #e6e4e4;
-        &.slide-in-anim {
-            z-index: 8;
-            animation-name: slide-in;
-            animation-duration: 245ms;
-            animation-direction: normal;
-            animation-iteration-count: 1;
-            animation-play-state: running;
-            right: 0;
-        }
-        &.slide-out-anim {
+        :global(&.slide-out-anim) {
             z-index: 7;
             animation-name: slide-out;
             animation-play-state: running;
@@ -333,6 +339,15 @@
             animation-iteration-count: 1;
             animation-play-state: running;
             right: -350px;
+        }
+        :global(&.slide-in-anim) {
+            z-index: 8;
+            animation-name: slide-in;
+            animation-duration: 245ms;
+            animation-direction: normal;
+            animation-iteration-count: 1;
+            animation-play-state: running;
+            right: 0;
         }
         box-shadow: 0px 1.25px 2.4px 1.75px #f5f5f5;
         background-color: #fefeff;

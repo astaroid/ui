@@ -316,6 +316,7 @@
         border-width: 1px;
         border-color: #e6e4e4;
         &.slide-in-anim {
+            z-index: 8;
             animation-name: slide-in;
             animation-duration: 245ms;
             animation-direction: normal;
@@ -324,6 +325,7 @@
             right: 0;
         }
         &.slide-out-anim {
+            z-index: 7;
             animation-name: slide-out;
             animation-play-state: running;
             animation-duration: 245ms;

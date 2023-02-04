@@ -180,7 +180,7 @@
     }
     section {
         position: absolute;
-        z-index: 7;
+        z-index: 10;
         width: 100%;
         height: 100%;
         display: flex;

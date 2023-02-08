@@ -39,7 +39,7 @@
     
     const dispatcher = createEventDispatcher()
 
-    const unFilteredMessages = messages
+    const unFilteredMessages = messages || []
 
     const menuItemsList = ():Array<MenuItemType> => ([
         {
@@ -135,12 +135,7 @@
         return messages
     }
 
-    const close = () => {
-        if (sectionElement) {
-            sectionElement.classList.add("slide-out-anim")
-            sectionElement.classList.remove("slide-in-anim")
-        }
-    }
+    const close = () => show = false
 
     const toggleMenu = () => {
         showMenu = !showMenu
@@ -196,20 +191,29 @@
     let menuItemIconTheme:string = theme
     let menuItems:Array<MenuItemType> = menuItemsList()
     let reactiveTrigger = false
-    let sectionElement:HTMLElement = null
+    let tabContainer:HTMLElement = null
+    let mainElement:HTMLElement = null
+    let blurryBackground:HTMLElement = null
 
     $: if (reactiveTrigger || !reactiveTrigger) {
         menuXPosition = sectionWidth - 192   
-        if (!Array.isArray(messages))
-            messages = Array<ActivityMessage>()
         messages = filterMessages(unFilteredMessages)
         menuItems = menuItemsList()
     }
 
-    $: if (show && sectionElement) {
-        sectionElement.style.display = "flex"
-        sectionElement.classList.remove("slide-out-anim")
-        sectionElement.classList.add("slide-in-anim")
+    $: if (show && mainElement && blurryBackground) {
+        mainElement.style.display = "flex"
+        mainElement.classList.remove("tab-show-anim")
+        mainElement.classList.add("tab-hide-anim")
+        blurryBackground.classList.add("start-blur")
+        blurryBackground.classList.remove("clear-blur")
+    }
+
+    $: if (!show && mainElement && blurryBackground) {
+        mainElement.classList.remove("tab-hide-anim")
+        mainElement.classList.add("tab-show-anim")
+        blurryBackground.classList.remove("start-blur")
+        blurryBackground.classList.add("clear-blur")
     }
 
     onMount(() => {
@@ -218,22 +222,26 @@
             menuItems = menuItemsList()
         }
         if (show) {
-            sectionElement.style.display = "flex"
-            sectionElement.classList.remove("slide-out-anim")
-            sectionElement.classList.add("slide-in-anim")
+            mainElement.style.display = "flex"
+            mainElement.classList.remove("tab-show-anim")
+            mainElement.classList.add("tab-hide-anim")
+            blurryBackground.classList.add("start-blur")
+            blurryBackground.classList.remove("clear-blur")
         } else {
-            sectionElement.classList.remove("slide-in-anim")
-            sectionElement.classList.add("slide-out-anim")
-            sectionElement.style.display = "none"
+            mainElement.classList.remove("tab-hide-anim")
+            mainElement.classList.add("tab-show-anim")
+            blurryBackground.classList.remove("start-blur")
+            blurryBackground.classList.add("clear-blur")
         }
-        sectionElement.addEventListener("animationend", (e) => {
+        tabContainer.addEventListener("animationend", (e) => {
             if (e.animationName.includes("slide-out")) {
-                sectionElement.classList.remove("slide-out-anim")
-                show = false
-                sectionElement.style.display = "none"
+                mainElement.classList.remove("tab-show-anim")
+                blurryBackground.classList.remove("start-blur")
+                mainElement.style.display = "none"
                 dispatcher("onClosed")
             } else if (e.animationName.includes("slide-in")) {
-                sectionElement.classList.remove("slide-in-anim")
+                mainElement.classList.remove("tab-hide-anim")
+                blurryBackground.classList.remove("clear-blur")
                 dispatcher("onOpened")
             }
         })
@@ -245,61 +253,67 @@
         })
     })
 </script>
-<section bind:this={sectionElement} bind:clientWidth={sectionWidth} use:clickoutside={{ enabled: show, callback: close }} data-theme={theme}>
-    <Menu 
-        theme={theme}
-        x={menuXPosition}
-        y={menuYPosition}
-        on:onClickedOutside={clickedOutsideMenu}
-        placement="start"
-        menuItems={menuItems}
-        bind:show={showMenu}
-        on:onMenuItemClicked={menuItemClicked}
-        position="absolute"/>
-    <nav>
-        <Tooltip theme={theme} label="Close">
-            <button on:click={close}>
-                <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                </svg>
-            </button>
-        </Tooltip>
-        <span>Activity</span>
-        <Tooltip theme={theme} label="Settings">
-            <button use:clickoutside={{ enabled: true, callback: () => isMenuButtonClicked = false }} on:click={toggleMenu}>
-                <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3.625 7.5C3.625 8.12132 3.12132 8.625 2.5 8.625C1.87868 8.625 1.375 8.12132 1.375 7.5C1.375 6.87868 1.87868 6.375 2.5 6.375C3.12132 6.375 3.625 6.87868 3.625 7.5ZM8.625 7.5C8.625 8.12132 8.12132 8.625 7.5 8.625C6.87868 8.625 6.375 8.12132 6.375 7.5C6.375 6.87868 6.87868 6.375 7.5 6.375C8.12132 6.375 8.625 6.87868 8.625 7.5ZM12.5 8.625C13.1213 8.625 13.625 8.12132 13.625 7.5C13.625 6.87868 13.1213 6.375 12.5 6.375C11.8787 6.375 11.375 6.87868 11.375 7.5C11.375 8.12132 11.8787 8.625 12.5 8.625Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
-                </svg>
-            </button>
-        </Tooltip>
-    </nav>
-    <main>
-        {#if !loading }
-            {#if messages.length > 0 }
-                {#each messages as message, index (message.id)}
-                <ActivityMessage 
-                    on:onClicked={(e) => dispatcher("onMessageClicked", { ...e.detail })}
-                    theme={theme} 
-                    unit="%"
-                    width={100}
-                    {...message}
-                />
-                {/each}
+<main bind:this={mainElement} data-theme={theme}>
+    <section bind:this={blurryBackground} data-container="blurry-background" on:click={close}></section>
+    <section bind:this={tabContainer} data-container="tab-container" bind:clientWidth={sectionWidth}>
+        <Menu 
+            theme={theme}
+            x={menuXPosition}
+            y={menuYPosition}
+            on:onClickedOutside={clickedOutsideMenu}
+            placement="start"
+            menuItems={menuItems}
+            bind:show={showMenu}
+            on:onMenuItemClicked={menuItemClicked}
+            position="absolute"/>
+        <nav>
+            <Tooltip theme={theme} label="Close">
+                <button on:click={close}>
+                    <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                    </svg>
+                </button>
+            </Tooltip>
+            <span>Activity</span>
+            <Tooltip theme={theme} label="Settings">
+                <button use:clickoutside={{ enabled: true, callback: () => isMenuButtonClicked = false }} on:click={toggleMenu}>
+                    <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.625 7.5C3.625 8.12132 3.12132 8.625 2.5 8.625C1.87868 8.625 1.375 8.12132 1.375 7.5C1.375 6.87868 1.87868 6.375 2.5 6.375C3.12132 6.375 3.625 6.87868 3.625 7.5ZM8.625 7.5C8.625 8.12132 8.12132 8.625 7.5 8.625C6.87868 8.625 6.375 8.12132 6.375 7.5C6.375 6.87868 6.87868 6.375 7.5 6.375C8.12132 6.375 8.625 6.87868 8.625 7.5ZM12.5 8.625C13.1213 8.625 13.625 8.12132 13.625 7.5C13.625 6.87868 13.1213 6.375 12.5 6.375C11.8787 6.375 11.375 6.87868 11.375 7.5C11.375 8.12132 11.8787 8.625 12.5 8.625Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </Tooltip>
+        </nav>
+        <div data-container="body">
+            {#if !loading }
+                {#if messages.length > 0 }
+                    {#each messages as message, index (message.id)}
+                        <ActivityMessage 
+                            on:onClicked={(e) => dispatcher("onMessageClicked", { ...e.detail })}
+                            theme={theme} 
+                            unit="%"
+                            width={100}
+                            {...message}
+                        />
+                    {/each}
+                    <p data-text="message-count">
+                        {Intl.NumberFormat().format(messages.length)} { messages.length > 1 ? "Messages" : "Message" }
+                    </p>
+                {:else}
+                    <div data-container="center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                            <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                        </svg>
+                        <span>No activity</span>
+                    </div>
+                {/if}
             {:else}
                 <div data-container="center">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                        <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                    </svg>
-                    <span>No activity</span>
+                    <LoadingSpinner size={90} />
                 </div>
             {/if}
-        {:else}
-            <div data-container="center">
-                <LoadingSpinner size={90} />
-            </div>
-        {/if}
-    </main>
-</section>
+        </div>
+    </section>
+</main>
 <style lang="less">
     @keyframes slide-in {
         from {
@@ -317,166 +331,231 @@
             right: 0;
         }
     }
-    section {
-        position: fixed;
-        margin: 0 0 0 0;
-        padding: 0 0 0 0;
-        height: calc(100% - 2px);
-        z-index: 3;
-        right: 0;
-        width: 350px;
-        flex-direction: column;
-        font-family: Arial, Helvetica, sans-serif;
-        border-style: solid;
-        border-width: 1px;
-        border-color: #e6e4e4;
-        :global(&.slide-out-anim) {
+    @keyframes blur-anim {
+        from {
+            background: transparent;
+            backdrop-filter: none;
+        }
+        to {
+            background: rgba(40,40,40,0.5);
+            backdrop-filter: blur(1.35px);
+        }
+    } 
+    @keyframes clear-blur-anim {
+        from {
+            background: rgba(40,40,40,0.5);
+            backdrop-filter: blur(1.35px);
+        }
+        to {
+            background: transparent;
+            backdrop-filter: none;
+        }
+    } 
+    @keyframes dark-mode-blur-anim {
+        from {
+            background: transparent;
+            backdrop-filter: none;
+        }
+        to {
+            background: rgba(215,215,215,0.5);
+            backdrop-filter: blur(1.5px);
+        }
+    }
+    @keyframes dark-mode-clear-blur-anim {
+        from {
+            background: rgba(215,215,215,0.5);
+            backdrop-filter: blur(1.5px);
+        }
+        to {
+            background: transparent;
+            backdrop-filter: none;
+        }
+    }
+    main {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 8;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        display: flex;
+        :global(&.tab-show-anim) {
             z-index: 7;
-            animation-name: slide-out;
-            animation-play-state: running;
             animation-duration: 245ms;
             animation-direction: normal;
             animation-iteration-count: 1;
             animation-play-state: running;
-            right: -350px;
-        }
-        :global(&.slide-in-anim) {
-            z-index: 8;
-            animation-name: slide-in;
-            animation-duration: 245ms;
-            animation-direction: normal;
-            animation-iteration-count: 1;
-            animation-play-state: running;
-            right: 0;
-        }
-        box-shadow: 0px 1.25px 2.4px 1.75px #f5f5f5;
-        background-color: #fefeff;
-        nav {
-            font-weight: bold;
-            color: #303030;
-            border: none;
-            border-bottom-style: solid;
-            border-width: 1px;
-            width: calc(100%- 24px);
-            height: 40px;
-            padding: 12px;
-            padding-top: 5px;
-            padding-bottom: 5px;
-            font-size: 20px;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #fafafa;
-            border-color: #e6e4e4;
-            button {
-                border: solid;
-                border-radius: 5px;
-                border-width: 0;
-                cursor: pointer;
-                height: 25px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background-color: transparent;
-                svg {
-                    fill: #303030;
-                    stroke: #303030;
-                    height: 18px;
-                    width: 18px;
-                }
-                &:focus {
-                    outline: none;
-                }
-                &:hover {
-                    background-color: #e4e5e6;
-                }
+            section[data-container="tab-container"] {
+                animation-name: slide-out;
+                right: -350px;
             }
         }
-        main {
+        :global(&.tab-hide-anim) {
+            z-index: 8;
+            animation-duration: 245ms;
+            animation-direction: normal;
+            animation-iteration-count: 1;
+            animation-play-state: running;
+            section[data-container="tab-container"] {
+                animation-name: slide-in;
+                right: 0;
+            }
+        }
+        section[data-container="blurry-background"] {
             width: 100%;
+            height: 100%;
+            animation-duration: inherit;
+            animation-direction: inherit;
+            animation-iteration-count: inherit;
+            animation-play-state: inherit;
+            :global(&.start-blur) {
+                background-color: rgba(40,40,40,0.5);
+                animation-name: blur-anim;
+                backdrop-filter: blur(1.35px);
+            }
+            :global(&.clear-blur) {
+                background: transparent;
+                animation-name: clear-blur-anim;
+                backdrop-filter: none;
+            }
+        }
+        section[data-container="tab-container"] {
+            position: absolute;
             margin: 0 0 0 0;
             padding: 0 0 0 0;
-            overflow-y: auto;
-            overflow-x: hidden;
-            scrollbar-gutter: stable both-edge;
-            scroll-behavior: smooth;
-            height: calc(100% - 50px);
-            &::-webkit-scrollbar {
-                width: 11.25px;
-                background-color: #f7f7f7;
-                border-style: solid;
-                border-width: 1px;
-                border-color: #dadada;
-                border-block-width: 0px;
-            }
-            &::-webkit-scrollbar-thumb {
-                background-color: #d7d7d7b3;
-            }
-            div[data-container="center"] {
-                width: 100%;
-                height: 100%;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                svg {
-                    stroke: rgb(205, 205, 205);
-                    fill: rgb(205, 205, 205);
-                    height: 85px;
-                    width: 85px;
-                }
-                span {
-                    color: rgb(127, 127, 127);
-                    margin-top: 15px;
-                    font-size: 26.75px;
-                    font-weight: 700;
-                }
-            }
-
-        }
-        &[data-theme="dark"] {
-            background-color: #1e1e1e;
+            height: calc(100% - 2px);
+            right: 0;
+            width: 380px;
+            flex-direction: column;
+            font-family: Arial, Helvetica, sans-serif;
             border-style: solid;
-            border-color: #4e4c4c;
-            box-shadow: none;
+            border-width: 1px;
+            border-color: #e6e4e4;
+            animation-duration: inherit;
+            animation-direction: inherit;
+            animation-iteration-count: inherit;
+            animation-play-state: inherit;
+            background-color: #fefeff;
             nav {
-                background-color: #161616;
-                border-color: #4e4c4c;
-                color: rgb(253, 253, 253);
+                font-weight: bold;
+                color: #303030;
+                border: none;
+                border-bottom-style: solid;
+                border-width: 1px;
+                width: calc(100%- 24px);
+                height: 40px;
+                padding: 12px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                font-size: 20px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                background-color: #fafafa;
+                border-color: #e6e4e4;
+                box-shadow: none;
                 button {
+                    border: solid;
+                    border-radius: 5px;
+                    border-width: 0;
+                    cursor: pointer;
+                    height: 25px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: transparent;
                     svg {
-                        fill: rgb(253, 253, 253);
-                        color: rgb(253, 253, 253);
-                        stroke: rgb(253, 253, 253);
+                        fill: #303030;
+                        stroke: #303030;
+                        height: 18px;
+                        width: 18px;
+                    }
+                    &:focus {
+                        outline: none;
                     }
                     &:hover {
-                        background-color: rgb(34, 39, 44);
+                        background-color: #e4e5e6;
                     }
                 }
             }
-            main {
-                div[data-container="center"] {
-                    svg {
-                        fill: rgb(83, 83, 83); 
-                        stroke: rgb(83, 83, 83);   
-                    }
-                    span {
-                        color: rgb(97, 97, 97);
-                    }
-                }
+            div[data-container="body"] {
+                width: 100%;
+                margin: 0 0 0 0;
+                padding: 0 0 0 0;
+                overflow-y: auto;
+                overflow-x: hidden;
+                scrollbar-gutter: stable both-edge;
+                scroll-behavior: smooth;
+                height: calc(100% - 50px);
                 &::-webkit-scrollbar {
-                    background-color: rgb(50, 50, 50);
-                    border-color: rgb(78, 78, 78);
+                    width: 11.25px;
+                    background-color: #f7f7f7;
+                    border-style: solid;
+                    border-width: 1px;
+                    border-color: #dadada;
+                    border-block-width: 0px;
                 }
                 &::-webkit-scrollbar-thumb {
-                    background-color: rgb(86, 86, 86);
+                    background-color: #d7d7d7b3;
+                }
+                p[data-text="message-count"] {
+                    margin: 0 0 0 0;
+                    width: 100%;
+                    text-align: center;
+                    font-size: 14.75px;
+                    margin-block: 15px;
+                    margin-bottom: 35px;
+                    font-weight: lighter;
+                    color: rgb(121, 125, 125);
+                }
+                div[data-container="center"] {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    svg {
+                        stroke: rgb(205, 205, 205);
+                        fill: rgb(205, 205, 205);
+                        height: 85px;
+                        width: 85px;
+                    }
+                    span {
+                        color: rgb(127, 127, 127);
+                        margin-top: 15px;
+                        font-size: 26.75px;
+                        font-weight: 700;
+                    }
+                }
+
+            }
+            @media screen and (min-width: 280px) {
+                width: 99.4%;
+            }
+            @media screen and (min-width: 320px) {
+                width: 99.4%;
+            }
+            @media screen and (min-width: 600px) {
+                width: 380px;
+            }
+        }
+        &[data-theme="dark"] {
+            section[data-container="blurry-background"] {
+                :global(&.start-blur) {
+                    animation-name: dark-mode-blur-anim;
+                    background: rgba(215,215,215,0.5);
+                    backdrop-filter: blur(1.5px);
+                }
+                :global(&.clear-blur) {
+                    background: transparent;
+                    animation-name: dark-mode-clear-blur-anim;
+                    backdrop-filter: none;
                 }
             }
-            
-        }
-        @media screen and (prefers-color-scheme: dark) {
-            &[data-theme="system"] {
+            section[data-container="tab-container"] {
                 background-color: #1e1e1e;
                 border-style: solid;
                 border-color: #4e4c4c;
@@ -496,7 +575,7 @@
                         }
                     }
                 }
-                main {
+                div[data-container="body"] {
                     div[data-container="center"] {
                         svg {
                             fill: rgb(83, 83, 83); 
@@ -506,6 +585,9 @@
                             color: rgb(97, 97, 97);
                         }
                     }
+                    p[data-text="message-count"] {
+                        color: rgb(190,185,185);
+                    }
                     &::-webkit-scrollbar {
                         background-color: rgb(50, 50, 50);
                         border-color: rgb(78, 78, 78);
@@ -514,17 +596,65 @@
                         background-color: rgb(86, 86, 86);
                     }
                 }
-                
             }
         }
-        @media screen and (min-width: 280px) {
-            width: 99.4%;
-        }
-        @media screen and (min-width: 320px) {
-            width: 99.4%;
-        }
-        @media screen and (min-width: 600px) {
-            width: 350px;
+        @media screen and (prefers-color-scheme: dark) {
+            &[data-theme="system"] {
+                section[data-container="blurry-background"] {
+                    :global(&.start-blur) {
+                        animation-name: dark-mode-blur-anim;
+                        background: rgba(215,215,215,0.5);
+                        backdrop-filter: blur(1.5px);
+                    }
+                    :global(&.clear-blur) {
+                        background: transparent;
+                        animation-name: dark-mode-clear-blur-anim;
+                        backdrop-filter: none;
+                    }
+                }
+                section[data-container="tab-container"] {
+                    background-color: #1e1e1e;
+                    border-style: solid;
+                    border-color: #4e4c4c;
+                    box-shadow: none;
+                    nav {
+                        background-color: #161616;
+                        border-color: #4e4c4c;
+                        color: rgb(253, 253, 253);
+                        button {
+                            svg {
+                                fill: rgb(253, 253, 253);
+                                color: rgb(253, 253, 253);
+                                stroke: rgb(253, 253, 253);
+                            }
+                            &:hover {
+                                background-color: rgb(34, 39, 44);
+                            }
+                        }
+                    }
+                    div[data-container="body"] {
+                        div[data-container="center"] {
+                            svg {
+                                fill: rgb(83, 83, 83); 
+                                stroke: rgb(83, 83, 83);   
+                            }
+                            span {
+                                color: rgb(97, 97, 97);
+                            }
+                        }
+                        p[data-text="message-count"] {
+                            color: rgb(190,185,185);
+                        }
+                        &::-webkit-scrollbar {
+                            background-color: rgb(50, 50, 50);
+                            border-color: rgb(78, 78, 78);
+                        }
+                        &::-webkit-scrollbar-thumb {
+                            background-color: rgb(86, 86, 86);
+                        }
+                    }
+                }
+            }
         }
     }
 </style>

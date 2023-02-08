@@ -73,12 +73,7 @@
         }
     }
 
-    const close = () => {
-        if (sectionElement) {
-            sectionElement.classList.add("slide-out-anim")
-            sectionElement.classList.remove("slide-in-anim")
-        }
-    }
+    const close = () => show = false
 
     const toggleMenu = () => {
         showMenu = !showMenu
@@ -165,24 +160,24 @@
     const menuItemClicked = (e:CustomEvent<{ id:string }>) => {
         let id = e.detail.id
         reactiveTrigger = !reactiveTrigger
-        if (id == "profile-btn" && sectionElement) {
-            let profileAccountSection:HTMLElement = sectionElement.querySelector("main div[data-container='profile-section']")
-            profileAccountSection ? profileAccountSection.scrollIntoView() : void 0
-        } else if (id == "verification-btn" && sectionElement) {
-            let verificationAccountSection:HTMLElement = sectionElement.querySelector("main div[data-container='verification-section']")
-            verificationAccountSection ? verificationAccountSection.scrollIntoView() : void 0
-        } else if (id == "purchase-btn" && sectionElement) {
-            let purchaseAccountSection:HTMLElement = sectionElement.querySelector("main div[data-container='purchase-section']")
-            purchaseAccountSection ? purchaseAccountSection.scrollIntoView() : void 0
-        } else if (id == "payout-btn" && sectionElement) {
-            let payoutAccountSection:HTMLElement = sectionElement.querySelector("main div[data-container='payout-section']")
-            payoutAccountSection ? payoutAccountSection.scrollIntoView() : void 0
-        } else if (id == "settings-btn" && sectionElement) {
-            let settingsAccountSection:HTMLElement = sectionElement.querySelector("main div[data-container='settings-section']")
-            settingsAccountSection ? settingsAccountSection.scrollIntoView() : void 0
-        } else if (id == "danger-zone-btn" && sectionElement) {
-            let dangerZoneAccountSection:HTMLElement = sectionElement.querySelector("main div[data-container='danger-zone-section']")
-            dangerZoneAccountSection ? dangerZoneAccountSection.scrollIntoView() : void 0
+        if (id == "profile-btn" && tabContainer) {
+            let profileAccountSection:HTMLElement = tabContainer.querySelector("div[data-container='body'] div[data-container='profile-section']")
+            profileAccountSection && profileAccountSection.scrollIntoView()
+        } else if (id == "verification-btn" && tabContainer) {
+            let verificationAccountSection:HTMLElement = tabContainer.querySelector("div[data-container='body'] div[data-container='verification-section']")
+            verificationAccountSection && verificationAccountSection.scrollIntoView()
+        } else if (id == "purchase-btn" && tabContainer) {
+            let purchaseAccountSection:HTMLElement = tabContainer.querySelector("div[data-container='body'] div[data-container='purchase-section']")
+            purchaseAccountSection && purchaseAccountSection.scrollIntoView()
+        } else if (id == "payout-btn" && tabContainer) {
+            let payoutAccountSection:HTMLElement = tabContainer.querySelector("div[data-container='body'] div[data-container='payout-section']")
+            payoutAccountSection && payoutAccountSection.scrollIntoView()
+        } else if (id == "settings-btn" && tabContainer) {
+            let settingsAccountSection:HTMLElement = tabContainer.querySelector("div[data-container='body'] div[data-container='settings-section']")
+            settingsAccountSection && settingsAccountSection.scrollIntoView()
+        } else if (id == "danger-zone-btn" && tabContainer) {
+            let dangerZoneAccountSection:HTMLElement = tabContainer.querySelector("div[data-container='body'] div[data-container='danger-zone-section']")
+            dangerZoneAccountSection && dangerZoneAccountSection.scrollIntoView()
         } else if (id == "close-btn") {
             close()
         }
@@ -225,7 +220,9 @@
     let menuYPosition = 43
     let showMenu = false
     let isMenuButtonClicked = false
-    let sectionElement:HTMLElement = null
+    let tabContainer:HTMLElement = null
+    let mainElement:HTMLElement = null
+    let blurryBackground:HTMLElement = null
     let menuItemIconTheme:string = theme
     let menuItems:Array<MenuItemType> = menuItemsList()
     let payoutSectionItems:Array<AccountSectionItem> = payoutOptions.map((value) => ({
@@ -241,10 +238,19 @@
         menuXPosition = sectionWidth - 192
     }
 
-    $: if (show && sectionElement) {
-        sectionElement.style.display = "flex"
-        sectionElement.classList.remove("slide-out-anim")
-        sectionElement.classList.add("slide-in-anim")
+    $: if (show && mainElement && blurryBackground) {
+        mainElement.style.display = "flex"
+        mainElement.classList.remove("tab-show-anim")
+        mainElement.classList.add("tab-hide-anim")
+        blurryBackground.classList.add("start-blur")
+        blurryBackground.classList.remove("clear-blur")
+    }
+
+    $: if (!show && mainElement && blurryBackground) {
+        mainElement.classList.add("tab-show-anim")
+        mainElement.classList.remove("tab-hide-anim")
+        blurryBackground.classList.remove("start-blur")
+        blurryBackground.classList.add("clear-blur")
     }
 
     onMount(() => {
@@ -253,24 +259,28 @@
             menuItems = menuItemsList()
         }
         if (show) {
-            sectionElement.style.display = "flex"
-            sectionElement.classList.remove("slide-out-anim")
-            sectionElement.classList.add("slide-in-anim")
+            mainElement.style.display = "flex"
+            mainElement.classList.remove("tab-show-anim")
+            mainElement.classList.add("tab-hide-anim")
+            blurryBackground.classList.add("start-blur")
+            blurryBackground.classList.remove("clear-blur")
         } else {
-            sectionElement.classList.remove("slide-in-anim")
-            sectionElement.classList.add("slide-out-anim")
-            sectionElement.style.display = "none"
+            mainElement.classList.remove("tab-hide-anim")
+            mainElement.classList.add("tab-show-anim")
+            blurryBackground.classList.remove("start-blur")
+            blurryBackground.classList.add("clear-blur")
         }
-        sectionElement.addEventListener("animationend", (e) => {
+        tabContainer.addEventListener("animationend", (e) => {
             if (e.animationName.includes("slide-out")) {
-                sectionElement.classList.remove("slide-out-anim")
-                show = false
-                sectionElement.style.display = "none"
+                mainElement.classList.remove("tab-show-anim")
+                blurryBackground.classList.remove("start-blur")
+                mainElement.style.display = "none"
                 dispatcher("onClosed")
             } else if (e.animationName.includes("slide-in")) {
-                sectionElement.classList.remove("slide-in-anim")
+                mainElement.classList.remove("tab-hide-anim")
+                blurryBackground.classList.remove("clear-blur")
                 dispatcher("onOpened")
-            } 
+            }
         })
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener("change", (e) => {
             if (theme == "system") {
@@ -280,186 +290,189 @@
         })
     })
 </script>
-<section bind:this={sectionElement} bind:clientWidth={sectionWidth} use:clickoutside={{ enabled: show, callback: close }} data-theme={theme}> 
-    <Menu 
-        theme={theme}
-        x={menuXPosition}
-        y={menuYPosition}
-        on:onClickedOutside={clickedOutsideMenu}
-        menuItems={menuItems}
-        on:onMenuItemClicked={menuItemClicked}
-        placement="start"
-        bind:show={showMenu}
-        position="absolute"/>
-    <nav>
-        <Tooltip theme={theme} label="Close">
-            <button on:click={close}>
-                <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                </svg>
-            </button>
-        </Tooltip>
-        <span>Account</span>
-        <Tooltip theme={theme} label="More">
-            <button use:clickoutside={{ enabled: true, callback: () => isMenuButtonClicked = false }} on:click={toggleMenu}>
-                <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3.625 7.5C3.625 8.12132 3.12132 8.625 2.5 8.625C1.87868 8.625 1.375 8.12132 1.375 7.5C1.375 6.87868 1.87868 6.375 2.5 6.375C3.12132 6.375 3.625 6.87868 3.625 7.5ZM8.625 7.5C8.625 8.12132 8.12132 8.625 7.5 8.625C6.87868 8.625 6.375 8.12132 6.375 7.5C6.375 6.87868 6.87868 6.375 7.5 6.375C8.12132 6.375 8.625 6.87868 8.625 7.5ZM12.5 8.625C13.1213 8.625 13.625 8.12132 13.625 7.5C13.625 6.87868 13.1213 6.375 12.5 6.375C11.8787 6.375 11.375 6.87868 11.375 7.5C11.375 8.12132 11.8787 8.625 12.5 8.625Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
-                </svg>
-            </button>
-        </Tooltip>
-    </nav>
-    <main>
-        {#if !loading }
-            <div data-container="profile-section">
-                <UserCard 
-                    theme={theme}
-                    email={user.email}
-                    username={user.username}
-                    coin={user.coin}
-                    assetCount={user.assetCount}
-                    verified={user.verified}/>
-            </div>
-            <div class="account-section" data-container="verification-section" style="display: { !user.verified ? "block" : "none" };">
-                <AccountSection 
-                    theme={theme}
-                    title="Verification"
-                    width={100}
-                    unit="%"
-                    on:onInput={onInput}
-                    sectionItems={[
-                        {
-                            id: "email-verification-button",
-                            title: "Email verification",
-                            description: "Your email not is verified",
-                            type: "button",
-                            label: "Verify",
-                            color: "#06d6a0"
-                        }
-                    ]}/>
-            </div>
-            <div class="account-section" data-container="purchase-section">
-                <AccountSection 
-                    theme={theme}
-                    title="Purchase"
-                    width={100}
-                    unit="%"
-                    on:onInput={onInput}
-                    sectionItems={[
-                        {
-                            id: "coin-purchase-button",
-                            title: "Get coins",
-                            description: "Watch ADs to get coins",
-                            type: "button",
-                            label: "Watch",
-                            color: "#06d6a0"
-                        },
-                        {
-                            id: "crystal-purchase-button",
-                            title: "Buy crystals",
-                            description: "Buy crystals with coins",
-                            type: "button",
-                            label: "Buy",
-                            color: "#06d6a0"
-                        }
-                    ]}/>
-            </div>
-            <div class="account-section" data-container="payout-section">
-                <AccountSection 
-                    theme={theme}
-                    title="Payout"
-                    width={100}
-                    unit="%"
-                    on:onInput={onPayout}
-                    sectionItems={payoutSectionItems}/>
-            </div>
-            <div class="account-section" data-container="settings-section">
-                <AccountSection 
-                    theme={theme}
-                    title="Settings"
-                    width={100}
-                    unit="%"
-                    on:onInput={onInput}
-                    sectionItems={[
-                        {
-                            id: "profile-image-change-button",
-                            type: "button",
-                            title: "Profile image",
-                            description: "Change profile image",
-                            label: "Change",
-                            color: "#06d6a0"
-                        },
-                        {
-                            id: "username-change-button",
-                            type: "button",
-                            title: "Username",
-                            description: "Change username",
-                            label: "Change",
-                            color: "#06d6a0"
-                        },
-                        {
-                            id: "email-change-button",
-                            type: "button",
-                            title: "Email",
-                            description: "Change email",
-                            label: "Change",
-                            color: "#06d6a0"
-                        },
-                        {
-                            id: "password-change-button",
-                            type: "button",
-                            title: "Password",
-                            description: "Change password",
-                            label: "Change",
-                            color: "#06d6a0"
-                        },
-                        {
-                            id: "theme-change-button",
-                            type: "select",
-                            title: "Theme",
-                            description: "Change theme",
-                            value: theme,
-                            options: [ "Light", "Dark", "System" ]
-                        }
-                    ]}/>
-            </div>
-            <div class="account-section" data-container="danger-zone-section">
-                <AccountSection 
-                    theme={theme}
-                    title="Danger Zone"
-                    width={100}
-                    unit="%"
-                    color="#f03e3e"
-                    on:onInput={onInput}
-                    sectionItems={[
-                        {
-                            id: "logout-button",
-                            title: "Logout",
-                            description: "All your session data will be removed",
-                            type: "button",
-                            label: "Logout",
-                            color: "#06d6a0"
-                        },
-                        {
-                            id: "delete-account-button",
-                            title: "Delete account",
-                            description: "All coins and assets will be transfer to the superuser",
-                            type: "button",
-                            label: "Delete",
-                            color: "#f03e3e"
-                        }
-                    ]}/>
-            </div>
-        {:else}
-            <div data-container="center">
-                <LoadingSpinner size={90} />
-            </div>
-        {/if}
-    </main>
-</section>
+<main bind:this={mainElement} data-theme={theme}>
+    <section bind:this={blurryBackground} data-container="blurry-background" on:click={close}></section>
+    <section bind:this={tabContainer} data-container="tab-container" bind:clientWidth={sectionWidth}> 
+        <Menu 
+            theme={theme}
+            x={menuXPosition}
+            y={menuYPosition}
+            on:onClickedOutside={clickedOutsideMenu}
+            menuItems={menuItems}
+            on:onMenuItemClicked={menuItemClicked}
+            placement="start"
+            bind:show={showMenu}
+            position="absolute"/>
+        <nav>
+            <Tooltip theme={theme} label="Close">
+                <button on:click={close}>
+                    <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                    </svg>
+                </button>
+            </Tooltip>
+            <span>Account</span>
+            <Tooltip theme={theme} label="More">
+                <button use:clickoutside={{ enabled: true, callback: () => isMenuButtonClicked = false }} on:click={toggleMenu}>
+                    <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.625 7.5C3.625 8.12132 3.12132 8.625 2.5 8.625C1.87868 8.625 1.375 8.12132 1.375 7.5C1.375 6.87868 1.87868 6.375 2.5 6.375C3.12132 6.375 3.625 6.87868 3.625 7.5ZM8.625 7.5C8.625 8.12132 8.12132 8.625 7.5 8.625C6.87868 8.625 6.375 8.12132 6.375 7.5C6.375 6.87868 6.87868 6.375 7.5 6.375C8.12132 6.375 8.625 6.87868 8.625 7.5ZM12.5 8.625C13.1213 8.625 13.625 8.12132 13.625 7.5C13.625 6.87868 13.1213 6.375 12.5 6.375C11.8787 6.375 11.375 6.87868 11.375 7.5C11.375 8.12132 11.8787 8.625 12.5 8.625Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </Tooltip>
+        </nav>
+        <div data-container="body">
+            {#if !loading }
+                <div data-container="profile-section">
+                    <UserCard 
+                        theme={theme}
+                        email={user.email}
+                        username={user.username}
+                        coin={user.coin}
+                        assetCount={user.assetCount}
+                        verified={user.verified}/>
+                </div>
+                <div class="account-section" data-container="verification-section" style="display: { !user.verified ? "block" : "none" };">
+                    <AccountSection 
+                        theme={theme}
+                        title="Verification"
+                        width={100}
+                        unit="%"
+                        on:onInput={onInput}
+                        sectionItems={[
+                            {
+                                id: "email-verification-button",
+                                title: "Email verification",
+                                description: "Your email not is verified",
+                                type: "button",
+                                label: "Verify",
+                                color: "#06d6a0"
+                            }
+                        ]}/>
+                </div>
+                <div class="account-section" data-container="purchase-section">
+                    <AccountSection 
+                        theme={theme}
+                        title="Purchase"
+                        width={100}
+                        unit="%"
+                        on:onInput={onInput}
+                        sectionItems={[
+                            {
+                                id: "coin-purchase-button",
+                                title: "Get coins",
+                                description: "Watch ADs to get coins",
+                                type: "button",
+                                label: "Watch",
+                                color: "#06d6a0"
+                            },
+                            {
+                                id: "crystal-purchase-button",
+                                title: "Buy crystals",
+                                description: "Buy crystals with coins",
+                                type: "button",
+                                label: "Buy",
+                                color: "#06d6a0"
+                            }
+                        ]}/>
+                </div>
+                <div class="account-section" data-container="payout-section">
+                    <AccountSection 
+                        theme={theme}
+                        title="Payout"
+                        width={100}
+                        unit="%"
+                        on:onInput={onPayout}
+                        sectionItems={payoutSectionItems}/>
+                </div>
+                <div class="account-section" data-container="settings-section">
+                    <AccountSection 
+                        theme={theme}
+                        title="Settings"
+                        width={100}
+                        unit="%"
+                        on:onInput={onInput}
+                        sectionItems={[
+                            {
+                                id: "profile-image-change-button",
+                                type: "button",
+                                title: "Profile image",
+                                description: "Change profile image",
+                                label: "Change",
+                                color: "#06d6a0"
+                            },
+                            {
+                                id: "username-change-button",
+                                type: "button",
+                                title: "Username",
+                                description: "Change username",
+                                label: "Change",
+                                color: "#06d6a0"
+                            },
+                            {
+                                id: "email-change-button",
+                                type: "button",
+                                title: "Email",
+                                description: "Change email",
+                                label: "Change",
+                                color: "#06d6a0"
+                            },
+                            {
+                                id: "password-change-button",
+                                type: "button",
+                                title: "Password",
+                                description: "Change password",
+                                label: "Change",
+                                color: "#06d6a0"
+                            },
+                            {
+                                id: "theme-change-button",
+                                type: "select",
+                                title: "Theme",
+                                description: "Change theme",
+                                value: theme,
+                                options: [ "Light", "Dark", "System" ]
+                            }
+                        ]}/>
+                </div>
+                <div class="account-section" data-container="danger-zone-section">
+                    <AccountSection 
+                        theme={theme}
+                        title="Danger Zone"
+                        width={100}
+                        unit="%"
+                        color="#f03e3e"
+                        on:onInput={onInput}
+                        sectionItems={[
+                            {
+                                id: "logout-button",
+                                title: "Logout",
+                                description: "All your session data will be removed",
+                                type: "button",
+                                label: "Logout",
+                                color: "#06d6a0"
+                            },
+                            {
+                                id: "delete-account-button",
+                                title: "Delete account",
+                                description: "All coins and assets will be transfer to the superuser",
+                                type: "button",
+                                label: "Delete",
+                                color: "#f03e3e"
+                            }
+                        ]}/>
+                </div>
+            {:else}
+                <div data-container="center">
+                    <LoadingSpinner size={90} />
+                </div>
+            {/if}
+        </div>
+    </section>
+</main>
 <style lang="less">
     @keyframes slide-in {
         from {
-           right: -350px;
+           right: -380px;
         }
         to {
             right: 0;
@@ -467,179 +480,237 @@
     }
     @keyframes slide-out {
         to {
-           right: -350px;
+           right: -380px;
         }
         from {
             right: 0;
         }
     }
-    section {
-        position: fixed;
-        margin: 0 0 0 0;
-        padding: 0 0 0 0;
-        height: calc(100% - 2px);
-        z-index: 3;
-        right: 0;
-        width: 350px;
-        flex-direction: column;
-        font-family: Arial, Helvetica, sans-serif;
-        border-style: solid;
-        border-width: 1px;
-        border-color: #e6e4e4;
-        :global(&.slide-out-anim) {
+    @keyframes blur-anim {
+        from {
+            background: transparent;
+            backdrop-filter: none;
+        }
+        to {
+            background: rgba(40,40,40,0.5);
+            backdrop-filter: blur(1.35px);
+        }
+    } 
+    @keyframes clear-blur-anim {
+        from {
+            background: rgba(40,40,40,0.5);
+            backdrop-filter: blur(1.35px);
+        }
+        to {
+            background: transparent;
+            backdrop-filter: none;
+        }
+    } 
+    @keyframes dark-mode-blur-anim {
+        from {
+            background: transparent;
+            backdrop-filter: none;
+        }
+        to {
+            background: rgba(215,215,215,0.5);
+            backdrop-filter: blur(1.5px);
+        }
+    }
+    @keyframes dark-mode-clear-blur-anim {
+        from {
+            background: rgba(215,215,215,0.5);
+            backdrop-filter: blur(1.5px);
+        }
+        to {
+            background: transparent;
+            backdrop-filter: none;
+        }
+    }
+    main {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 8;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        display: flex;
+        :global(&.tab-show-anim) {
             z-index: 7;
-            animation-name: slide-out;
-            animation-play-state: running;
             animation-duration: 245ms;
             animation-direction: normal;
             animation-iteration-count: 1;
             animation-play-state: running;
-            right: -350px;
-        }
-        :global(&.slide-in-anim) {
-            z-index: 8;
-            animation-name: slide-in;
-            animation-duration: 245ms;
-            animation-direction: normal;
-            animation-iteration-count: 1;
-            animation-play-state: running;
-            right: 0;
-        }
-        box-shadow: 0px 1.25px 2.4px 1.75px #f5f5f5;
-        background-color: #fefeff;
-        nav {
-            font-weight: bold;
-            color: #303030;
-            border: none;
-            border-bottom-style: solid;
-            border-width: 1px;
-            width: calc(100% - 24px);
-            height: 40px;
-            padding: 12px;
-            padding-top: 5px;
-            padding-bottom: 5px;
-            font-size: 20px;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #fafafa;
-            border-color: #e6e4e4;
-            button {
-                border: solid;
-                border-radius: 5px;
-                border-width: 0;
-                cursor: pointer;
-                height: 25px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background-color: transparent;
-                svg {
-                    fill: #303030;
-                    stroke: #303030;
-                    height: 18px;
-                    width: 18px;
-                }
-                &:focus {
-                    outline: none;
-                }
-                &:hover {
-                    background-color: #e4e5e6;
-                }
+            section[data-container="tab-container"] {
+                animation-name: slide-out;
+                right: -380px;
             }
         }
-        main {
+        :global(&.tab-hide-anim) {
+            z-index: 8;
+            animation-duration: 245ms;
+            animation-direction: normal;
+            animation-iteration-count: 1;
+            animation-play-state: running;
+            section[data-container="tab-container"] {
+                animation-name: slide-in;
+                right: 0;
+            }
+        }
+        section[data-container="blurry-background"] {
             width: 100%;
+            height: 100%;
+            animation-duration: inherit;
+            animation-direction: inherit;
+            animation-iteration-count: inherit;
+            animation-play-state: inherit;
+            :global(&.start-blur) {
+                background-color: rgba(40,40,40,0.5);
+                animation-name: blur-anim;
+                backdrop-filter: blur(1.35px);
+            }
+            :global(&.clear-blur) {
+                background: transparent;
+                animation-name: clear-blur-anim;
+                backdrop-filter: none;
+            }
+        }
+        section[data-container="tab-container"] {
+            position: absolute;
             margin: 0 0 0 0;
             padding: 0 0 0 0;
-            padding-block: 10px;
-            padding-bottom: 20px;
-            overflow-y: auto;
-            overflow-x: hidden;
-            scrollbar-gutter: stable both-edge;
-            height: calc(100% - 50px);
-            scroll-behavior: smooth;
-            &::-webkit-scrollbar {
-                width: 11.25px;
-                background-color: #f7f7f7;
-                border-style: solid;
-                border-width: 1px;
-                border-color: #dadada;
-                border-block-width: 0px;
-            }
-            &::-webkit-scrollbar-thumb {
-                background-color: #d7d7d7b3;
-            }
-            div.account-section {
-                width: calc(100% - 26px);
-                padding-inline: 13px;
-                margin-top: 15px;
-            }
-            div[data-container="center"] {
-                width: 100%;
-                height: 100%;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                svg {
-                    stroke: rgb(205, 205, 205);
-                    fill: rgb(205, 205, 205);
-                    height: 85px;
-                    width: 85px;
-                }
-                span {
-                    color: rgb(127, 127, 127);
-                    margin-top: 15px;
-                    font-size: 26.75px;
-                    font-weight: 700;
-                }
-            }
-
-        }
-        &[data-theme="dark"] {
-            background-color: #1e1e1e;
+            height: calc(100% - 2px);
+            z-index: 3;
+            right: 0;
+            width: 380px;
+            flex-direction: column;
+            font-family: Arial, Helvetica, sans-serif;
             border-style: solid;
-            border-color: #4e4c4c;
-            box-shadow: none;
+            border-width: 1px;
+            border-color: #e6e4e4;
+            animation-duration: inherit;
+            animation-direction: inherit;
+            animation-iteration-count: inherit;
+            animation-play-state: inherit;
+            background-color: #fefeff;
             nav {
-                background-color: #161616;
-                border-color: #4e4c4c;
-                color: rgb(253, 253, 253);
+                font-weight: bold;
+                color: #303030;
+                border: none;
+                border-bottom-style: solid;
+                border-width: 1px;
+                width: calc(100% - 24px);
+                height: 40px;
+                padding: 12px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                font-size: 20px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                background-color: #fafafa;
+                border-color: #e6e4e4;
                 button {
+                    border: solid;
+                    border-radius: 5px;
+                    border-width: 0;
+                    cursor: pointer;
+                    height: 25px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: transparent;
                     svg {
-                        fill: rgb(253, 253, 253);
-                        color: rgb(253, 253, 253);
-                        stroke: rgb(253, 253, 253);
+                        fill: #303030;
+                        stroke: #303030;
+                        height: 18px;
+                        width: 18px;
+                    }
+                    &:focus {
+                        outline: none;
                     }
                     &:hover {
-                        background-color: rgb(34, 39, 44);
+                        background-color: #e4e5e6;
                     }
                 }
             }
-            main {
-                div[data-container="center"] {
-                    svg {
-                        fill: rgb(83, 83, 83); 
-                        stroke: rgb(83, 83, 83);   
-                    }
-                    span {
-                        color: rgb(97, 97, 97);
-                    }
-                }
+            div[data-container="body"] {
+                width: 100%;
+                margin: 0 0 0 0;
+                padding: 0 0 0 0;
+                padding-block: 10px;
+                padding-bottom: 20px;
+                overflow-y: auto;
+                overflow-x: hidden;
+                scrollbar-gutter: stable both-edge;
+                height: calc(100% - 50px);
+                scroll-behavior: smooth;
                 &::-webkit-scrollbar {
-                    background-color: rgb(50, 50, 50);
-                    border-color: rgb(78, 78, 78);
+                    width: 11.25px;
+                    background-color: #f7f7f7;
+                    border-style: solid;
+                    border-width: 1px;
+                    border-color: #dadada;
+                    border-block-width: 0px;
                 }
                 &::-webkit-scrollbar-thumb {
-                    background-color: rgb(86, 86, 86);
+                    background-color: #d7d7d7b3;
+                }
+                div.account-section {
+                    width: calc(100% - 26px);
+                    padding-inline: 13px;
+                    margin-top: 15px;
+                    &:nth-last-child(1) {
+                        margin-bottom: 35px;
+                    }
+                }
+                div[data-container="center"] {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    svg {
+                        stroke: rgb(205, 205, 205);
+                        fill: rgb(205, 205, 205);
+                        height: 85px;
+                        width: 85px;
+                    }
+                    span {
+                        color: rgb(127, 127, 127);
+                        margin-top: 15px;
+                        font-size: 26.75px;
+                        font-weight: 700;
+                    }
+                }
+
+            }
+            @media screen and (min-width: 280px) {
+                width: 99.4%;
+            }
+            @media screen and (min-width: 320px) {
+                width: 99.4%;
+            }
+            @media screen and (min-width: 600px) {
+                width: 380px;
+            }
+        }
+        &[data-theme="dark"] {
+            section[data-container="blurry-background"] {
+                :global(&.start-blur) {
+                    animation-name: dark-mode-blur-anim;
+                    background: rgba(215,215,215,0.5);
+                    backdrop-filter: blur(1.5px);
+                }
+                :global(&.clear-blur) {
+                    background: transparent;
+                    animation-name: dark-mode-clear-blur-anim;
+                    backdrop-filter: none;
                 }
             }
-            
-        }
-        @media screen and (prefers-color-scheme: dark) {
-            &[data-theme="system"] {
+            section[data-container="tab-container"] {
                 background-color: #1e1e1e;
                 border-style: solid;
                 border-color: #4e4c4c;
@@ -659,7 +730,7 @@
                         }
                     }
                 }
-                main {
+                div[data-container="body"] {
                     div[data-container="center"] {
                         svg {
                             fill: rgb(83, 83, 83); 
@@ -677,17 +748,62 @@
                         background-color: rgb(86, 86, 86);
                     }
                 }
-                
             }
         }
-        @media screen and (min-width: 280px) {
-            width: 99.4%;
-        }
-        @media screen and (min-width: 320px) {
-            width: 99.4%;
-        }
-        @media screen and (min-width: 600px) {
-            width: 350px;
+        @media screen and (prefers-color-scheme: dark) {
+            &[data-theme="system"] {
+                section[data-container="blurry-background"] {
+                    :global(&.start-blur) {
+                        animation-name: dark-mode-blur-anim;
+                        background: rgba(215,215,215,0.5);
+                        backdrop-filter: blur(1.5px);
+                    }
+                    :global(&.clear-blur) {
+                        background: transparent;
+                        animation-name: dark-mode-clear-blur-anim;
+                        backdrop-filter: none;
+                    }
+                }
+                section[data-container="tab-container"] {
+                    background-color: #1e1e1e;
+                    border-style: solid;
+                    border-color: #4e4c4c;
+                    box-shadow: none;
+                    nav {
+                        background-color: #161616;
+                        border-color: #4e4c4c;
+                        color: rgb(253, 253, 253);
+                        button {
+                            svg {
+                                fill: rgb(253, 253, 253);
+                                color: rgb(253, 253, 253);
+                                stroke: rgb(253, 253, 253);
+                            }
+                            &:hover {
+                                background-color: rgb(34, 39, 44);
+                            }
+                        }
+                    }
+                    div[data-container="body"] {
+                        div[data-container="center"] {
+                            svg {
+                                fill: rgb(83, 83, 83); 
+                                stroke: rgb(83, 83, 83);   
+                            }
+                            span {
+                                color: rgb(97, 97, 97);
+                            }
+                        }
+                        &::-webkit-scrollbar {
+                            background-color: rgb(50, 50, 50);
+                            border-color: rgb(78, 78, 78);
+                        }
+                        &::-webkit-scrollbar-thumb {
+                            background-color: rgb(86, 86, 86);
+                        }
+                    }
+                }
+            }
         }
     }
 </style>

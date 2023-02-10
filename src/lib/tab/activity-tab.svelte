@@ -203,15 +203,15 @@
 
     $: if (show && mainElement && blurryBackground) {
         mainElement.style.display = "flex"
-        mainElement.classList.remove("tab-show-anim")
-        mainElement.classList.add("tab-hide-anim")
+        mainElement.classList.remove("tab-hide-anim")
+        mainElement.classList.add("tab-show-anim")
         blurryBackground.classList.add("start-blur")
         blurryBackground.classList.remove("clear-blur")
     }
 
     $: if (!show && mainElement && blurryBackground) {
-        mainElement.classList.remove("tab-hide-anim")
-        mainElement.classList.add("tab-show-anim")
+        mainElement.classList.remove("tab-show-anim")
+        mainElement.classList.add("tab-hide-anim")
         blurryBackground.classList.remove("start-blur")
         blurryBackground.classList.add("clear-blur")
     }
@@ -223,24 +223,24 @@
         }
         if (show) {
             mainElement.style.display = "flex"
-            mainElement.classList.remove("tab-show-anim")
-            mainElement.classList.add("tab-hide-anim")
+            mainElement.classList.remove("tab-hide-anim")
+            mainElement.classList.add("tab-show-anim")
             blurryBackground.classList.add("start-blur")
             blurryBackground.classList.remove("clear-blur")
         } else {
-            mainElement.classList.remove("tab-hide-anim")
-            mainElement.classList.add("tab-show-anim")
+            mainElement.classList.remove("tab-show-anim")
+            mainElement.classList.add("tab-hide-anim")
             blurryBackground.classList.remove("start-blur")
             blurryBackground.classList.add("clear-blur")
         }
         tabContainer.addEventListener("animationend", (e) => {
             if (e.animationName.includes("slide-out")) {
-                mainElement.classList.remove("tab-show-anim")
+                mainElement.classList.remove("tab-hide-anim")
                 blurryBackground.classList.remove("start-blur")
                 mainElement.style.display = "none"
                 dispatcher("onClosed")
             } else if (e.animationName.includes("slide-in")) {
-                mainElement.classList.remove("tab-hide-anim")
+                mainElement.classList.remove("tab-show-anim")
                 blurryBackground.classList.remove("clear-blur")
                 dispatcher("onOpened")
             }
@@ -380,7 +380,7 @@
         height: 100%;
         overflow: hidden;
         display: flex;
-        :global(&.tab-show-anim) {
+        :global(&.tab-hide-anim) {
             z-index: 7;
             animation-duration: 245ms;
             animation-direction: normal;
@@ -391,7 +391,7 @@
                 right: -350px;
             }
         }
-        :global(&.tab-hide-anim) {
+        :global(&.tab-show-anim) {
             z-index: 8;
             animation-duration: 245ms;
             animation-direction: normal;

@@ -48,13 +48,14 @@
     const dispatcher = createEventDispatcher()
     
     const onInput = () => {
-        dispatcher("onInput", { value: input.value })
+        dispatcher("onInput", { value: inputValue })
     }
 
     let inputBox:HTMLInputElement = null
     let innerModal:HTMLElement = null
     let sectionElement:HTMLElement = null
     let blurryBackground:HTMLElement = null
+    let inputValue:string = input.value || String()
 
     $: if (show && sectionElement && blurryBackground) {
         sectionElement.style.display = "flex"
@@ -133,7 +134,7 @@
                     <input 
                         data-has-error={input.error} 
                         type="text" placeholder={input.placeholder} 
-                        bind:value={input.value} 
+                        bind:value={inputValue} 
                         bind:this={inputBox}
                         on:input={onInput}>
                 {:else if input.type == "password"}
@@ -141,7 +142,7 @@
                         data-has-error={input.error} 
                         type="password" 
                         placeholder={input.placeholder}
-                        bind:value={input.value} 
+                        bind:value={inputValue} 
                         bind:this={inputBox}
                         on:input={onInput}>
                 {/if}

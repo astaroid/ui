@@ -145,11 +145,19 @@
     </div>
 </section>
 <style lang="less">
-    @keyframes scaling-anim {
+    @keyframes scaling-in-anim {
         from {
             transform: scale(0);
         }
         to {
+            transform: scale(1);
+        }
+    } 
+    @keyframes scaling-out-anim {
+        to {
+            transform: scale(0);
+        }
+        from {
             transform: scale(1);
         }
     } 
@@ -160,7 +168,17 @@
         }
         to {
             background: rgba(40,40,40,0.5);
-            backdrop-filter: blur(3.75px);
+            backdrop-filter: blur(1.35px);
+        }
+    } 
+    @keyframes clear-blur-anim {
+        from {
+            background: rgba(40,40,40,0.5);
+            backdrop-filter: blur(1.35px);
+        }
+        to {
+            background: transparent;
+            backdrop-filter: none;
         }
     } 
     @keyframes dark-mode-blur-anim {
@@ -170,7 +188,17 @@
         }
         to {
             background: rgba(215,215,215,0.5);
-            backdrop-filter: blur(3.75px);
+            backdrop-filter: blur(1.5px);
+        }
+    }
+    @keyframes dark-mode-clear-blur-anim {
+        from {
+            background: rgba(215,215,215,0.5);
+            backdrop-filter: blur(1.5px);
+        }
+        to {
+            background: transparent;
+            backdrop-filter: none;
         }
     }
     section {
@@ -183,16 +211,43 @@
         justify-content: center;
         align-items: center;
         font-family: Arial, Helvetica, sans-serif;
-        div[data-container="blurry-background"] {
-            background-color: rgba(40,40,40,0.5);
-            backdrop-filter: blur(3.75px);
-            width: 100%;
-            height: 100%;
-            animation-name: blur-anim;
-            animation-duration: 170ms;
+        :global(&.modal-show-anim) {
+            animation-duration: 245ms;
             animation-direction: normal;
             animation-iteration-count: 1;
-            animation-play-state: paused;
+            animation-play-state: running;
+            div[data-container="inner-modal"] {
+                animation-name: scaling-in-anim;
+                transform: scale(1);
+            }
+        }
+        :global(&.modal-hide-anim) {
+            animation-duration: 245ms;
+            animation-direction: normal;
+            animation-iteration-count: 1;
+            animation-play-state: running;
+            div[data-container="inner-modal"] {
+                animation-name: scaling-out-anim;
+                transform: scale(0);
+            }
+        }
+        div[data-container="blurry-background"] {
+            width: 100%;
+            height: 100%;
+            animation-duration: inherit;
+            animation-direction: inherit;
+            animation-iteration-count: inherit;
+            animation-play-state: inherit;
+            :global(&.start-blur) {
+                background-color: rgba(40,40,40,0.5);
+                animation-name: blur-anim;
+                backdrop-filter: blur(1.35px);
+            }
+            :global(&.clear-blur) {
+                background: transparent;
+                animation-name: clear-blur-anim;
+                backdrop-filter: none;
+            }
         } 
         div[data-container="inner-modal"] {
             z-index: 3;
@@ -207,11 +262,10 @@
             border-width: 0;
             box-shadow: rgba(40, 40, 41, 0.7) 0px 7px 29px 0px;
             color: #303030; 
-            animation-name: scaling-anim;
-            animation-duration: 340ms;
-            animation-direction: normal;
-            animation-iteration-count: 1;
-            animation-play-state: paused;
+            animation-duration: inherit;
+            animation-direction: inherit;
+            animation-iteration-count: inherit;
+            animation-play-state: inherit;
             header {
                 border-top-left-radius: 5px;
                 border-top-right-radius: 5px;
@@ -444,8 +498,16 @@
                 }
             }
             div[data-container="blurry-background"] {
-                animation-name: dark-mode-blur-anim;
-                background: rgba(215,215,215,0.5);
+                :global(&.start-blur) {
+                    animation-name: dark-mode-blur-anim;
+                    background: rgba(215,215,215,0.5);
+                    backdrop-filter: blur(1.5px);
+                }
+                :global(&.clear-blur) {
+                    background: transparent;
+                    animation-name: dark-mode-clear-blur-anim;
+                    backdrop-filter: none;
+                }
             }
         }
 
@@ -513,8 +575,16 @@
                     }
                 }
                 div[data-container="blurry-background"] {
-                    animation-name: dark-mode-blur-anim;
-                    background: rgba(215,215,215,0.5);
+                    :global(&.start-blur) {
+                        animation-name: dark-mode-blur-anim;
+                        background: rgba(215,215,215,0.5);
+                        backdrop-filter: blur(1.5px);
+                    }
+                    :global(&.clear-blur) {
+                        background: transparent;
+                        animation-name: dark-mode-clear-blur-anim;
+                        backdrop-filter: none;
+                    }
                 }
             }
         }

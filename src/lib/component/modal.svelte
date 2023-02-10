@@ -1,6 +1,5 @@
 <script lang="ts">
     import { onMount } from "svelte"
-    import { clickoutside } from '@svelteuidev/composables'
     import { createEventDispatcher } from "svelte"
     import { Circle } from "svelte-loading-spinners"
 
@@ -48,10 +47,6 @@
 
     const dispatcher = createEventDispatcher()
     
-    const onClickedOutside = () => {
-        dispatcher("onClickedOutside")
-    }
-
     const onInput = () => {
         dispatcher("onInput", { value: input.value })
     }
@@ -70,7 +65,7 @@
 <section style="display: { show ? "flex" : "none" }" data-theme={theme}>
     <div style="animation-play-state: { show ? "running" : "paused" }" data-container="blurry-background">
     </div>
-    <div style="animation-play-state: { show ? "running" : "paused" }" use:clickoutside={{ enabled: show, callback: onClickedOutside }} data-container="inner-modal">
+    <div style="animation-play-state: { show ? "running" : "paused" }" data-container="inner-modal">
         <header data-modal-type={type}>
             {#if type == "info"}
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

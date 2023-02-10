@@ -52,20 +52,60 @@
     }
 
     let inputBox:HTMLInputElement = null
+    let innerModal:HTMLElement = null
+    let sectionElement:HTMLElement = null
+    let blurryBackground:HTMLElement = null
 
-    $:if (inputBox && input.show) {
-        inputBox.focus()
+    $: if (show && sectionElement && blurryBackground) {
+        sectionElement.style.display = "flex"
+        sectionElement.classList.remove("modal-hide-anim")
+        sectionElement.classList.add("modal-show-anim")
+        blurryBackground.classList.add("start-blur")
+        blurryBackground.classList.remove("clear-blur")
+        if (input.show && inputBox)
+            inputBox.focus()
+    } 
+
+    $: if (!show && sectionElement && blurryBackground) {
+        sectionElement.classList.remove("modal-show-anim")
+        sectionElement.classList.add("modal-hide-anim")
+        blurryBackground.classList.remove("start-blur")
+        blurryBackground.classList.add("clear-blur")
     }
 
     onMount(() => {
-        if (inputBox && input.show)
-            inputBox.focus()
+        if (show) {
+            sectionElement.style.display = "flex"
+            sectionElement.classList.remove("modal-hide-anim")
+            sectionElement.classList.add("modal-show-anim")
+            blurryBackground.classList.add("start-blur")
+            blurryBackground.classList.remove("clear-blur")
+            if (input.show && inputBox)
+                inputBox.focus()
+        } else {
+            sectionElement.classList.remove("modal-show-anim")
+            sectionElement.classList.add("modal-hide-anim")
+            blurryBackground.classList.remove("start-blur")
+            blurryBackground.classList.add("clear-blur")
+        }
+        innerModal.addEventListener("animationend", (e) => {
+            if (e.animationName.includes("scaling-in-anim")) {
+                sectionElement.classList.remove("modal-show-anim")
+                blurryBackground.classList.remove("clear-blur")
+                dispatcher("onOpened")
+            } else if (e.animationName.includes("scaling-out-anim")) {
+                sectionElement.classList.remove("modal-hide-anim")
+                blurryBackground.classList.remove("start-blur")
+                sectionElement.style.display = "none"
+                dispatcher("onClosed")
+            }
+        })
     })
 </script>
-<section style="display: { show ? "flex" : "none" }" data-theme={theme}>
-    <div style="animation-play-state: { show ? "running" : "paused" }" data-container="blurry-background">
+<section bind:this={sectionElement} data-theme={theme}>
+    <div bind:this={blurryBackground} data-container="blurry-background" on:click={() => show = false}>
     </div>
-    <div style="animation-play-state: { show ? "running" : "paused" }" data-container="inner-modal">
+    <div bind:this={innerModal} data-container="inner-modal">
         <header data-modal-type={type}>
             {#if type == "info"}
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

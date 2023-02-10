@@ -14,6 +14,14 @@ export default {
         }
     },
     argTypes: {
+        onOpened: {
+            action: "onOpened", 
+            description: "The event emitter when the activity tab is opened"
+        },
+        onClosed: {
+            action: "onClosed", 
+            description: "The event emitter when the activity tab is closed"
+        },
         onInput: {
             action: "onInput", 
             description: "The event emitter when a value is inputted into modal input box"
@@ -113,7 +121,9 @@ const Template  = (args:any) => ({
     on: {
         onRightButtonClicked: args.onRightButtonClicked,
         onLeftButtonClicked: args.onLeftButtonClicked,
-        onInput: args.onInput
+        onInput: args.onInput,
+        onOpened: args.onOpened,
+        onClosed: args.onClosed
     }
 })
 

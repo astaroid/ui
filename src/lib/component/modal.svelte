@@ -294,13 +294,13 @@
             position: absolute;
             padding: 0 0 0 0;
             margin: 0 0 0 0;
-            width: 320px;
+            width: 350px;
             min-height: 200px;
-            background-color: #fafafa;
+            background-color: #fefeff;
             border-style: solid;
             border-radius: 5px;
-            border-width: 0;
-            box-shadow: rgba(40, 40, 41, 0.7) 0px 7px 29px 0px;
+            border-width: 1px;
+            border-color: #e6e4e4;
             color: #303030; 
             animation-duration: inherit;
             animation-direction: inherit;
@@ -318,8 +318,10 @@
                 padding-block: 15px;
                 font-size: 16px;
                 border: none;
-                background-color: rgb(245,245,245);
-                border-bottom: solid 1px rgb(214, 217, 220);
+                background-color: #f5f5f5;
+                border-bottom-style: solid;
+                border-bottom-width: 1px;
+                border-bottom-color: #e6e4e4;
                 svg {
                     height: 23px;
                     width: 23px;
@@ -359,7 +361,7 @@
                 align-items: center;
                 justify-content: center;
                 flex-direction: column;
-                color: rgb(68, 76, 76);
+                color: rgb(30, 30, 30);
                 input {
                     margin-top: 15px;
                     width: calc(100% - 25px);
@@ -371,9 +373,9 @@
                     border-width: 1px;
                     border-style: solid;
                     border-radius: 5px;
-                    color: rgb(68, 76, 76);
+                    color: rgb(45, 45, 45);
                     font-size: 15.75px;
-                    border-color: rgb(214, 217, 220); 
+                    border-color: rgb(225, 225, 225); 
                     &:focus {
                         border-color: #2196f3;
                         box-shadow: 0 0 1.5px 0.45px #2195f3;
@@ -427,7 +429,7 @@
                         cursor: not-allowed;
                     }
                     &[data-button-type="default"] {
-                        background-color: rgb(239, 239, 239);
+                        background-color: #f5f5f5;
                         color:rgb(40, 35, 35);
                     }
                     &[data-button-type="info"] {
@@ -477,17 +479,18 @@
         }
         &[data-theme="dark"] {
             div[data-container="inner-modal"] {
-                background-color: #303030;
-                box-shadow: rgba(10, 10, 11, 0.7) 0px 7px 29px 0px;
+                background-color: #1e1e1e;
+                border-color: #4e4c4c;
+                border-width: 1px;
                 header {
-                    background-color: #212121;
-                    border-bottom-color: rgb(77, 65, 65);
+                    background-color: #161616;
+                    border-bottom-color: #4e4c4c;
                 }
                 main {
-                    color: rgb(168, 176, 176);
+                    color: rgb(235, 235, 235);
                     input {
-                        color: rgb(190, 190, 190);
-                        border-color: rgb(87, 75, 75);
+                        color: rgb(215, 215, 215);
+                        border-color: rgb(75, 75, 75);
                         &:focus {
                             border-color: #2196f3;
                             box-shadow: 0 0 1.5px 0.45px #2195f3;
@@ -500,7 +503,7 @@
                 }
                 footer button {
                     &[data-button-type="default"] {
-                        background-color: rgb(43, 42, 42);
+                        background-color: #161616;
                         color: rgb(250, 250, 250);
                     }
                     &[data-button-type="info"] {
@@ -554,17 +557,18 @@
         @media screen and (prefers-color-scheme: dark) {
             &[data-theme="system"] {
                 div[data-container="inner-modal"] {
-                    background-color: #303030;
-                    box-shadow: rgba(10, 10, 11, 0.7) 0px 7px 29px 0px;
+                    background-color: #1e1e1e;
+                    border-color: #4e4c4c;
+                    border-width: 1px;
                     header {
-                        background-color: #212121;
-                        border-bottom-color: rgb(77, 65, 65);
+                        background-color: #161616;
+                        border-bottom-color: #4e4c4c;
                     }
                     main {
-                        color: rgb(168, 176, 176);
+                        color: rgb(235, 235, 235);
                         input {
-                            color: rgb(190, 190, 190);
-                            border-color: rgb(87, 75, 75);
+                            color: rgb(215, 215, 215);
+                            border-color: rgb(75, 75, 75);
                             &:focus {
                                 border-color: #2196f3;
                                 box-shadow: 0 0 1.5px 0.45px #2195f3;
@@ -577,7 +581,7 @@
                     }
                     footer button {
                         &[data-button-type="default"] {
-                            background-color: rgb(43, 42, 42);
+                            background-color: #161616;
                             color: rgb(250, 250, 250);
                         }
                         &[data-button-type="info"] {

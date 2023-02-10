@@ -18,10 +18,6 @@ export default {
             action: "onInput", 
             description: "The event emitter when a value is inputted into modal input box"
         },
-        onClickedOutside: {
-            action: "onClickedOutside", 
-            description: "The event emitter when the user click outside the modal"
-        },
         onLeftButtonClicked: {
             action: "onLeftButtonClicked", 
             description: "The event emitter when the modal left button is clicked"
@@ -115,7 +111,6 @@ const Template  = (args:any) => ({
     Component: Modal,
     props: args,
     on: {
-        onClickedOutside: args.onClickedOutside,
         onRightButtonClicked: args.onRightButtonClicked,
         onLeftButtonClicked: args.onLeftButtonClicked,
         onInput: args.onInput

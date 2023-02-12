@@ -376,7 +376,7 @@
                     border-radius: 5px;
                     color: rgb(45, 45, 45);
                     font-size: 15.75px;
-                    border-color: rgb(225, 225, 225); 
+                    border-color: #d2d2d2; 
                     &:focus {
                         border-color: #2196f3;
                         box-shadow: 0 0 1.5px 0.45px #2195f3;
@@ -432,6 +432,8 @@
                     &[data-button-type="default"] {
                         background-color: #f5f5f5;
                         color:rgb(40, 35, 35);
+                        border-color: #e2e0e0;
+                        border-width: 1px;
                     }
                     &[data-button-type="info"] {
                         background-color: #2195f3;
@@ -506,6 +508,7 @@
                     &[data-button-type="default"] {
                         background-color: #161616;
                         color: rgb(250, 250, 250);
+                        border-color: #373535;
                     }
                     &[data-button-type="info"] {
                         &:hover {
@@ -584,6 +587,7 @@
                         &[data-button-type="default"] {
                             background-color: #161616;
                             color: rgb(250, 250, 250);
+                            border-color: rgb(55, 53, 53);
                         }
                         &[data-button-type="info"] {
                             &:hover {

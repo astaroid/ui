@@ -64,7 +64,6 @@ export default {
             description: "If true disable the buy button"
         },
         showLabels: {
-            name: "show labels",
             defaultValue: false,
             control: { type: "boolean" },
             description: "If true all the component tooltips will be shown"

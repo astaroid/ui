@@ -44,6 +44,7 @@
         } else {
             dispatcher("onSelected", { id })
         }
+        isSelected = !isSelected
     }
 
     const dispatcher = createEventDispatcher()

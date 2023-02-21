@@ -10,7 +10,7 @@
     export let disabled:boolean = false
     export let isSelected:boolean = false
     export let showLabels:boolean = false
-    export let mode:"selling"|"merging" = "merging"
+    export let mode:"selling"|"forging" = "forging"
 
     const format = (value:number): string => {
         if (value >= 1000000000) {
@@ -27,14 +27,14 @@
     const formatColor = () => {
         if (colorFormatType == "keyword") {
             colorFormatType = "rgb"
-            formatedColor = new Color(color).keyword() 
+            formattedColor = new Color(color).keyword() 
         } else if (colorFormatType == "rgb") {
             colorFormatType = "hex"
             let c = new Color(color)
-            formatedColor = `rgba(${c.red()}, ${c.green()}, ${c.blue()}, ${c.alpha()})`
+            formattedColor = `rgba(${c.red()}, ${c.green()}, ${c.blue()}, ${c.alpha()})`
         } else if (colorFormatType == "hex") {
             colorFormatType = "keyword"
-            formatedColor = new Color(color).hex()
+            formattedColor = new Color(color).hex()
         }
     }
 
@@ -50,14 +50,14 @@
 
     let colorFormatType:"keyword"|"hex"|"rgb" = "rgb"
 
-    let formatedColor = new Color(color).keyword()
+    let formattedColor = new Color(color).keyword()
 </script>
 <section data-theme={theme}>
     <div data-container="asset-container">
         <Tooltip show={showLabels} position="bottom" theme={theme} label="Asset color">
             <div on:click={formatColor} data-container="color-container">
                 <button style="background-color: {color};"></button>
-                <span style="text-transform: {colorFormatType == "rgb" ? "capitalize": "none"};">{formatedColor}</span>
+                <span style="text-transform: {colorFormatType == "rgb" ? "capitalize": "none"};">{formattedColor}</span>
             </div>
         </Tooltip>
         <div data-container="asset-image"></div>
@@ -68,7 +68,7 @@
         </Tooltip>
        <button disabled={disabled} on:click={() => dispatcher("onSold", { id })} >Sell</button>
     </div>
-    <button disabled={disabled} data-selected={isSelected} on:click={onSelectBtnClick} style="display: { mode == "merging" ? "flex" : "none" };">
+    <button disabled={disabled} data-selected={isSelected} on:click={onSelectBtnClick} style="display: { mode == "forging" ? "flex" : "none" };">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
         </svg>
@@ -147,7 +147,7 @@
                 width: calc(50% - 15px);
                 border-width: 0;
                 border-style: solid;
-                font-size: 24px;
+                font-size: 23.25px;
                 font-family: Poppins, sans-serif;
             }
             button {
@@ -276,16 +276,11 @@
                 }
             }
             
-            div[data-container="asset-detail-container"] {
-                span {
-                    font-size: 25px;
-                }
-                button {
-                    height: 44.75px;
-                    font-size: 19.5px;
-                    width: calc(45% - 15px);
-                    max-width: 110px;
-                }
+            div[data-container="asset-detail-container"] button {
+                height: 44.75px;
+                font-size: 19.5px;
+                width: calc(45% - 15px);
+                max-width: 110px;
             }
 
             button[data-selected] {

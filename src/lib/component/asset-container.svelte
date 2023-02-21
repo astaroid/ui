@@ -282,11 +282,16 @@
                 }
             }
             
-            div[data-container="asset-detail-container"] button {
-                height: 44.75px;
-                font-size: 19.5px;
-                width: calc(45% - 15px);
-                max-width: 110px;
+            div[data-container="asset-detail-container"] {
+                button {
+                    height: 44.75px;
+                    font-size: 19.5px;
+                    width: calc(45% - 15px);
+                    max-width: 110px;
+                }
+                span {
+                    font-size: 25.5px;
+                }
             }
 
             button[data-selected] {

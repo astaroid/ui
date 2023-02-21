@@ -2,6 +2,7 @@
     import Color from "color"
     import { createEventDispatcher } from "svelte"
     import Tooltip from "./tooltip.svelte"
+    import { crystalGenerator } from "@astaroid/workshop"
 
     export let theme:"system"|"light"|"dark" = "system"
     export let id:string = "00000000-0000-0000-0000-000000000000"
@@ -52,6 +53,8 @@
     let colorFormatType:"keyword"|"hex"|"rgb" = "rgb"
 
     let formattedColor = new Color(color).keyword()
+
+    let crystalSvg = crystalGenerator(new Color(color).hex())(164, 164)
 </script>
 <section data-theme={theme}>
     <div data-container="asset-container">
@@ -61,7 +64,9 @@
                 <span style="text-transform: {colorFormatType == "rgb" ? "capitalize": "none"};">{formattedColor}</span>
             </div>
         </Tooltip>
-        <div data-container="asset-image"></div>
+        <div data-container="asset-image">
+            {@html crystalSvg}
+        </div>
     </div>
     <div data-container="asset-detail-container" style="display: { mode == "selling" ? "flex" : "none" };">
         <Tooltip show={showLabels} position="bottom" theme={theme} label="Asset volume">

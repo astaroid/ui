@@ -227,11 +227,6 @@
             mainElement.classList.add("tab-show-anim")
             blurryBackground.classList.add("start-blur")
             blurryBackground.classList.remove("clear-blur")
-        } else {
-            mainElement.classList.remove("tab-show-anim")
-            mainElement.classList.add("tab-hide-anim")
-            blurryBackground.classList.remove("start-blur")
-            blurryBackground.classList.add("clear-blur")
         }
         tabContainer.addEventListener("animationend", (e) => {
             if (e.animationName.includes("slide-out")) {
@@ -379,7 +374,7 @@
         width: 100%;
         height: 100%;
         overflow: hidden;
-        display: flex;
+        display: none;
         :global(&.tab-hide-anim) {
             z-index: 7;
             animation-duration: 245ms;

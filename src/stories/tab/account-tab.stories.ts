@@ -91,6 +91,15 @@ export default {
                 options: [ "light", "dark", "system" ]
             }
         },
+        position: {
+            type: { name: "string" },
+            description: "The CSS position of the component",
+            defaultValue: "absolute",
+            control: {
+                type: "select",
+                options: [ "fixed", "absolute" ]
+            }
+        },
         user: {
             description: "The Javascript object representation of the user",
             type: { required: true },

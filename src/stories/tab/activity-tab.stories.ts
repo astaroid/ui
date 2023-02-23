@@ -63,6 +63,15 @@ export default {
             },
             defaultValue: true,
         },
+        position: {
+            type: { name: "string" },
+            description: "The CSS position of the component",
+            defaultValue: "absolute",
+            control: {
+                type: "select",
+                options: [ "fixed", "absolute" ]
+            }
+        },
         showPayoutMessages: {
             description: "If true all payout messages will be shown",
             control: {

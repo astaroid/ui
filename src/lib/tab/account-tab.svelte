@@ -58,6 +58,7 @@
     export let loading:boolean = false
     export let user:User = null
     export let payoutOptions:Array<AccountPayoutOption> = []
+    export let position:"absolute"|"fixed" = "absolute"
     
     const dispatcher = createEventDispatcher()
 
@@ -285,7 +286,7 @@
         })
     })
 </script>
-<main bind:this={mainElement} data-theme={theme}>
+<main style="position: {position}" bind:this={mainElement} data-theme={theme}>
     <section bind:this={blurryBackground} data-container="blurry-background" on:click={close}></section>
     <section bind:this={tabContainer} data-container="tab-container" bind:clientWidth={sectionWidth}> 
         <Menu 

@@ -36,6 +36,7 @@
     export let showSoldAssetMessages = true
     export let showBoughtCrystalMessages = true
     export let messages:Array<ActivityMessage> = Array<ActivityMessage>()
+    export let position:"absolute"|"fixed" = "absolute"
     
     const dispatcher = createEventDispatcher()
 
@@ -248,7 +249,7 @@
         })
     })
 </script>
-<main bind:this={mainElement} data-theme={theme}>
+<main style="position: {position}" bind:this={mainElement} data-theme={theme}>
     <section bind:this={blurryBackground} data-container="blurry-background" on:click={close}></section>
     <section bind:this={tabContainer} data-container="tab-container" bind:clientWidth={sectionWidth}>
         <Menu 

@@ -67,7 +67,7 @@ export default {
         },
         position: {
             type: { required: true, name: "string" },
-            description: "The type of CSS position of the component",
+            description: "The CSS position of the component",
             defaultValue: "relative",
             control: {
                 type: "select",

@@ -28,6 +28,7 @@ import SelectInput from "./select-input.svelte"
 import SelectInputMenu from "./select-input-menu.svelte"
 import AccountSection from "./account-section.svelte"
 import AccountSectionItem from "./account-section-item.svelte"
+import EmptyScreen from "./empty-screen.svelte"
 
 export default {
     AssetForageButton,
@@ -59,5 +60,6 @@ export default {
     SelectInput,
     SelectInputMenu,
     AccountSection,
-    AccountSectionItem
+    AccountSectionItem,
+    EmptyScreen
 }

@@ -103,7 +103,7 @@
         justify-content: flex-end;
         align-items: flex-start;
         main {
-            padding-block: 20px;
+            padding-block: 25px;
             padding-inline: 20px;
             width: fit-content;
             height: fit-content;
@@ -122,23 +122,31 @@
                 transform: scale(0);
             }
             div[data-container="filter-option"] {
-                width: fit-content;
+                width: 88px;
                 height: fit-content;
                 margin-bottom: 15px;
                 animation-duration: 280ms;
                 animation-play-state: paused;
                 animation-timing-function: ease-out;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
                 transform: scale(0);
                 p {
                     display: none;
-                    width: 100%;
                     margin: 0 0 0 0;
                     padding: 0 0 0 0;
                     margin-top: 8px;
                     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-                    font-size: 17px;
-                    color: rgb(16, 16, 16);
+                    font-size: 14.65px;
+                    color: #f8f6f6;
+                    background-color: #212121;
+                    padding-block: 4px;
+                    padding-inline: 10px;
                     text-align: center;
+                    border-style: solid;
+                    border-width: 0px;
+                    border-radius: 6px;
                 }
                 button {
                     height: 51px;
@@ -254,7 +262,8 @@
                         }
                     }
                     p {
-                        color: rgb(236, 236, 236);
+                        color: #030303;
+                        background-color: #f5f5f5;
                     }
                     &[data-is-option="true"] {
                         button {
@@ -341,7 +350,7 @@
                         } 
                     }
                     p {
-                        font-size: 16.25px;
+                        font-size: 14.2px;
                     }
                 }
                 button[data-button="orderby-button"] {

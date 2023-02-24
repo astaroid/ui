@@ -99,8 +99,8 @@
         align-items: flex-start;
     }
     main {
-        padding-block: 20px;
-        padding-inline: 20px;
+        padding-block: 25px;
+        padding-inline: 30px;
         width: fit-content;
         height: fit-content;
         display: flex;
@@ -234,7 +234,7 @@
         }
 
         @media screen and (max-width: 599px) {
-            padding-inline: 10px;
+            padding-inline: 20px;
             button[data-button="exit-button"] {
                 height: 48px;
                 width: 48px;

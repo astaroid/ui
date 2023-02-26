@@ -54,7 +54,7 @@
 
     let formattedColor = new Color(color).keyword()
 
-    let crystalSvg = crystalGenerator(new Color(color).hex())(164, 164)
+    let crystalSvg = crystalGenerator(new Color(color).hex())(184, 184)
 </script>
 <section data-theme={theme}>
     <div data-container="asset-container">

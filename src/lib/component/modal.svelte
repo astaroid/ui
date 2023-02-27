@@ -244,7 +244,7 @@
     }
     section {
         position: absolute;
-        z-index: 10;
+        z-index: 1000;
         width: 100%;
         height: 100%;
         display: flex;
@@ -291,7 +291,7 @@
             }
         } 
         div[data-container="inner-modal"] {
-            z-index: 3;
+            z-index: 300;
             position: absolute;
             padding: 0 0 0 0;
             margin: 0 0 0 0;

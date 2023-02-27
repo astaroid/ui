@@ -157,7 +157,7 @@
         border-top-width: 0;
         border-top-left-radius: 0;
         border-top-right-radius: 0;
-        z-index: 5;
+        z-index: 500;
         &[data-theme="dark"] {
             background-color: #303030;
             border-color: #474849;

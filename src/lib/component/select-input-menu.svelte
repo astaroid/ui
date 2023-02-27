@@ -40,7 +40,7 @@
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        z-index: 5;
+        z-index: 500;
         justify-content: flex-start;
         box-shadow: rgb(0 0 0 / 5%) 0px 1px 3px;
         p {

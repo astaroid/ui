@@ -23,6 +23,15 @@ export default {
                 type: "select",
                 options: [ "light", "dark", "system" ]
             }
+        },
+        type: {
+            type: { name: "string" },
+            description: "The empty page type",
+            defaultValue: "no-result",
+            control: {
+                type: "select",
+                options: [ "no-asset", "no-result" ]
+            }
         }
     }
 }

@@ -20,7 +20,13 @@
     export let theme:"system"|"light"|"dark" = "system"
     export let page:PageType = "home"
     export let notified:boolean = false
-    export let message:MessageBarControl = null
+    export let message:MessageBarControl = {
+        message: String(),
+        show: false,
+        type: "normal",
+        loading: false,
+        inputText: "click me"
+    }
     export let homePageLink:string = "/"
     export let assetPageLink:string = "/"
     export let coinCount:number = 0
@@ -252,7 +258,6 @@
         {...searchBarDropDownMenuControl}
         on:onClickOutside={searchBarDropdownMenuOnClickOutside} 
         on:onSearchResultClicked={(e) => dispatcher("onSearchResultClicked", e.detail)}/>
-    
 </nav>
 <style lang="less">
     @keyframes nav-slide-down-anim {
@@ -291,6 +296,7 @@
         animation-duration: 350ms;
         animation-timing-function: ease-out;
         top: 0;
+        z-index: 100;
         section[data-container="count-container"] {
             width: 100%;
             display: flex;
@@ -388,8 +394,8 @@
                         }
                         svg {
                             fill: rgb(135, 135, 135);
-                            width: 26.85px;
-                            height: 26.85px;
+                            width: 27.85px;
+                            height: 27.85px;
                         }
                     }
                     a {
@@ -439,8 +445,8 @@
                         a,
                         button{
                             svg {
-                                width: 26px;
-                                height: 26px;
+                                width: 27px;
+                                height: 27px;
                             }
                         }
                     }

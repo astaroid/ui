@@ -160,7 +160,6 @@
 
     const menuItemClicked = (e:CustomEvent<{ id:string }>) => {
         let id = e.detail.id
-        reactiveTrigger = !reactiveTrigger
         if (id == "profile-btn" && tabContainer) {
             let profileAccountSection:HTMLElement = tabContainer.querySelector("div[data-container='body'] div[data-container='profile-section']")
             profileAccountSection && profileAccountSection.scrollIntoView()
@@ -215,10 +214,8 @@
         dispatcher("onRequestPayout", { cash: parseFloat(cash), coin: parseFloat(coin) })
     }
 
-    let reactiveTrigger = false
-    let sectionWidth = 350
-    let menuXPosition = sectionWidth - 192
-    let menuYPosition = 43
+    let menuYPosition = 51 /* Tab container navbar height */ - ( 1 /* Tab container navbar border bottom width */ + 5 /* Tab container navbar bottom padding */ )
+    let menuXPosition = 12 /* Tab container left padding */
     let showMenu = false
     let isMenuButtonClicked = false
     let tabContainer:HTMLElement = null
@@ -235,10 +232,6 @@
         color: "#06d6a0"
     }))
     
-    $: if (reactiveTrigger || !reactiveTrigger) {
-        menuXPosition = sectionWidth - 192
-    }
-
     $: if (show && mainElement && blurryBackground) {
         mainElement.style.display = "flex"
         mainElement.classList.remove("tab-hide-anim")
@@ -288,7 +281,7 @@
 </script>
 <main style="position: {position}" bind:this={mainElement} data-theme={theme}>
     <section bind:this={blurryBackground} data-container="blurry-background" on:click={close}></section>
-    <section bind:this={tabContainer} data-container="tab-container" bind:clientWidth={sectionWidth}> 
+    <section bind:this={tabContainer} data-container="tab-container"> 
         <Menu 
             theme={theme}
             x={menuXPosition}
@@ -300,18 +293,18 @@
             bind:show={showMenu}
             position="absolute"/>
         <nav>
-            <Tooltip theme={theme} label="Close">
-                <button on:click={close}>
-                    <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                    </svg>
-                </button>
-            </Tooltip>
-            <span>Account</span>
             <Tooltip theme={theme} label="More">
                 <button use:clickoutside={{ enabled: true, callback: () => isMenuButtonClicked = false }} on:click={toggleMenu}>
                     <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3.625 7.5C3.625 8.12132 3.12132 8.625 2.5 8.625C1.87868 8.625 1.375 8.12132 1.375 7.5C1.375 6.87868 1.87868 6.375 2.5 6.375C3.12132 6.375 3.625 6.87868 3.625 7.5ZM8.625 7.5C8.625 8.12132 8.12132 8.625 7.5 8.625C6.87868 8.625 6.375 8.12132 6.375 7.5C6.375 6.87868 6.87868 6.375 7.5 6.375C8.12132 6.375 8.625 6.87868 8.625 7.5ZM12.5 8.625C13.1213 8.625 13.625 8.12132 13.625 7.5C13.625 6.87868 13.1213 6.375 12.5 6.375C11.8787 6.375 11.375 6.87868 11.375 7.5C11.375 8.12132 11.8787 8.625 12.5 8.625Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </Tooltip>
+            <span>Account</span>
+            <Tooltip theme={theme} label="Close">
+                <button on:click={close}>
+                    <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                     </svg>
                 </button>
             </Tooltip>

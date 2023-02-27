@@ -11,7 +11,7 @@
     export let disabled:boolean = false
     export let isSelected:boolean = false
     export let showLabels:boolean = false
-    export let mode:"selling"|"forging" = "forging"
+    export let mode:"selling"|"forging" = "selling"
 
     const format = (value:number): string => {
         if (value >= 1000000000) {
@@ -153,7 +153,7 @@
                 width: calc(50% - 15px);
                 border-width: 0;
                 border-style: solid;
-                font-size: 23.25px;
+                font-size: 24.5px;
                 font-family: Poppins, sans-serif;
             }
             button {
@@ -164,8 +164,8 @@
                 border-style: solid;
                 border-radius: 5px;
                 width: 95px;
-                height: 44.25px;
-                font-size: 19px;
+                height: 47.25px;
+                font-size: 19.87px;
                 outline: none;
                 background-color: #06d6a0;
                 color: white;
@@ -191,8 +191,8 @@
             border-style: solid;
             border-radius: 5px;
             width: var(--section-width);
-            height: 44.25px;
-            font-size: 19px;
+            height: 47.5px;
+            font-size: 19.85px;
             outline: none;
             background-color: #06d6a0;
             margin-top: 12px;
@@ -284,19 +284,19 @@
             
             div[data-container="asset-detail-container"] {
                 button {
-                    height: 44.75px;
-                    font-size: 19.5px;
+                    height: 47.75px;
+                    font-size: 21.5px;
                     width: calc(45% - 15px);
                     max-width: 110px;
                 }
                 span {
-                    font-size: 25.5px;
+                    font-size: 27.25px;
                 }
             }
 
             button[data-selected] {
-                height: 44.75px;
-                font-size: 19.5px;
+                height: 52.75px;
+                font-size: 21.5px;
             }
         }
     }

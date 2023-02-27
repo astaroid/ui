@@ -19,22 +19,25 @@ export default {
         },
         onSignUp: {
             action: "onSignUp", 
-            description: "The event emitter when the continue button is clicked"
-        },
-        onPolicyLinkClick: {
-            action: "onPolicyLinkClick",
-            description: "The event emitter when the magic link is clicked"
+            description: "The event emitter when user enable to sign up"
         },
         onSignIn: {
             action: "onSignIn", 
-            description: "The event emitter when the continue button is clicked"
+            description: "The event emitter when user enable to sign in"
         },
         onForgetPassword: {
             action: "onForgetPassword",
-            description: "The event emitter when the forget password is clicked"
+            description: "The event emitter when forget password link is clicked"
+        },
+        privacyPolicyLink: {
+            type: { name: "string" },
+            defaultValue: "/privacy-policy",
+            description: "The link to  the website privacy policy",
+            control: {
+                type: "text"
+            }
         },
         errorType: {
-            name: "error type",
             type: { name: "string" },
             defaultValue: "none",
             description: "The type of error the tab should display",
@@ -44,7 +47,6 @@ export default {
             }
         },
         width: {
-            name: "width",
             type: { required: true, name: "number" },
             description: "The width of the tab",
             control: {
@@ -53,14 +55,12 @@ export default {
             defaultValue: 100
         },
         loading: {
-            name: "loading",
             defaultValue: false,
             type: { name: "boolean" },
             description: "If true the loading spinner animation will start",
             control: { type: "boolean" }
         },
         unit: {
-            name:"unit",
             type: { name: "string" },
             description: "The unit of width of the tab",
             defaultValue: "%",
@@ -70,7 +70,6 @@ export default {
             }
         },
         tab: {
-            name: "tab",
             type: { name: "string" },
             description: "The selected tab",
             defaultValue: "sign in",
@@ -79,8 +78,7 @@ export default {
                 options: [ "sign in", "sign up" ]
             }
         },
-        disable: {
-            name:"disable",
+        disabled: {
             type: { name: "string" },
             description: "The tab button to disable",
             defaultValue: "none",
@@ -90,7 +88,6 @@ export default {
             }
         },
         theme: {
-            name: "theme",
             type: { required: true, name: "string" },
             description: "The theme of the component",
             defaultValue: "light",
@@ -109,7 +106,6 @@ const Template = (args:any) => ({
         onSignIn: args.onSignIn,
         onForgetPassword: args.onForgetPassword,
         onSignUp: args.onSignUp,
-        onPolicyLinkClick: args.onPolicyLinkClick,
         onTabSelected: args.onTabSelected
     }
 })

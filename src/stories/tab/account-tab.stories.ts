@@ -24,7 +24,7 @@ export default {
         },
         onRequestEmailVerification: {
             action: "onRequestEmailVerification",
-            description: "The event emitter when the user request a email verification"
+            description: "The event emitter when the user request for email verification"
         },
         onRequestCoinPurchase: {
             action: "onRequestCoinPurchase",
@@ -36,27 +36,27 @@ export default {
         },
         onRequestPayout: {
             action: "onRequestPayout",
-            description: "The event emitter when the user request to withdraw cash"
+            description: "The event emitter when the user request for cash payout"
         },
         onRequestProfileImageChange: {
             action: "onRequestProfileImageChange",
-            description: "The event emitter when the user request to profile image change"
+            description: "The event emitter when the user request to change profile image"
         },
         onRequestUsernameChange: {
             action: "onRequestUsernameChange",
-            description: "The event emitter when the user request to username change"
+            description: "The event emitter when the user request to change username"
         },
         onRequestEmailChange: {
             action: "onRequestEmailChange",
-            description: "The event emitter when the user request to email change"
+            description: "The event emitter when the user request to change email"
         },
         onRequestPasswordChange: {
             action: "onRequestPasswordChange",
-            description: "The event emitter when the user request to password change"
+            description: "The event emitter when the user request to change password"
         },
         onRequestThemeChange: {
             action: "onRequestThemeChange",
-            description: "The event emitter when the user request to theme change"
+            description: "The event emitter when the user request to change theme"
         },
         onRequestLoggingOut: {
             action: "onRequestLoggingOut",
@@ -91,8 +91,17 @@ export default {
                 options: [ "light", "dark", "system" ]
             }
         },
+        position: {
+            type: { name: "string" },
+            description: "The CSS position of the component",
+            defaultValue: "absolute",
+            control: {
+                type: "select",
+                options: [ "fixed", "absolute" ]
+            }
+        },
         user: {
-            description: "The Javascript object of the representing the user",
+            description: "The Javascript object representation of the user",
             type: { required: true },
             control: {
                 type: "object"

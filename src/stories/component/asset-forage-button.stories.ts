@@ -48,7 +48,7 @@ export default {
             type: { name: "boolean", required: true },
             defaultValue: false,
             control: { type: "boolean" },
-            description: "If true disable the sell or select button"
+            description: "If true disable the asset merge button button"
         }
     }
 }

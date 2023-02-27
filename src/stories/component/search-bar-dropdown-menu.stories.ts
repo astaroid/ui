@@ -37,15 +37,14 @@ export default {
         },
         page: {
             type: { name: "string" },
-            description: "The page the search bar and search bar dropdown menu is mounted",
+            description: "The page the search bar dropdown menu is mounted on",
             defaultValue: "home",
             control: {
                 type: "select",
-                options: ["home", "assets"]
+                options: ["home", "asset"]
             }
         },
         searchValue: {
-            name: "search value",
             type: { name: "string", required: true },
             description: "The value inputted in the search bar",
             defaultValue: "search",

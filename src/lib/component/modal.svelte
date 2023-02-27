@@ -1,6 +1,5 @@
 <script lang="ts">
     import { onMount } from "svelte"
-    import { clickoutside } from '@svelteuidev/composables'
     import { createEventDispatcher } from "svelte"
     import { Circle } from "svelte-loading-spinners"
 
@@ -25,64 +24,89 @@
     export let title:string = "Info"
     export let type:"info"|"warning"|"success"|"error" = "info"
     export let message:string = `Message type is ${type}`
-    export let leftButton:ModalButton = null
-    export let rightButton:ModalButton = null
-    export let input:ModalInput = null
-
-    if (!leftButton) {
-        leftButton =  {
-            type: "default",
-            text: "Cancel",
-            disabled: false,
-            loading: false
-        }
+    export let leftButton:ModalButton = {
+        type: "default",
+        text: "Cancel",
+        disabled: false,
+        loading: false
     }
-
-    if (!rightButton) {
-        rightButton = {
-            type: "info",
-            text: "Next",
-            disabled: false,
-            loading: false
-        }
+    export let rightButton:ModalButton = {
+        type: "info",
+        text: "Next",
+        disabled: false,
+        loading: false
     }
-
-    if (!input) {
-        input = {
-            show: false,
-            type: "text",
-            placeholder: String(),
-            error: false,
-            errorMessage: String(),
-            value: null
-        }
+    export let input:ModalInput = {
+        show: false,
+        type: "text",
+        placeholder: String(),
+        error: false,
+        errorMessage: String(),
+        value: null
     }
 
     const dispatcher = createEventDispatcher()
     
-    const onClickedOutside = () => {
-        dispatcher("onClickedOutside")
-    }
-
     const onInput = () => {
-        dispatcher("onInput", { value: input.value })
+        dispatcher("onInput", { value: inputValue })
     }
 
     let inputBox:HTMLInputElement = null
+    let innerModal:HTMLElement = null
+    let sectionElement:HTMLElement = null
+    let blurryBackground:HTMLElement = null
+    let inputValue:string = input.value || String()
 
-    $:if (inputBox && input.show) {
-        inputBox.focus()
+    $: if (show && sectionElement && blurryBackground) {
+        sectionElement.style.display = "flex"
+        sectionElement.classList.remove("modal-hide-anim")
+        sectionElement.classList.add("modal-show-anim")
+        blurryBackground.classList.add("start-blur")
+        blurryBackground.classList.remove("clear-blur")
+        if (input.show && inputBox)
+            inputBox.focus()
+    } 
+
+    $: if (!show && sectionElement && blurryBackground) {
+        sectionElement.classList.remove("modal-show-anim")
+        sectionElement.classList.add("modal-hide-anim")
+        blurryBackground.classList.remove("start-blur")
+        blurryBackground.classList.add("clear-blur")
     }
 
     onMount(() => {
-        if (inputBox && input.show)
-            inputBox.focus()
+        if (show) {
+            sectionElement.style.display = "flex"
+            sectionElement.classList.remove("modal-hide-anim")
+            sectionElement.classList.add("modal-show-anim")
+            blurryBackground.classList.add("start-blur")
+            blurryBackground.classList.remove("clear-blur")
+            if (input.show && inputBox)
+                inputBox.focus()
+        } else {
+            sectionElement.classList.remove("modal-show-anim")
+            sectionElement.classList.add("modal-hide-anim")
+            blurryBackground.classList.remove("start-blur")
+            blurryBackground.classList.add("clear-blur")
+        }
+        innerModal.addEventListener("animationend", (e) => {
+            if (e.animationName.includes("scaling-in-anim")) {
+                sectionElement.classList.remove("modal-show-anim")
+                blurryBackground.classList.remove("clear-blur")
+                dispatcher("onOpened")
+            } else if (e.animationName.includes("scaling-out-anim")) {
+                sectionElement.classList.remove("modal-hide-anim")
+                blurryBackground.classList.remove("start-blur")
+                sectionElement.style.display = "none"
+                dispatcher("onClosed")
+            }
+        })
     })
 </script>
-<section style="display: { show ? "flex" : "none" }" data-theme={theme}>
-    <div style="animation-play-state: { show ? "running" : "paused" }" data-container="blurry-background">
+<section bind:this={sectionElement} data-theme={theme}>
+    <div bind:this={blurryBackground} data-container="blurry-background" on:click={() => show = false}>
     </div>
-    <div style="animation-play-state: { show ? "running" : "paused" }" use:clickoutside={{ enabled: show, callback: onClickedOutside }} data-container="inner-modal">
+    <div bind:this={innerModal} data-container="inner-modal">
         <header data-modal-type={type}>
             {#if type == "info"}
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -110,7 +134,7 @@
                     <input 
                         data-has-error={input.error} 
                         type="text" placeholder={input.placeholder} 
-                        bind:value={input.value} 
+                        bind:value={inputValue} 
                         bind:this={inputBox}
                         on:input={onInput}>
                 {:else if input.type == "password"}
@@ -118,7 +142,7 @@
                         data-has-error={input.error} 
                         type="password" 
                         placeholder={input.placeholder}
-                        bind:value={input.value} 
+                        bind:value={inputValue} 
                         bind:this={inputBox}
                         on:input={onInput}>
                 {/if}
@@ -162,11 +186,19 @@
     </div>
 </section>
 <style lang="less">
-    @keyframes scaling-anim {
+    @keyframes scaling-in-anim {
         from {
             transform: scale(0);
         }
         to {
+            transform: scale(1);
+        }
+    } 
+    @keyframes scaling-out-anim {
+        to {
+            transform: scale(0);
+        }
+        from {
             transform: scale(1);
         }
     } 
@@ -177,7 +209,17 @@
         }
         to {
             background: rgba(40,40,40,0.5);
-            backdrop-filter: blur(3.75px);
+            backdrop-filter: blur(1.35px);
+        }
+    } 
+    @keyframes clear-blur-anim {
+        from {
+            background: rgba(40,40,40,0.5);
+            backdrop-filter: blur(1.35px);
+        }
+        to {
+            background: transparent;
+            backdrop-filter: none;
         }
     } 
     @keyframes dark-mode-blur-anim {
@@ -187,12 +229,22 @@
         }
         to {
             background: rgba(215,215,215,0.5);
-            backdrop-filter: blur(3.75px);
+            backdrop-filter: blur(1.5px);
+        }
+    }
+    @keyframes dark-mode-clear-blur-anim {
+        from {
+            background: rgba(215,215,215,0.5);
+            backdrop-filter: blur(1.5px);
+        }
+        to {
+            background: transparent;
+            backdrop-filter: none;
         }
     }
     section {
         position: absolute;
-        z-index: 7;
+        z-index: 1000;
         width: 100%;
         height: 100%;
         display: flex;
@@ -200,35 +252,61 @@
         justify-content: center;
         align-items: center;
         font-family: Arial, Helvetica, sans-serif;
-        div[data-container="blurry-background"] {
-            background-color: rgba(40,40,40,0.5);
-            backdrop-filter: blur(3.75px);
-            width: 100%;
-            height: 100%;
-            animation-name: blur-anim;
-            animation-duration: 170ms;
+        :global(&.modal-show-anim) {
+            animation-duration: 245ms;
             animation-direction: normal;
             animation-iteration-count: 1;
-            animation-play-state: paused;
+            animation-play-state: running;
+            div[data-container="inner-modal"] {
+                animation-name: scaling-in-anim;
+                transform: scale(1);
+            }
+        }
+        :global(&.modal-hide-anim) {
+            animation-duration: 245ms;
+            animation-direction: normal;
+            animation-iteration-count: 1;
+            animation-play-state: running;
+            div[data-container="inner-modal"] {
+                animation-name: scaling-out-anim;
+                transform: scale(0);
+            }
+        }
+        div[data-container="blurry-background"] {
+            width: 100%;
+            height: 100%;
+            animation-duration: inherit;
+            animation-direction: inherit;
+            animation-iteration-count: inherit;
+            animation-play-state: inherit;
+            :global(&.start-blur) {
+                background-color: rgba(40,40,40,0.5);
+                animation-name: blur-anim;
+                backdrop-filter: blur(1.35px);
+            }
+            :global(&.clear-blur) {
+                background: transparent;
+                animation-name: clear-blur-anim;
+                backdrop-filter: none;
+            }
         } 
         div[data-container="inner-modal"] {
-            z-index: 3;
+            z-index: 300;
             position: absolute;
             padding: 0 0 0 0;
             margin: 0 0 0 0;
-            width: 320px;
+            width: 350px;
             min-height: 200px;
-            background-color: #fafafa;
+            background-color: #fefeff;
             border-style: solid;
             border-radius: 5px;
-            border-width: 0;
-            box-shadow: rgba(40, 40, 41, 0.7) 0px 7px 29px 0px;
+            border-width: 1px;
+            border-color: #e6e4e4;
             color: #303030; 
-            animation-name: scaling-anim;
-            animation-duration: 340ms;
-            animation-direction: normal;
-            animation-iteration-count: 1;
-            animation-play-state: paused;
+            animation-duration: inherit;
+            animation-direction: inherit;
+            animation-iteration-count: inherit;
+            animation-play-state: inherit;
             header {
                 border-top-left-radius: 5px;
                 border-top-right-radius: 5px;
@@ -241,8 +319,10 @@
                 padding-block: 15px;
                 font-size: 16px;
                 border: none;
-                background-color: rgb(245,245,245);
-                border-bottom: solid 1px rgb(214, 217, 220);
+                background-color: #f5f5f5;
+                border-bottom-style: solid;
+                border-bottom-width: 1px;
+                border-bottom-color: #e6e4e4;
                 svg {
                     height: 23px;
                     width: 23px;
@@ -282,7 +362,7 @@
                 align-items: center;
                 justify-content: center;
                 flex-direction: column;
-                color: rgb(68, 76, 76);
+                color: rgb(30, 30, 30);
                 input {
                     margin-top: 15px;
                     width: calc(100% - 25px);
@@ -294,9 +374,9 @@
                     border-width: 1px;
                     border-style: solid;
                     border-radius: 5px;
-                    color: rgb(68, 76, 76);
+                    color: rgb(45, 45, 45);
                     font-size: 15.75px;
-                    border-color: rgb(214, 217, 220); 
+                    border-color: #d2d2d2; 
                     &:focus {
                         border-color: #2196f3;
                         box-shadow: 0 0 1.5px 0.45px #2195f3;
@@ -350,8 +430,10 @@
                         cursor: not-allowed;
                     }
                     &[data-button-type="default"] {
-                        background-color: rgb(239, 239, 239);
+                        background-color: #f5f5f5;
                         color:rgb(40, 35, 35);
+                        border-color: #e2e0e0;
+                        border-width: 1px;
                     }
                     &[data-button-type="info"] {
                         background-color: #2195f3;
@@ -400,17 +482,18 @@
         }
         &[data-theme="dark"] {
             div[data-container="inner-modal"] {
-                background-color: #303030;
-                box-shadow: rgba(10, 10, 11, 0.7) 0px 7px 29px 0px;
+                background-color: #1e1e1e;
+                border-color: #4e4c4c;
+                border-width: 1px;
                 header {
-                    background-color: #212121;
-                    border-bottom-color: rgb(77, 65, 65);
+                    background-color: #161616;
+                    border-bottom-color: #4e4c4c;
                 }
                 main {
-                    color: rgb(168, 176, 176);
+                    color: rgb(235, 235, 235);
                     input {
-                        color: rgb(190, 190, 190);
-                        border-color: rgb(87, 75, 75);
+                        color: rgb(215, 215, 215);
+                        border-color: rgb(75, 75, 75);
                         &:focus {
                             border-color: #2196f3;
                             box-shadow: 0 0 1.5px 0.45px #2195f3;
@@ -423,8 +506,9 @@
                 }
                 footer button {
                     &[data-button-type="default"] {
-                        background-color: rgb(43, 42, 42);
+                        background-color: #161616;
                         color: rgb(250, 250, 250);
+                        border-color: #373535;
                     }
                     &[data-button-type="info"] {
                         &:hover {
@@ -461,25 +545,34 @@
                 }
             }
             div[data-container="blurry-background"] {
-                animation-name: dark-mode-blur-anim;
-                background: rgba(215,215,215,0.5);
+                :global(&.start-blur) {
+                    animation-name: dark-mode-blur-anim;
+                    background: rgba(215,215,215,0.5);
+                    backdrop-filter: blur(1.5px);
+                }
+                :global(&.clear-blur) {
+                    background: transparent;
+                    animation-name: dark-mode-clear-blur-anim;
+                    backdrop-filter: none;
+                }
             }
         }
 
         @media screen and (prefers-color-scheme: dark) {
             &[data-theme="system"] {
                 div[data-container="inner-modal"] {
-                    background-color: #303030;
-                    box-shadow: rgba(10, 10, 11, 0.7) 0px 7px 29px 0px;
+                    background-color: #1e1e1e;
+                    border-color: #4e4c4c;
+                    border-width: 1px;
                     header {
-                        background-color: #212121;
-                        border-bottom-color: rgb(77, 65, 65);
+                        background-color: #161616;
+                        border-bottom-color: #4e4c4c;
                     }
                     main {
-                        color: rgb(168, 176, 176);
+                        color: rgb(235, 235, 235);
                         input {
-                            color: rgb(190, 190, 190);
-                            border-color: rgb(87, 75, 75);
+                            color: rgb(215, 215, 215);
+                            border-color: rgb(75, 75, 75);
                             &:focus {
                                 border-color: #2196f3;
                                 box-shadow: 0 0 1.5px 0.45px #2195f3;
@@ -492,8 +585,9 @@
                     }
                     footer button {
                         &[data-button-type="default"] {
-                            background-color: rgb(43, 42, 42);
+                            background-color: #161616;
                             color: rgb(250, 250, 250);
+                            border-color: rgb(55, 53, 53);
                         }
                         &[data-button-type="info"] {
                             &:hover {
@@ -530,8 +624,16 @@
                     }
                 }
                 div[data-container="blurry-background"] {
-                    animation-name: dark-mode-blur-anim;
-                    background: rgba(215,215,215,0.5);
+                    :global(&.start-blur) {
+                        animation-name: dark-mode-blur-anim;
+                        background: rgba(215,215,215,0.5);
+                        backdrop-filter: blur(1.5px);
+                    }
+                    :global(&.clear-blur) {
+                        background: transparent;
+                        animation-name: dark-mode-clear-blur-anim;
+                        backdrop-filter: none;
+                    }
                 }
             }
         }

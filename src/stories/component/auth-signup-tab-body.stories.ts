@@ -15,11 +15,7 @@ export default {
     argTypes: {
         onSignUp: {
             action: "onSignUp", 
-            description: "The event emitter when the continue button is clicked"
-        },
-        onPolicyLinkClick: {
-            action: "onPolicyLinkClick",
-            description: "The event emitter when the magic link is clicked"
+            description: "The event emitter when user enable to sign up"
         },
         loading: {
             name: "loading",
@@ -29,13 +25,20 @@ export default {
             control: { type: "boolean" }
         },
         errorType: {
-            name: "error type",
             type: { name: "string" },
             defaultValue: "none",
             description: "The type of error the component should display",
             control: {
                 type: "select",
-                options: [ "none", "Email already exist", "Username already exist", "Username and email already exist", "both" ]
+                options: [ "none", "Email already exist", "Username already exist", "Username and email already exist" ]
+            }
+        },
+        privacyPolicyLink: {
+            type: { name: "string" },
+            defaultValue: "/privacy-policy",
+            description: "The link to  the website privacy policy",
+            control: {
+                type: "text"
             }
         },
         show: {
@@ -83,8 +86,7 @@ const Template = (args:any) => ({
     Component: AuthSignupTabBody,
     props: args,
     on: {
-        onSignUp: args.onSignUp,
-        onPolicyLinkClick: args.onPolicyLinkClick
+        onSignUp: args.onSignUp
     }
 })
 

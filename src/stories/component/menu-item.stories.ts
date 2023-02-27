@@ -17,11 +17,11 @@ export default {
             defaultValue: "Settings",
             type: { name: "string" },
             control: { type: "text" },
-            description: "The text to display in the menu item"
+            description: "The text of the menu item"
         },
         onClicked: {
             action: "onClicked",
-            description: "The event emitted when component is clicked"
+            description: "The event emitted when menu item is clicked"
         },
         id: {
             type: { required: true, name: "string" },

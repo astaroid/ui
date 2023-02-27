@@ -32,28 +32,31 @@ export default {
                 options: [ "light", "dark", "system" ]
             }
         },
-        coin: {
+        coinCount: {
             control: { type: "number" },
             defaultValue: 100,
-            description: "The user number of coins"
+            description: "The user coins count"
+        },
+        assetCount: {
+            control: { type: "number" },
+            defaultValue: 100,
+            description: "The user assets count"
         },
         homePageLink: {
-            name: "home page link",
             control: { type: "text" },
-            description: "The link to the astaroid website home page",
+            description: "The link to the website home page",
             defaultValue: "/"
         },
-        assetsPageLink: {
-            name: "assets page link",
+        assetPageLink: {
             control: { type: "text" },
-            description: "The link to the astaroid website assets page",
+            description: "The link to the website asset page",
             defaultValue: "/"
         },
         notified: {
             type: { name: "boolean" },
             control: { type: "boolean" },
             defaultValue: false,
-            description: "If true then there is a notification message"
+            description: "If true then there is an activity message"
         },
         message: {
             control: { type: "object" },
@@ -69,11 +72,11 @@ export default {
         page: {
             name: "page",
             type: { required: true, name: "string" },
-            description: "The selected tab",
+            description: "The page navbar component is mounted",
             defaultValue: "home",
             control: {
                 type: "select",
-                options: [ "home", "assets" ]
+                options: [ "home", "asset" ]
             }
         }
     }

@@ -6,10 +6,10 @@
     export let width:number = 100
     export let unit:"px"|"mm"|"pt"|"cm"|"pc"|"in"|"%" = "%"
     export let type:"item"|"label"|"divider" = "item"
-    export let text:string|null = "item"
-    export let disabled:boolean|null = false
-    export let iconData:string|null = null
-    export let color:string|null = null
+    export let text:string = "item"
+    export let disabled:boolean = false
+    export let iconData:string = null
+    export let color:string = null
 
     const dispatcher = createEventDispatcher()
 

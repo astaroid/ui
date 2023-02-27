@@ -2,6 +2,7 @@
     import Color from "color"
     import { createEventDispatcher } from "svelte"
     import Tooltip from "./tooltip.svelte"
+    import { crystalGenerator } from "@astaroid/workshop"
 
     export let theme:"system"|"light"|"dark" = "system"
     export let id:string = "00000000-0000-0000-0000-000000000000"
@@ -10,7 +11,7 @@
     export let disabled:boolean = false
     export let isSelected:boolean = false
     export let showLabels:boolean = false
-    export let mode:"selling"|"merging" = "merging"
+    export let mode:"selling"|"forging" = "selling"
 
     const format = (value:number): string => {
         if (value >= 1000000000) {
@@ -27,14 +28,14 @@
     const formatColor = () => {
         if (colorFormatType == "keyword") {
             colorFormatType = "rgb"
-            formatedColor = new Color(color).keyword() 
+            formattedColor = new Color(color).keyword() 
         } else if (colorFormatType == "rgb") {
             colorFormatType = "hex"
             let c = new Color(color)
-            formatedColor = `rgba(${c.red()}, ${c.green()}, ${c.blue()}, ${c.alpha()})`
+            formattedColor = `rgba(${c.red()}, ${c.green()}, ${c.blue()}, ${c.alpha()})`
         } else if (colorFormatType == "hex") {
             colorFormatType = "keyword"
-            formatedColor = new Color(color).hex()
+            formattedColor = new Color(color).hex()
         }
     }
 
@@ -44,23 +45,28 @@
         } else {
             dispatcher("onSelected", { id })
         }
+        isSelected = !isSelected
     }
 
     const dispatcher = createEventDispatcher()
 
     let colorFormatType:"keyword"|"hex"|"rgb" = "rgb"
 
-    let formatedColor = new Color(color).keyword()
+    let formattedColor = new Color(color).keyword()
+
+    let crystalSvg = crystalGenerator(new Color(color).hex())(184, 184)
 </script>
 <section data-theme={theme}>
     <div data-container="asset-container">
         <Tooltip show={showLabels} position="bottom" theme={theme} label="Asset color">
             <div on:click={formatColor} data-container="color-container">
                 <button style="background-color: {color};"></button>
-                <span style="text-transform: {colorFormatType == "rgb" ? "capitalize": "none"};">{formatedColor}</span>
+                <span style="text-transform: {colorFormatType == "rgb" ? "capitalize": "none"};">{formattedColor}</span>
             </div>
         </Tooltip>
-        <div data-container="asset-image"></div>
+        <div data-container="asset-image">
+            {@html crystalSvg}
+        </div>
     </div>
     <div data-container="asset-detail-container" style="display: { mode == "selling" ? "flex" : "none" };">
         <Tooltip show={showLabels} position="bottom" theme={theme} label="Asset volume">
@@ -68,7 +74,7 @@
         </Tooltip>
        <button disabled={disabled} on:click={() => dispatcher("onSold", { id })} >Sell</button>
     </div>
-    <button disabled={disabled} data-selected={isSelected} on:click={onSelectBtnClick} style="display: { mode == "merging" ? "flex" : "none" };">
+    <button disabled={disabled} data-selected={isSelected} on:click={onSelectBtnClick} style="display: { mode == "forging" ? "flex" : "none" };">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
         </svg>
@@ -147,7 +153,7 @@
                 width: calc(50% - 15px);
                 border-width: 0;
                 border-style: solid;
-                font-size: 24px;
+                font-size: 24.5px;
                 font-family: Poppins, sans-serif;
             }
             button {
@@ -158,8 +164,8 @@
                 border-style: solid;
                 border-radius: 5px;
                 width: 95px;
-                height: 44.25px;
-                font-size: 19px;
+                height: 47.25px;
+                font-size: 19.87px;
                 outline: none;
                 background-color: #06d6a0;
                 color: white;
@@ -185,8 +191,8 @@
             border-style: solid;
             border-radius: 5px;
             width: var(--section-width);
-            height: 44.25px;
-            font-size: 19px;
+            height: 47.5px;
+            font-size: 19.85px;
             outline: none;
             background-color: #06d6a0;
             margin-top: 12px;
@@ -277,20 +283,20 @@
             }
             
             div[data-container="asset-detail-container"] {
-                span {
-                    font-size: 25px;
-                }
                 button {
-                    height: 44.75px;
-                    font-size: 19.5px;
+                    height: 47.75px;
+                    font-size: 21.5px;
                     width: calc(45% - 15px);
                     max-width: 110px;
+                }
+                span {
+                    font-size: 27.25px;
                 }
             }
 
             button[data-selected] {
-                height: 44.75px;
-                font-size: 19.5px;
+                height: 52.75px;
+                font-size: 21.5px;
             }
         }
     }

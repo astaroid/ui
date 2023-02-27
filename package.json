@@ -1,6 +1,6 @@
 {
   "name": "astaroid-ui",
-  "private": true,
+  "private": false,
   "version": "0.1.0-beta",
   "type": "module",
   "scripts": {
@@ -24,6 +24,7 @@
   "license": "MIT",
   "author": "astaroid",
   "devDependencies": {
+    "@astaroid/workshop": "^1.0.0",
     "@babel/core": "^7.18.10",
     "@storybook/addon-actions": "^6.5.12",
     "@storybook/addon-docs": "^6.5.12",

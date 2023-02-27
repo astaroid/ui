@@ -14,13 +14,17 @@ export default {
         }
     },
     argTypes: {
+        onOpened: {
+            action: "onOpened", 
+            description: "The event emitter when the activity tab is opened"
+        },
+        onClosed: {
+            action: "onClosed", 
+            description: "The event emitter when the activity tab is closed"
+        },
         onInput: {
             action: "onInput", 
             description: "The event emitter when a value is inputted into modal input box"
-        },
-        onClickedOutside: {
-            action: "onClickedOutside", 
-            description: "The event emitter when the user click outside the modal"
         },
         onLeftButtonClicked: {
             action: "onLeftButtonClicked", 
@@ -28,10 +32,9 @@ export default {
         },
         onRightButtonClicked: {
             action: "onRightButtonClicked", 
-            description: "The event emitter when the modal left button is clicked"
+            description: "The event emitter when the modal right button is clicked"
         },
         leftButton: {
-            name: "left button",
             description: "The metadata for the modal left button",
             control: {
                 type: "object"
@@ -44,7 +47,6 @@ export default {
             }
         },
         rightButton: {
-            name: "right button",
             description: "The metadata for the modal right button",
             control: {
                 type: "object"
@@ -57,20 +59,20 @@ export default {
             }
         },
         message: {
-            description: "The message to pass to modal",
+            description: "The message of the modal",
             control: {
                 type: "text"
             }
         },
         title: {
-            type: { name: "string", required: true },
+            type: { name: "string" },
             description: "The title of the modal",
             control: {
                 type: "text"
             }
         },
         type: {
-            type: { name: "string", required: true },
+            type: { name: "string" },
             description: "The type of the modal",
             control: {
                 type: "select",
@@ -117,10 +119,11 @@ const Template  = (args:any) => ({
     Component: Modal,
     props: args,
     on: {
-        onClickedOutside: args.onClickedOutside,
         onRightButtonClicked: args.onRightButtonClicked,
         onLeftButtonClicked: args.onLeftButtonClicked,
-        onInput: args.onInput
+        onInput: args.onInput,
+        onOpened: args.onOpened,
+        onClosed: args.onClosed
     }
 })
 

@@ -6,7 +6,7 @@
     export let position:"top"|"bottom"|"left"|"right" = "top"
     export let show:boolean = false
 
-    const tooltipStyle = { 
+    let tooltipStyle:any = { 
         "& .body": { 
             color: theme == "dark" ? "#030303" : "rgb(248, 246, 246)", 
             fontFamily: "Arial, Helvetica, sans-serif", 
@@ -19,14 +19,17 @@
     }
 
     $: if (theme == "system") {
-        tooltipStyle['@media screen and (prefers-color-scheme: dark)'] = {
-            "& .body": { 
-                color: "#030303",
-                backgroundColor: "#f5f5f5",
-                fontWeight: "normal" 
-            },
-            "& .arrow": {
-                backgroundColor: "#f5f5f5" 
+        tooltipStyle = {
+            ...tooltipStyle,
+            "@media screen and (prefers-color-scheme: dark)": {
+                "& .body": { 
+                    color: "#030303",
+                    backgroundColor: "#f5f5f5",
+                    fontWeight: "normal" 
+                },
+                "& .arrow": {
+                    backgroundColor: "#f5f5f5" 
+                }
             }
         }
     } else {

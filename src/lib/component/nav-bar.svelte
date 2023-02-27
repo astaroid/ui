@@ -5,14 +5,14 @@
     import SearchBar from "./search-bar.svelte"
     import Tooltip from "./tooltip.svelte"
 
-    type PageType = "home"|"assets"
+    type PageType = "home"|"asset"
 
     type TabType = "activity"|"account"
 
     interface MessageBarControl {
         message: string
         show: boolean
-        type: "normal"|"input-able"|"removable"
+        type: "normal"|"inputable"|"removable"
         loading: boolean
         inputText: string
     }
@@ -20,10 +20,17 @@
     export let theme:"system"|"light"|"dark" = "system"
     export let page:PageType = "home"
     export let notified:boolean = false
-    export let message:MessageBarControl = null
+    export let message:MessageBarControl = {
+        message: String(),
+        show: false,
+        type: "normal",
+        loading: false,
+        inputText: "click me"
+    }
     export let homePageLink:string = "/"
-    export let assetsPageLink:string = "/"
-    export let coin:number = 0
+    export let assetPageLink:string = "/"
+    export let coinCount:number = 0
+    export let assetCount:number = 0
 
     const dispatcher = createEventDispatcher()
 
@@ -48,28 +55,19 @@
     }
 
     $:{
-        if (!message) {
-            message = {
-                message: String(),
-                show: false,
-                type: "normal",
-                loading: false,
-                inputText: "click me"
-            }
-        }
         if (tab == "activity") 
             notified = false
     }
 
-    const formatCoinNumber = () => {
-        if (coin >= 1000000000) {
-            return (coin/1000000000).toFixed(3).concat("B")
-        } else if (coin >= 1000000 && coin < 1000000000) {
-            return (coin/1000000).toFixed(3).concat("M")
-        } else if (coin >= 10000 && coin < 1000000) {
-            return (coin/1000).toFixed(2).concat("K")
+    const formatNumber = (num:number) => {
+        if (num >= 1000000000) {
+            return (num/1000000000).toFixed(3).concat("B")
+        } else if (num >= 1000000 && num < 1000000000) {
+            return (num/1000000).toFixed(3).concat("M")
+        } else if (num >= 10000 && num < 1000000) {
+            return (num/1000).toFixed(2).concat("K")
         } else {
-            return coin.toFixed()
+            return num.toFixed()
         }
     }
 
@@ -138,22 +136,37 @@
 
     let tab:TabType = null
 
+    let nav:HTMLElement = null
+
     let tabButtonContainer:HTMLElement = null
 
     let searchBarContainer:HTMLElement = null
 
+    let countType:"coin"|"asset" = page == "home" ? "coin" : "asset"
+
+    let oldScrollPosition = 0
+
+    let scrollTimer = null
 
     onMount(() => {
-        if (!message) {
-            message = {
-                message: String(),
-                show: false,
-                type: "normal",
-                loading: false,
-                inputText: "click me"
+        window.addEventListener("scroll", () => {
+            if (!nav) return
+            searchBarDropDownMenuControl.show = false
+            if (scrollTimer != null)
+                clearTimeout(scrollTimer)
+            if (window.scrollY < oldScrollPosition) {
+                nav.classList.remove("nav-slide-up")
+                nav.classList.add("nav-slide-down")
+            } else {
+                nav.classList.add("nav-slide-up")
+                nav.classList.remove("nav-slide-down")
             }
-        }
-
+            scrollTimer = setTimeout(() => {
+                nav.classList.remove("nav-slide-up")
+                nav.classList.add("nav-slide-down")
+            }, 250)
+            oldScrollPosition = window.pageYOffset
+        })
         window.matchMedia("screen and (max-width: 599px)").addEventListener("change", (e) => {
             if (tabButtonContainer && searchBarContainer) {
                 searchBarDropDownMenuControl.show = false
@@ -170,7 +183,7 @@
         })
     })
 </script>
-<nav data-theme={theme}>
+<nav bind:this={nav} data-theme={theme}>
     <MessageBar {...message} />
     <main>
         <div data-container="main-container">
@@ -182,8 +195,8 @@
                         </svg>
                     </a>
                 </Tooltip>
-                <Tooltip theme={theme} label="Assets" position="bottom">
-                    <a href={assetsPageLink} data-current-page={ page == "assets" ? "true": "false" }>
+                <Tooltip theme={theme} label="Asset" position="bottom">
+                    <a href={assetPageLink} data-current-page={ page == "asset" ? "true": "false" }>
                         <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" viewBox="0 0 20 20">
                             <g><path d="M16,3H4L2,8l8,9l8-9L16,3z M8.21,7.25L9.59,4.5h0.82l1.38,2.75H8.21z M9.25,8.75v5.15L4.67,8.75H9.25z M10.75,8.75h4.58 l-4.58,5.15V8.75z M16.08,7.25h-2.62L12.09,4.5h2.9L16.08,7.25z M5.02,4.5h2.9L6.54,7.25H3.92L5.02,4.5z"/></g>
                         </svg>
@@ -233,11 +246,11 @@
             </div>
         </div>
     </main>
-    <section data-container="coin-container">
-        <Tooltip theme={theme} label={coin > 1 ? "Coins" : "Coin"} position="bottom">
+    <section data-container="count-container">
+        <Tooltip theme={theme} label={ countType == "coin" ? (coinCount > 1 ? "Coins" : "Coin") : (assetCount > 1 ? "Assets" : "Asset") } position="bottom">
             <p>
-                <img src="/coin.png" alt="">
-                <span>{formatCoinNumber()}</span>
+                <img src={ countType == "coin" ? "/coin.png" : "/crystal.png" } alt="">
+                <span>{formatNumber( countType == "coin" ? coinCount : assetCount)}</span>
             </p>
         </Tooltip>
     </section>
@@ -245,14 +258,46 @@
         {...searchBarDropDownMenuControl}
         on:onClickOutside={searchBarDropdownMenuOnClickOutside} 
         on:onSearchResultClicked={(e) => dispatcher("onSearchResultClicked", e.detail)}/>
-    
 </nav>
 <style lang="less">
+    @keyframes nav-slide-down-anim {
+        from {
+            transform: translateY(-154px);
+        }
+        to {
+            transform: translateY(0);
+        }
+    }
+    @keyframes nav-slide-up-anim {
+        to {
+            transform: translateY(-154px);
+        }
+        from {
+            transform: translateY(0);
+        }
+    }
+    :global(.nav-slide-down) {
+        visibility: visible;
+        transform: translateY(0);
+        animation-name: nav-slide-down-anim;
+        animation-play-state: running
+    }
+    :global(.nav-slide-up) {
+        visibility: visible;
+        transform: translateY(-154px);
+        animation-name: nav-slide-up-anim;
+        animation-play-state: running
+    }
     nav {
         width: 100%;
         padding: 0 0 0 0;
         height: fit-content;
-        section[data-container="coin-container"] {
+        position: fixed;
+        animation-duration: 350ms;
+        animation-timing-function: ease-out;
+        top: 0;
+        z-index: 100;
+        section[data-container="count-container"] {
             width: 100%;
             display: flex;
             justify-content: center;
@@ -284,6 +329,7 @@
                     height: 30px;
                     width: 30px;
                     margin-right: 4px;
+                    margin-top: -4.5px;
                 }
             }
         }
@@ -311,7 +357,7 @@
                 width: calc(var(--inner-nav-bar-width) - 30px);
                 div[data-container="search-bar-container"] {
                     height: fit-content;
-                    width: 283px;
+                    width: 290px;
                     padding: 0 0 0 0;
                 }
                 div[data-container="button-container"] {
@@ -348,8 +394,8 @@
                         }
                         svg {
                             fill: rgb(135, 135, 135);
-                            width: 26.5px;
-                            height: 26.5px;
+                            width: 27.85px;
+                            height: 27.85px;
                         }
                     }
                     a {
@@ -399,8 +445,8 @@
                         a,
                         button{
                             svg {
-                                width: 24.5px;
-                                height: 24.5px;
+                                width: 27px;
+                                height: 27px;
                             }
                         }
                     }
@@ -424,7 +470,7 @@
             }
         }
         &[data-theme="dark"] {
-            section[data-container="coin-container"] {
+            section[data-container="count-container"] {
                 margin-top: -0.5px;
                 p {
                     background-color: #212121;
@@ -487,7 +533,7 @@
 
         @media screen and (prefers-color-scheme: dark) {
             &[data-theme="system"] {
-                section[data-container="coin-container"] {
+                section[data-container="count-container"] {
                     margin-top: -0.5px;
                     p {
                         background-color: #212121;

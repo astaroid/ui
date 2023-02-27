@@ -36,10 +36,10 @@ export default {
                 options: [ "pt", "mm", "pc", "cm", "in", "%", "px" ]
             }
         },
-        disable: {
-            name:"disable",
+        disabled: {
+            name:"disabled",
             type: { name: "string" },
-            description: "The unit of width of the component",
+            description: "The tab to disable",
             defaultValue: "none",
             control: {
                 type: "select",

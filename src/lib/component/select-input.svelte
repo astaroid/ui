@@ -1,6 +1,6 @@
 <script lang="ts">
     import { clickoutside } from "@svelteuidev/composables"
-    import { onMount, createEventDispatcher } from "svelte"
+    import { onMount, createEventDispatcher, onDestroy } from "svelte"
     import SelectInputMenu from "./select-input-menu.svelte"
 
     export let theme:"system"|"light"|"dark" = "system"
@@ -17,10 +17,11 @@
         if (sectionElement && window) {
             menuWidth = sectionElement.clientWidth
             menuXPosition = sectionElement.clientLeft - 2 /*Margin left*/
-            menuYPosition = sectionElement.clientTop + selectHeight + 3 /*Margin top*/
-            if (sectionElement.offsetTop + menuHeight >= window.innerHeight) {
-                menuYPosition -= (menuHeight + selectHeight + 13 /*Padding top*/) 
-            } 
+            menuYPosition = sectionElement.clientTop + sectionElement.clientHeight + 3 /*Margin top*/
+            let crossBoundaryDetector = sectionElement.getBoundingClientRect().y + sectionElement.clientHeight + menuHeight >= window.innerHeight
+            if (crossBoundaryDetector) {
+                menuYPosition = sectionElement.clientTop - (menuHeight + 8 /*Margin top*/)
+            }
         }
         if (!disabled) {
             showMenu = !showMenu
@@ -50,16 +51,21 @@
     let selectHeight = 0
     let sectionElement:HTMLElement = null
 
-    onMount(() => {
+    const onResize = () => {
         if (sectionElement && window) {
             menuWidth = sectionElement.clientWidth
             menuXPosition = sectionElement.clientLeft - 2 /*Margin left*/
-            menuYPosition = sectionElement.clientTop + selectHeight + 3 /*Margin top*/
-            if (sectionElement.offsetTop + menuHeight + 3 >= window.innerHeight) {
-                menuYPosition -= (menuHeight + selectHeight + 13 /*Padding top*/) 
-            } 
+            menuYPosition = sectionElement.clientTop + sectionElement.clientHeight + 3 /*Margin top*/
+            let crossBoundaryDetector = sectionElement.getBoundingClientRect().y + sectionElement.clientHeight + menuHeight >= window.innerHeight
+            if (crossBoundaryDetector) {
+                menuYPosition = sectionElement.clientTop - (menuHeight + 8 /*Margin top*/)
+            }
         }
-    })
+    }
+
+    onMount(() => window.addEventListener("resize", onResize))
+
+    onDestroy(() => window.removeEventListener("resize", onResize))
 </script>
 <section data-theme={theme} data-disabled={disabled} bind:clientHeight={selectHeight} bind:this={sectionElement} on:click={onClick} use:clickoutside={{ enabled: true, callback: () => isMenuButtonClicked = false }} style="width: calc({`${width}${unit} - 22px`})">
     <p data-has-value={value ? "true" : "false"}>{ value ? value : placeholder }</p>

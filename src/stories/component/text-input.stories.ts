@@ -20,7 +20,7 @@ export default {
         message: {
             name: "message",
             type: { name: "string", required: true },
-            description: "The error message display",
+            description: "The error message to display",
             defaultValue: "Error",
             control: {
                 type: "text"
@@ -29,7 +29,7 @@ export default {
         placeholder: {
             name: "placeholder",
             type: { name: "string" },
-            description: "The placeholder of the component",
+            description: "The placeholder of the text input",
             control: {
                 type: "text"
             }
@@ -38,7 +38,7 @@ export default {
             name: "error",
             defaultValue: false,
             type: { name: "boolean", required: true },
-            description: "If true the component input value is wrong",
+            description: "If true the component inputted value is wrong",
             control: {
                 type: "boolean"
             }
@@ -65,7 +65,7 @@ export default {
         type: {
             name:"type",
             type: { name: "string", required: true },
-            description: "The type of the input component",
+            description: "The type of the text input value",
             defaultValue: "text",
             control: {
                 type: "select",

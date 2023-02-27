@@ -10,8 +10,7 @@
         "Username already exist"|
         "Username and email already exist"|
         "Username or email not found"|
-        "Incorrect password"|
-        "Email not found"
+        "Incorrect password"
 
     const SignUpErrorMessages:Array<string> = ["Email already exist", "Username already exist", "Username and email already exist", "both"]
     const SignInErrorMessage:Array<string> = ["Username or email not found", "Incorrect password", "Email not found", "none"]
@@ -22,7 +21,8 @@
     export let tab:"sign up"|"sign in" = "sign in"
     export let errorType:GlobalErrorMessage = "none"
     export let loading:boolean =  false
-    export let disable:"sign in"|"sign up"|"none" = "none"
+    export let disabled:"sign in"|"sign up"|"none" = "none"
+    export let privacyPolicyLink = "/privacy-policy"
 
     $:signInErrorType = (SignInErrorMessage.concat(errorType) ? errorType : "none") as any
     
@@ -32,7 +32,7 @@
 </script>
 <main style="width: {`${width}${unit}`}" data-theme={theme}>
     <AuthTabController 
-        disable={disable}
+        disabled={disabled}
         tab={tab}
         unit={"%"}
         width={100}
@@ -57,9 +57,9 @@
         width={100}
         theme={theme}
         show={ tab == "sign up" }
+        privacyPolicyLink={privacyPolicyLink}
         errorType={signUpErrorType}
         loading={ tab == "sign up" && loading}
-        on:onPolicyLinkClick={(e) => dispatcher("onPolicyLinkClick")}
         on:onSignUp={(e) => dispatcher("onSignUp", { ...e.detail })}
     />
 </main>

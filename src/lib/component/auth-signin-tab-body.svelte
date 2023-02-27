@@ -36,7 +36,6 @@
     }
 
     const forgetPassword = () => {
-        errorType = "none"
         dispatcher("onForgetPassword")
     }
     

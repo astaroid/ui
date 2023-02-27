@@ -24,7 +24,7 @@ export default {
         },
         onMessageClicked: {
             action: "onMessageClicked",
-            description: "The event emitter when the activity message is clicked"
+            description: "The event emitter when a activity message is clicked"
         },
         onHideMessages: {
             action: "onHideMessages",
@@ -43,7 +43,6 @@ export default {
             defaultValue: true,
         },
         showBoughtCrystalMessages: {
-            name: "show bought crystal messages",
             description: "If true all bought crystal messages will be shown",
             control: {
                 type: "boolean"
@@ -51,7 +50,6 @@ export default {
             defaultValue: true,
         },
         showSoldAssetMessages: {
-            name: "show sold asset messages",
             description: "If true all solid asset messages will be shown",
             control: {
                 type: "boolean"
@@ -59,15 +57,22 @@ export default {
             defaultValue: true,
         },
         showTransactionFeeMessages: {
-            name: "show transaction fee messages",
             description: "If true all transaction fee messages will be shown",
             control: {
                 type: "boolean"
             },
             defaultValue: true,
         },
+        position: {
+            type: { name: "string" },
+            description: "The CSS position of the component",
+            defaultValue: "absolute",
+            control: {
+                type: "select",
+                options: [ "fixed", "absolute" ]
+            }
+        },
         showPayoutMessages: {
-            name: "show payout messages",
             description: "If true all payout messages will be shown",
             control: {
                 type: "boolean"
@@ -82,7 +87,7 @@ export default {
             control: { type: "boolean" }
         },
         messages: {
-            description: "The list of the activity message",
+            description: "The list of all the activity messages",
             control: {
                 type: "object"
             },

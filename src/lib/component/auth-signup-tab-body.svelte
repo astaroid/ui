@@ -26,6 +26,7 @@
     export let show:boolean = true
     export let errorType:ErrorMessage = "none"
     export let loading:boolean = false
+    export let privacyPolicyLink = "/privacy-policy"
 
     const dispatcher = createEventDispatcher()
 
@@ -113,7 +114,7 @@
         bind:theme={theme} 
         placeholder="Password"
         type="password"
-        message={ errorType == "Incorrect password format" ? "Password must be at least six characters with one number and special characte" : "Password not filled" }
+        message={ errorType == "Incorrect password format" ? "Password must be at least six characters with one number and special characters" : "Password not filled" }
         error={ errorType == "Incorrect password format" || errorType == "Username and password not filled" || errorType == "Password not filled" || errorType == "Username and email and password not filled" || errorType == "Email and password not filled" }
         on:onInput={(e) => {
             password = e.detail.inputValue
@@ -121,7 +122,7 @@
     />
     <div data-container="policy">
         <Checkbox disabled={loading} size={"xs"} bind:checked={isAgreed} />
-        <span>Agree to the <a href="#policy" on:click|preventDefault={() => dispatcher("onPolicyLinkClick")} target="_blank" rel="noopener noreferrer">Privacy policy</a></span>
+        <span>Agree to the <a href={privacyPolicyLink} target="_blank" rel="noopener noreferrer">Privacy policy</a></span>
     </div>
     <button on:click={signUp} disabled={!isAgreed || loading}>
         {#if !loading }

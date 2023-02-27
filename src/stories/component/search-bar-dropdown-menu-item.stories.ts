@@ -15,7 +15,15 @@ export default {
     argTypes: {
         onClicked: {
             action: "onClicked",
-            description: "The event emitter when a component is clicked"
+            description: "The event emitter when the search bar dropdown menu item is clicked"
+        },
+        onHover: {
+            action: "onHover",
+            description: "The event emitter when a pointer device hover over the search bar dropdown menu item"
+        },
+        onHoverOut: {
+            action: "onHoverOut",
+            description: "The event emitter when a pointer device hover out the search bar dropdown menu item"
         },
         theme: {
             name: "theme",
@@ -28,7 +36,6 @@ export default {
             }
         },
         searchValue: {
-            name: "search value",
             type: { name: "string", required: true },
             description: "The value of the search bar menu item",
             defaultValue: "search",
@@ -37,9 +44,8 @@ export default {
             }
         },
         searchBy: {
-            name: "search by",
             type: { name: "string" },
-            description: "The value the search bar menu item  is filtered with",
+            description: "The type of value the search bar menu item is filtered with",
             defaultValue: "color",
             control: {
                 type: "select",
@@ -61,7 +67,9 @@ const Template = (args:any) => ({
     Component: SearchBarDropdownMenuItem,
     props: args,
     on: {
-        onClicked: args.onClicked
+        onClicked: args.onClicked,
+        onHover: args.onHover,
+        onHoverOut: args.onHoverOut
     }
 })
 

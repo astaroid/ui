@@ -10,7 +10,7 @@
 
     let formattedColor = new Color(color)  
 
-    const overrideStyle = { 
+    let overrideStyle:any = { 
         "&": { 
             backgroundColor: theme == "light" ? "#e9ecef" : "rgb(74, 74, 74)",
             borderColor: theme == "light" ? "#dee2e6" : "rgb(94, 94, 94)"
@@ -38,26 +38,29 @@
     }
 
     $: if (theme == "system") {
-        overrideStyle['@media screen and (prefers-color-scheme: dark)'] = {
-            "&": { 
-                backgroundColor: "rgb(74, 74, 74)",
-                borderColor: "rgb(94, 94, 94)"
-            },
-            "&::after": {
-                backgroundColor: "rgb(36, 38, 38)",
-                borderColor: "rgb(84, 84, 84)"
-            },
-            "&::before": {
-                backgroundColor: "rgb(36, 38, 38)",
-                borderColor: "rgb(84, 84, 84)"
-            },
-            "&:checked::after": {
-                backgroundColor: "rgb(36, 38, 38)",
-                borderColor: "rgb(84, 84, 84)"
-            },
-            "&:checked::before": {
-                backgroundColor: "rgb(36, 38, 38)",
-                borderColor: "rgb(84, 84, 84)"
+        overrideStyle = {
+            ...overrideStyle,
+            '@media screen and (prefers-color-scheme: dark)': {
+                "&": { 
+                    backgroundColor: "rgb(74, 74, 74)",
+                    borderColor: "rgb(94, 94, 94)"
+                },
+                "&::after": {
+                    backgroundColor: "rgb(36, 38, 38)",
+                    borderColor: "rgb(84, 84, 84)"
+                },
+                "&::before": {
+                    backgroundColor: "rgb(36, 38, 38)",
+                    borderColor: "rgb(84, 84, 84)"
+                },
+                "&:checked::after": {
+                    backgroundColor: "rgb(36, 38, 38)",
+                    borderColor: "rgb(84, 84, 84)"
+                },
+                "&:checked::before": {
+                    backgroundColor: "rgb(36, 38, 38)",
+                    borderColor: "rgb(84, 84, 84)"
+                }
             }
         }
     } else {

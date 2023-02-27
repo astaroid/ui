@@ -15,15 +15,15 @@ export default {
     argTypes: {
         onSold: {
             action: "onSold",
-            description: "The event emitted when asset is bought"
+            description: "The event emitted when asset is sold"
         },
         onSelected: {
             action: "onSelected",
-            description: "The event emitted when asset is selected for merging"
+            description: "The event emitted when asset is selected for forging a new crystal"
         },
         onUnselected: {
             action: "onUnselected",
-            description: "The event emitted when asset is unselected for merging"
+            description: "The event emitted when asset is unselected for forging a new crystal"
         },
         theme: {
             name: "theme",
@@ -60,13 +60,11 @@ export default {
             description: "If true disable the sell or select button"
         },
         isSelected: {
-            name: "is selected",
             defaultValue: false,
             control: { type: "boolean" },
-            description: "If true the component is selected for merging"
+            description: "If true the component is selected for forging a new crystal"
         },
         showLabels: {
-            name: "show labels",
             defaultValue: false,
             control: { type: "boolean" },
             description: "If true all the component tooltips will be shown"
@@ -77,7 +75,7 @@ export default {
             defaultValue: "selling",
             control: {
                 type: "select",
-                options: [ "selling", "merging" ]
+                options: [ "selling", "forging" ]
             }
         }
     }

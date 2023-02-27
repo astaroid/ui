@@ -13,16 +13,12 @@
 
     const dispatcher = createEventDispatcher()
 
-    $: {
-        if (sectionElement) height = sectionElement.clientHeight
-    }
-
     onMount(() => height = sectionElement.clientHeight)
 
     let sectionElement:HTMLElement = null
 </script>
-<section data-theme={theme} bind:this={sectionElement} use:clickoutside={{ enabled: show, callback: () => dispatcher("onClickOutside") }} style="width: calc({width}{unit} - 2px); top: {y}px; left: {x}px; visibility: { show ? "visible" : "hidden" }">
-    {#each options as option, index }
+<section bind:clientHeight={height} data-theme={theme} bind:this={sectionElement} use:clickoutside={{ enabled: show, callback: () => dispatcher("onClickOutside") }} style="width: calc({width}{unit} - 2px); top: {y}px; left: {x}px; visibility: { show ? "visible" : "hidden" }">
+    {#each options as option, index(index) }
         <p on:pointerdown={() => dispatcher("onSelect", { option })}>{option}</p>
     {/each}
 </section>
@@ -40,7 +36,7 @@
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        z-index: 5;
+        z-index: 500;
         justify-content: flex-start;
         box-shadow: rgb(0 0 0 / 5%) 0px 1px 3px;
         p {

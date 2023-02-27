@@ -12,7 +12,7 @@
 
     export let theme:"system"|"light"|"dark" = "system"
     export let width:number = 100
-    export let page:"home"|"assets" = "home"
+    export let page:"home"|"asset" = "home"
     export let searchValue:string = String()
     export let show:boolean
     export let x:number = 0
@@ -33,7 +33,7 @@
                     theme,
                     searchBy: "volume",
                     selected: false,
-                    searchValue: parseFloat(searchValue.match(numRegExp).join(String()))
+                    searchValue: Math.ceil(parseFloat(searchValue.match(numRegExp).join(String())))
                 }
             ]
             if (page == "home") {
@@ -112,10 +112,7 @@
         oldSearchValue = searchValue
     }
 
-    $: if (show) {
-        if (window)
-            window.addEventListener("keydown", keydownListener)
-    } 
+    $: if (show && window) window.addEventListener("keydown", keydownListener)
 
     $: if (!show) {
         searchBarDropDownMenuItemSelectedIndex = 0
@@ -160,6 +157,7 @@
         border-top-width: 0;
         border-top-left-radius: 0;
         border-top-right-radius: 0;
+        z-index: 500;
         &[data-theme="dark"] {
             background-color: #303030;
             border-color: #474849;

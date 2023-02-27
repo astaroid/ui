@@ -16,7 +16,7 @@ export default {
     argTypes: {
         onInputClicked: {
             action: "onInputClicked",
-            description: "The event emitter when the input is clicked"
+            description: "The event emitter when the input button is clicked"
         },
         onExit: {
             action: "onExit",
@@ -24,14 +24,14 @@ export default {
         },
         message: {
             type: { name: "string", required: true },
-            description: "The message to display in the message bar",
+            description: "The message bar text",
             defaultValue: "message",
             control: { type: "text" }
         },
         inputText: {
             name: "input text",
             type: { name: "string", required: true },
-            description: "The message to display in the message bar",
+            description: "The input button text",
             defaultValue: "click me",
             control: { type: "text" }
         },
@@ -41,7 +41,7 @@ export default {
             description: "The type of message",
             control: {
                 type: "select",
-                options: [ "normal", "removable", "input-able" ]
+                options: [ "normal", "removable", "inputable" ]
             }
         },
         show: {

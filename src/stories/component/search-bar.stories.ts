@@ -19,11 +19,23 @@ export default {
         },
         onInput: {
             action: "onInput",
-            description: "The event emitter when the data is inputted into the search bar"
+            description: "The event emitter when the value is inputted into the search bar"
         },
         onBackBtnClicked: {
             action: "onBackBtnClicked",
             description: "The event emitter when the back button is clicked"
+        },
+        onClick: {
+            action: "onClick",
+            description: "The event emitter when the search bar is clicked"
+        },
+        onFocusIn: {
+            action: "onFocusIn",
+            description: "The event emitter when the search bar receives focus"
+        },
+        onFocusOut: {
+            action: "onFocusOut",
+            description: "The event emitter when the search bar looses focus"
         },
         width: {
             type: { name: "number", required: true },
@@ -60,7 +72,11 @@ const Template = (args:any) => ({
     props: args,
     on: {
         onBackBtnClicked: args.onBackBtnClicked,
-        onInput: args.onInput
+        onInput: args.onInput,
+        onResize: args.onResize,
+        onClick: args.onClick,
+        onFocusIn: args.onFocusIn,
+        onFocusOut: args.onFocusOut
     }
 })
 

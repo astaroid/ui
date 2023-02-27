@@ -13,6 +13,10 @@ export default {
         },
     },
     argTypes: {
+        onSelect: {
+            action: "onSelect",
+            description: "The event emitted when the select input menu option is selected"
+        },
         theme: {
             type: { required: true, name: "string" },
             description: "The theme of the component",
@@ -31,7 +35,7 @@ export default {
             defaultValue: true,
         },
         options: {
-            description: "The list options available to the select input",
+            description: "The list of available options to the select input",
             control: {
                 type: "object"
             },
@@ -58,26 +62,29 @@ export default {
             defaultValue: 0,
             type: { name: "number" },
             control: { type: "number" },
-            description: "The position of the menu on the y-axis",
+            description: "The position of the select input menu on the y-axis",
         },
         x: {
             defaultValue: 0,
             type: { name: "number" },
             control: { type: "number" },
-            description: "The position of the menu on the x-axis",
+            description: "The position of the select input menu on the x-axis",
         },
         height: {
             defaultValue: 50,
             type: { name: "number" },
             control: { type: "number" },
-            description: "The height of the menu",
+            description: "The height of the select input menu",
         }
     }
 }
 
 const Template  = (args:any) => ({
     Component: SelectInputMenu,
-    props: args
+    props: args,
+    on: {
+        onSelect: args.onSelect
+    }
 })
 
 export const Input = Template.bind({})

@@ -60,7 +60,7 @@
             padding-block: 12px;
             span {
                 width: 95px;
-                height: 40px;
+                height: 45px;
                 border-width: 0;
                 border-style: solid;
                 border-radius: 5px;
@@ -84,10 +84,8 @@
             div[data-container="asset-detail-container"] {
                 width: 100%;
             }
-            
             div[data-container="asset-detail-container"] span {
                 width: calc(45% - 15px);
-                height: 42.25px;
             }
         }
     }

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { createEventDispatcher } from "svelte"
+    import { createEventDispatcher, onMount } from "svelte"
 
     export let theme:"system"|"light"|"dark" = "system"
     export let disabled:boolean = false
@@ -10,19 +10,46 @@
     const onClick = () => {
         if (mode == "idle") {
             dispatcher("onStartMerge")
+            mode = "active"
         } else {
             dispatcher("onEndMerge")
         }
     }
+
+    const onCancelMerge = () => {
+        dispatcher("onCancelMerge")
+        mode = "idle"
+        if (exitButton) exitButton.classList.add("idle")
+    }
+
+    $: if (mode == "active" && forgeButton && exitButton) {
+        forgeButton.classList.add("active")
+        exitButton.classList.add("active")
+        exitButton.classList.remove("idle")
+    }
+
+    $: if (mode == "idle" && forgeButton && exitButton) {
+        forgeButton.classList.remove("active")
+        exitButton.classList.remove("active")
+    }
+
+    let forgeButton:HTMLButtonElement = null
+    let exitButton:HTMLButtonElement = null
+
+    onMount(() => {
+        if (mode == "active") {
+            forgeButton.classList.add("active")
+            exitButton.classList.add("active")
+            exitButton.classList.remove("idle")
+        } else if (mode == "idle") {
+            forgeButton.classList.remove("active")
+            exitButton.classList.remove("active")
+        }
+    })
 </script>
 <section data-container="wrapper">
     <main data-theme={theme}>
-        <button style="animation-play-state: { mode == "active" ? "running" : "paused" }" on:click={() => dispatcher("onCancelMerge")} data-button="exit-button">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" >
-                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
-            </svg>
-        </button>
-        <button on:click={onClick} data-mode={mode} disabled={disabled} data-button="forge-button">
+        <button bind:this={forgeButton} on:click={onClick} disabled={disabled} data-button="forge-button">
             <div data-container="icon-container">
                 <svg data-icon="crystal" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" viewBox="0 0 20 20">
                     <g><path d="M16,3H4L2,8l8,9l8-9L16,3z M8.21,7.25L9.59,4.5h0.82l1.38,2.75H8.21z M9.25,8.75v5.15L4.67,8.75H9.25z M10.75,8.75h4.58 l-4.58,5.15V8.75z M16.08,7.25h-2.62L12.09,4.5h2.9L16.08,7.25z M5.02,4.5h2.9L6.54,7.25H3.92L5.02,4.5z"/></g>
@@ -35,15 +62,28 @@
                 </svg>
             </div>
         </button>
+        <button bind:this={exitButton} on:click={onCancelMerge} data-button="exit-button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" >
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
+            </svg>
+        </button>
     </main>
 </section>
 <style lang="less">
-    @keyframes amin-exit-btn {
+    @keyframes anim-exit-btn-in {
         from {
             transform: scale(0);
         }
         to {
             transform: scale(1);
+        }
+    }
+    @keyframes anim-exit-btn-out {
+        from {
+            transform: scale(1);
+        }
+        to {
+            transform: scale(0);
         }
     }
     section[data-container="wrapper"] {
@@ -52,15 +92,15 @@
         padding: 0 0 0 0;
         margin: 0 0 0 0;
         height: fit-content;
-        width: 100%;
+        width: 110px;
         display: flex;
         flex-direction: row;
         justify-content: flex-end;
         align-items: flex-start;
     }
     main {
-        padding-block: 20px;
-        padding-inline: 20px;
+        padding-block: 25px;
+        padding-inline: 23px;
         width: fit-content;
         height: fit-content;
         display: flex;
@@ -82,6 +122,29 @@
             &:focus {
                 outline: none;
             }
+            :global(&.active) {
+                &[data-button="forge-button"] {
+                    background-color: #2196f3;
+                    &:hover {
+                        background-color: darken(#2195f3, 5);
+                    }
+                    &:disabled {
+                        background-color: darken(#2195f3, 7);
+                    }
+                }
+                &[data-button="exit-button"] {
+                    animation-name: anim-exit-btn-in;
+                    animation-play-state: running;
+                    transform: scale(1);
+                }  
+            }
+            :global(&.idle) {
+                &[data-button="exit-button"] {
+                    animation-name: anim-exit-btn-out;
+                    animation-play-state: running;
+                    transform: scale(0);
+                }
+            }
             &[data-button="exit-button"] {
                 height: 51px;
                 width: 51px;
@@ -89,12 +152,12 @@
                 justify-content: center;
                 align-items: center;
                 border-radius: 25.5px;
-                margin-bottom: 15px;
+                margin-top: 15px;
                 background-color: white;
-                animation-name: amin-exit-btn;
                 animation-duration: 280ms;
                 animation-play-state: paused;
                 animation-timing-function: ease-out;
+                transform: scale(0);
                 svg {
                     height: 30px;
                     width: 30px;
@@ -106,15 +169,6 @@
                 width: 63px;
                 height: 63px;
                 background-color: #06d6a0;
-                &[data-mode="active"] {
-                    background-color: #2196f3;
-                    &:hover {
-                        background-color: darken(#2195f3, 5);
-                    }
-                    &:disabled {
-                        background-color: darken(#2195f3, 7);
-                    }
-                }
                 div[data-container="icon-container"] {
                     width: 43px;
                     height: 43px;
@@ -180,7 +234,7 @@
         }
 
         @media screen and (max-width: 599px) {
-            padding-inline: 10px;
+            padding-inline: 20px;
             button[data-button="exit-button"] {
                 height: 48px;
                 width: 48px;

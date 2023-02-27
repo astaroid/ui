@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { Temporal } from "@js-temporal/polyfill"
     interface FooterLinks {
         product: {
             crystal: string
@@ -12,16 +13,20 @@
         contact: {
             twitter: string
             github: string
+            discord: string
         }
         legal: {
             termsOfService: string
             privacyPolicy: string
         }
     }
+
     export let theme:"system"|"light"|"dark" = "system"
     export let width:number = 100
     export let unit:"px"|"mm"|"pt"|"cm"|"pc"|"in"|"%" = "%"
     export let links:FooterLinks
+
+    let year = Temporal.Now.zonedDateTimeISO().year
 </script>
 <footer style="width: {`${width}${unit}`}" data-theme={theme}>
     <main data-container="inner-container">
@@ -58,6 +63,9 @@
                 <a target="	_blank" href={links.contact.twitter} data-text="item">
                     twitter
                 </a>
+                <a target="	_blank" href={links.contact.discord} data-text="item">
+                    discord
+                </a>
                 <a target="	_blank" href={links.contact.github} data-text="item">
                     github
                 </a>
@@ -76,7 +84,7 @@
         </section>
         <section data-container="footer-detail">
             <p>
-                Copyright &copy; Astaroid.
+                Copyright &copy; {year} Astaroid
             </p>
             <p>
                 All right reserved.
@@ -174,7 +182,7 @@
             }
         }
         @media screen and (max-width: 599px) {
-            height: 400px;
+            height: 425px;
             main[data-container="inner-container"] {
                 section[data-container="footer-sections"] {
                     height: calc(84% - 75px);
@@ -185,7 +193,7 @@
                             font-size: 16.35px;
                         }
                         a[data-text="item"] {
-                            font-size: 17.75px;
+                            font-size: 17.2px;
                         }
                     }
                 }

@@ -82,16 +82,16 @@ export default {
             type: { name: "boolean" },
             defaultValue: false,
             control: { type: "boolean" },
-            description: "If true the account section item is checkbox or switch checked"
+            description: "If true the account section item checkbox or switch is checked"
         },
         disabled: {
             type: { name: "boolean" },
             defaultValue: false,
             control: { type: "boolean" },
-            description: "If true the account section item checkbox, switch or button is disabled"
+            description: "If true the account section item checkbox or button is disabled"
         },
         options: {
-            description: "The list options available to the account section item select input",
+            description: "The options available to the account section item select input",
             control: {
                 type: "object"
             },

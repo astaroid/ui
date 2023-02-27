@@ -29,13 +29,20 @@
     const onFilterByChange = (option:FilterByOption) => {
         filterBy = option
         dispatcher("onFilterByChange", { filterBy } )
+    } 
+    
+    const filterOptionAnimationend = (e:AnimationEvent) => {
+        if (e.animationName.includes("scale-out-anim")) {
+            let target = e.target as HTMLElement
+            target.style.display = "none"
+        }
     }
 
     let showFilterOptions = null
 </script>
 <section data-container="wrapper">
     <main data-theme={theme}>
-        <div class={ showFilterOptions == true ? "show" : showFilterOptions == false ? "hide" : void 0 } data-container="filter-option" data-is-option={filterBy == "price"}>
+        <div class={ showFilterOptions == true ? "show" : showFilterOptions == false ? "hide" : void 0 } data-container="filter-option" data-is-option={filterBy == "price"} on:animationend={filterOptionAnimationend}>
             <button on:click={() => onFilterByChange("price")}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
                     <path d="M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1H2zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
@@ -43,7 +50,7 @@
             </button>
             <p>Price</p>
         </div>
-        <div class={ showFilterOptions == true ? "show" : showFilterOptions == false ? "hide" : void 0 } data-container="filter-option" data-is-option={filterBy == "volume"}>
+        <div class={ showFilterOptions == true ? "show" : showFilterOptions == false ? "hide" : void 0 } data-container="filter-option" data-is-option={filterBy == "volume"} on:animationend={filterOptionAnimationend}>
             <button on:click={() => onFilterByChange("volume")}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
                     <path d="M8.39 12.648a1.32 1.32 0 0 0-.015.18c0 .305.21.508.5.508.266 0 .492-.172.555-.477l.554-2.703h1.204c.421 0 .617-.234.617-.547 0-.312-.188-.53-.617-.53h-.985l.516-2.524h1.265c.43 0 .618-.227.618-.547 0-.313-.188-.524-.618-.524h-1.046l.476-2.304a1.06 1.06 0 0 0 .016-.164.51.51 0 0 0-.516-.516.54.54 0 0 0-.539.43l-.523 2.554H7.617l.477-2.304c.008-.04.015-.118.015-.164a.512.512 0 0 0-.523-.516.539.539 0 0 0-.531.43L6.53 5.484H5.414c-.43 0-.617.22-.617.532 0 .312.187.539.617.539h.906l-.515 2.523H4.609c-.421 0-.609.219-.609.531 0 .313.188.547.61.547h.976l-.516 2.492c-.008.04-.015.125-.015.18 0 .305.21.508.5.508.265 0 .492-.172.554-.477l.555-2.703h2.242l-.515 2.492zm-1-6.109h2.266l-.515 2.563H6.859l.532-2.563z"/>
@@ -51,7 +58,7 @@
             </button>
             <p>Volume</p>
         </div>
-        <div class={ showFilterOptions == true ? "show" : showFilterOptions == false ? "hide" : void 0 } data-container="filter-option" data-is-option={filterBy == "unique"} >
+        <div class={ showFilterOptions == true ? "show" : showFilterOptions == false ? "hide" : void 0 } data-container="filter-option" data-is-option={filterBy == "unique"} on:animationend={filterOptionAnimationend}>
             <button on:click={() => onFilterByChange("unique")}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
                     <path d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z"/>
@@ -97,21 +104,22 @@
         padding: 0 0 0 0;
         margin: 0 0 0 0;
         height: fit-content;
-        width: 100%;
+        width: 110px;
         display: flex;
         flex-direction: row;
         justify-content: flex-end;
         align-items: flex-start;
         main {
             padding-block: 25px;
-            padding-inline: 20px;
-            width: fit-content;
+            padding-inline: 15px;
+            width: inherit;
             height: fit-content;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             :global(div[data-container="filter-option"].show) {
+                display: flex;
                 animation-name: scale-in-anim;
                 animation-play-state: running;
                 transform: scale(1);
@@ -122,13 +130,13 @@
                 transform: scale(0);
             }
             div[data-container="filter-option"] {
-                width: 88px;
+                width: 68px;
                 height: fit-content;
                 margin-bottom: 15px;
                 animation-duration: 280ms;
                 animation-play-state: paused;
                 animation-timing-function: ease-out;
-                display: flex;
+                display: none;
                 flex-direction: column;
                 align-items: center;
                 transform: scale(0);

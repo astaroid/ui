@@ -92,7 +92,7 @@
         padding: 0 0 0 0;
         margin: 0 0 0 0;
         height: fit-content;
-        width: 100%;
+        width: 110px;
         display: flex;
         flex-direction: row;
         justify-content: flex-end;
@@ -100,7 +100,7 @@
     }
     main {
         padding-block: 25px;
-        padding-inline: 30px;
+        padding-inline: 23px;
         width: fit-content;
         height: fit-content;
         display: flex;

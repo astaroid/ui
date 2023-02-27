@@ -519,13 +519,13 @@
         position: absolute;
         left: 0;
         top: 0;
-        z-index: 8;
+        z-index: 800;
         width: 100%;
         height: 100%;
         overflow: hidden;
         display: none;
         :global(&.tab-hide-anim) {
-            z-index: 7;
+            z-index: 700;
             animation-duration: 245ms;
             animation-direction: normal;
             animation-iteration-count: 1;
@@ -536,7 +536,7 @@
             }
         }
         :global(&.tab-show-anim) {
-            z-index: 8;
+            z-index: 800;
             animation-duration: 245ms;
             animation-direction: normal;
             animation-iteration-count: 1;
@@ -569,7 +569,6 @@
             margin: 0 0 0 0;
             padding: 0 0 0 0;
             height: calc(100% - 2px);
-            z-index: 3;
             right: 0;
             width: 380px;
             flex-direction: column;

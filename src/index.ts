@@ -1,7 +1,7 @@
-import component from './lib/component'
-import tab from './lib/tab'
+import components from './lib/component'
+import tabs from './lib/tab'
 
 export {
-  tab,
-  component
+  tabs,
+  components
 }

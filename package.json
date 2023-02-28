@@ -3,7 +3,7 @@
   "private": false,
   "version": "1.0.0",
   "type": "module",
-  "description": "Collection of all the ui components of the astaroid webapp",
+  "description": "UI library containing all the UI components and tabs used in astaroid website",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

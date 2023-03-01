@@ -1,4 +1,4 @@
-import component from "./lib/component"
+import component from "./src/lib/component"
 
 export const { 
     AccountSection,

@@ -1,4 +1,4 @@
-import tab from "./lib/tab"
+import tab from "./src/lib/tab"
 
 export const {
     AccountTab,

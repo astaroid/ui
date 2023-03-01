@@ -27,9 +27,10 @@ Install @astaroid/ui with yarn
 
 ## Usage/Examples
 
-```vue
+```html
 <script>
-    import { SelectInput } from "@astaroid/ui/components"
+    import { SelectInput } from "@astaroid/ui/components" // To export astaroid ui components
+    import { ActivityTab } from "@astaroid/ui/tabs" // To export astaroid ui tabs
 </script>
 
 <div>

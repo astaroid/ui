@@ -6,3 +6,4 @@ src/stories
 src/vite-env.d.ts
 public/vite.svg
 index.html
+build-storybook.log

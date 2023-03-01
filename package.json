@@ -1,7 +1,7 @@
 {
   "name": "@astaroid/ui",
   "private": false,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "UI library containing all the UI components and tabs used in astaroid website",
   "scripts": {
@@ -16,7 +16,8 @@
     "svelte-kit",
     "storybook",
     "UI",
-    "components library"
+    "components library",
+    "astaroid"
   ],
   "repository": {
     "type": "git",

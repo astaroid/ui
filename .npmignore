@@ -1,0 +1,8 @@
+node_modules
+.vscode
+.storybook
+src/assets
+src/stories
+src/vite-env.d.ts
+public/vite.svg
+index.html
